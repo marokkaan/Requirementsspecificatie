@@ -1,7 +1,1 @@
-| Suppliers            | Inputs                          | Process                              | Outputs                          | Customers         |
-|----------------------|---------------------------------|--------------------------------------|----------------------------------|-------------------|
-| Plantages            | Cacaoherkomst, certificaten     | Productregistratie & informatie      | Productkaart met herkomst & CO₂-data | B2C-klant     |
-| ERP-systeem          | Voorraad, levertijden, orders   | Bestellen & trackingproces           | Bevestigingen, tracking updates  | B2B-klant         |
-| CRM-systeem          | Klantprofiel, aankoophistorie   | Personalisatie & aanbevelingen       | Gepersonaliseerd dashboard       | B2C-klant         |
-| Klantenservice       | Antwoorden, klachtafhandeling   | Klacht- en retourproces              | Statusupdates, compensatie       | B2C- en B2B-klant |
-| Duurzaamheidsteam    | CO₂-data per product            | CO₂-voetafdruk berekening & weergave | CO₂-inzicht per aankoop          | B2C-klant         |
+
