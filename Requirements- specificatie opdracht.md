@@ -1,3 +1,24 @@
+![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/196d6418121468e55c753f79cc7d721990da3eb6/voorbladfoto.png)
+
+# Inleiding
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Bedrijfsprocesanalyse
 
 ## Huidige situatie (IST)
