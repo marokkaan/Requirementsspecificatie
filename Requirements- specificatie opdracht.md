@@ -1,8 +1,31 @@
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/196d6418121468e55c753f79cc7d721990da3eb6/voorbladfoto.png)
 # Inhoudsopgave
 - [Inleiding](#Inleiding)
+- [Organisatorische Context](#OrganisatorischeContext)
+- [Actoren](#Actoren)
+- [Bedrijfsprocesanalyse](#Bedrijfsprocesanalyse)
+- [Productvisie](#Productvisie)
+- [User stories](#Userstories)
+- [DoR en DoD](#DoRenDoD)
+- [Sitemap](#Sitemap)
+- [Wireframes](#Wireframes)
 # Inleiding
 
+# Organisatorische Context 
+
+# Actoren
+
+# Bedrijfsprocesanalyse
+
+# Productvisie
+
+# User stories
+
+# DoR en DoD
+
+# Sitemap
+
+# Wireframes
 
 
 
