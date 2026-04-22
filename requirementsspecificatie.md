@@ -63,4 +63,5 @@ Momenteel is er weinig inzicht in het gedrag en de voorkeuren van klanten. Besli
 ### Van reactieve klantenservice naar proactieve ondersteuning
 
 In de huidige situatie reageert de klantenservice pas nadat een klant contact opneemt. Dit leidt tot vertraging en een hogere werkdruk. Met de applicatie wordt ondersteuning proactief aangeboden via een AI-chatbot, automatische notificaties en statusupdates, waardoor klanten sneller geholpen worden en de werkdruk bij de klantenservice afneemt.
+
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/bf725e100e94eef3b54058a4fc8aa0ea87d4c84d/gap%20analyse.png)
