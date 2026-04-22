@@ -9,6 +9,7 @@
 - [DoR en DoD](#DoR-en-DoD)
 - [Sitemap](#Sitemap)
 - [Wireframes](#Wireframes)
+- [Conclusie](#Conclusie)
 # Inleiding
 
 # Organisatorische Context 
@@ -26,6 +27,8 @@
 # Sitemap
 
 # Wireframes
+
+# Conclusie
 
 
 
