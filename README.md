@@ -1,5 +1,5 @@
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/e8c6bb3b-4789-4cb2-b267-017554084a22" />
+![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/e2df5345a2fac550b15146d13e0aea5c70e3a7a8/voorbladfoto.png)
 
 
 # Requirementsspecificatie
