@@ -51,6 +51,8 @@ Ondersteunen van duurzaamheid door transparante communicatie en bewustwording.
 
 ## Organogram
 
+![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/0510036bc8e975aeb1f3b4050056b51e3bd176cb/organogram)
+
 ## Stakeholderanalyse 
 
 Binnen dit project zijn verschillende stakeholders betrokken, elk met hun eigen belangen: 
