@@ -195,7 +195,91 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 
 # DoR en DoD
 
+## Definition of Ready (DoR)
+
+De Definition of Ready beschrijft wanneer een functionaliteit (feature) klaar is om ontwikkeld te worden. Dit voorkomt onduidelijkheid en fouten tijdens het ontwikkelproces.
+
+### Een feature is “Ready” als:
+
+- Het doel van de feature duidelijk is  
+  *(bijvoorbeeld: klant kan een product registreren via QR-code)*  
+- De functionaliteit helder is beschreven  
+- Er acceptatiecriteria zijn opgesteld  
+- De gebruikersflow globaal bekend is  
+- Technische koppelingen bekend zijn  
+  *(zoals ERP, CRM en BI-tool)*  
+- De benodigde data duidelijk is (input en output)  
+- Mogelijke uitzonderingen zijn benoemd  
+  *(bijvoorbeeld: QR-code werkt niet of product wordt niet herkend)*  
+- De feature klein genoeg is om binnen één sprint te ontwikkelen
+
+## Definition of Done (DoD)
+
+De Definition of Done beschrijft wanneer een feature volledig af is en klaar is voor gebruik.
+
+### Een feature is “Done” als:
+
+- De functionaliteit werkt volgens de gestelde eisen  
+- Alle acceptatiecriteria zijn behaald  
+- De feature is getest (functioneel en technisch)  
+- De applicatie werkt op alle gekozen apparaten (bijv. iOS en Android)  
+- De gebruikersinterface duidelijk en gebruiksvriendelijk is  
+- Data correct wordt verwerkt en opgeslagen  
+- De koppelingen werken met:
+  - ERP-systeem (voorraad en bestellingen)  
+  - CRM-systeem (klantgegevens)  
+  - BI-tool (data-analyse)  
+- Beveiliging is toegepast:
+  - Tweefactorauthenticatie (2FA)  
+  - Versleuteling van data (encryptie)  
+- De prestaties goed zijn (snelle laadtijden)  
+- De documentatie is bijgewerkt  
+- De feature is goedgekeurd door de opdrachtgever of product owner  
+
 # Sitemap
+
+De sitemap geeft een overzicht van de structuur van de mobiele applicatie. Het laat zien welke schermen er zijn en hoe gebruikers door de app navigeren.
+
+## Overzicht van de applicatie
+
+```plaintext
+Home / Dashboard
+│
+├── Producten
+│   ├── Product registreren (QR-code / handmatig)
+│   ├── Mijn producten
+│   └── Product details
+│
+├── Ontdekken
+│   ├── Recepten
+│   ├── Video’s (van boon tot reep)
+│   └── Productinformatie
+│
+├── Shop
+│   ├── Producten bestellen
+│   ├── Abonnementen
+│   └── Bestellingen volgen
+│
+├── Klantenservice
+│   ├── Klacht indienen
+│   ├── Status volgen
+│   └── FAQ / Chatbot
+│
+├── Community
+│   ├── Forum
+│   ├── Reviews
+│   └── Challenges & badges
+│
+├── Events & Locaties
+│   ├── Winkelzoeker
+│   ├── Events / workshops
+│   └── Inschrijven
+│
+└── Profiel
+    ├── Instellingen
+    ├── Privacy-instellingen
+    └── Voorkeuren
+````
 
 # Wireframes
 
