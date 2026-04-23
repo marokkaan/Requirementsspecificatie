@@ -289,30 +289,30 @@ Home / Dashboard
 # Wireframes
 Voor het maken van de app is het belangrijk om een goed beeld te schetsen hoe wij de app eruit willen laten zien, zo hebben wij wireframes gemaakt.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/ca1bc54ddd5a6de6bfc26de395f09b9f36b84edf/afbeelding.png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/ca1bc54ddd5a6de6bfc26de395f09b9f36b84edf/afbeelding.png)
 Hierboven zie je het startscherm. In dit scherm kan je inloggen als je al een account hebt of registreren als je er nog een moet maken.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/66026e2849007aa8071cc7afdff8ce20407b1107/homepagina.png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/66026e2849007aa8071cc7afdff8ce20407b1107/homepagina.png)
 Als je eenmaal ingelogd bent, kom je op het startscherm terecht. In dit startscherm zie je de belangrijkste dingen, zoals jouw producten en tot wanneer deze houdbaar zijn. Daarnaast zie je ook linksboven een QR-codefunctie. Zoals ik net al benoemd heb, zie je hier de belangrijkste dingen, maar wil je specifiek meer informatie krijgen over de ‘producten’, druk je op ‘producten’.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/5a7384e00133d227dbadf4179493ce1ef2274f9b/producten.png)
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d523aca592dd21c25593c55db177a20cda90226c/qr.png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/5a7384e00133d227dbadf4179493ce1ef2274f9b/producten.png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d523aca592dd21c25593c55db177a20cda90226c/qr.png)
 
 Na het klikken op 'producten', zie je de producten die jij hebt en daarnaast ook een functie waarbij je producten kan registreren.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/cbe7b8c66c9c713e8fc8c88cdb0a870117740090/afbeelding%20(4).png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/cbe7b8c66c9c713e8fc8c88cdb0a870117740090/afbeelding%20(4).png)
 
 De 'ontdek' functie laat je kiezen tussen meer informatie verkrijgen over recepten, videos enzovoort.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/89c7e09f7600bf8568643e2ee9f0475a1eb121e4/afbeelding%20(5).png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/89c7e09f7600bf8568643e2ee9f0475a1eb121e4/afbeelding%20(5).png)
 
 Natuurlijk is er ook een shop functie waarbij je repen gelijk kan kopen.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/a5ff700d89d7b29b8c32476197bd893c45d520d4/afbeelding%20(6).png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/a5ff700d89d7b29b8c32476197bd893c45d520d4/afbeelding%20(6).png)
 
 De belangrijkste functie is toch wel echt de account functie, je hebt hier keuze tot 'klantenservice', 'community'. 'winkels & events' en 'profiel'
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/200313dbee6164dba7e6d8d810c77c427db0a350/afbeelding%20(7).png)
+[image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/200313dbee6164dba7e6d8d810c77c427db0a350/afbeelding%20(7).png)
 
 Als je klikt op 'Klantenservice', kan je gelijk chatten met de klantenservice, ook heb je een FAQ functie en een functie om een klacht in te dienen.
 
