@@ -19,6 +19,8 @@
 # Bedrijfsprocesanalyse
 
 # Productvisie
+Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de Chocolate Firm. Dit board geeft een overzicht van de productvisie, doelgroep, behoeften, belangrijkste functies, zakelijke doelstellingen, concurrenten, inkomstenmodellen, kostenposten en kanalen.
+![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d3f3d76ca161ccf5aca7f03085873c1360ecb833/productvision.png)
 
 # User stories
 
