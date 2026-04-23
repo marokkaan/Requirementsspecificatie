@@ -51,7 +51,7 @@ Ondersteunen van duurzaamheid door transparante communicatie en bewustwording.
 
 ## Organogram
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/0510036bc8e975aeb1f3b4050056b51e3bd176cb/organogram)
+![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d206e0bfbcc13d6ace13226388be02cb715fd18c/organogram.png)
 
 ## Stakeholderanalyse 
 
