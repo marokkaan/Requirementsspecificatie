@@ -95,6 +95,249 @@ Deze partijen zien toe op de naleving van wet- en regelgeving. Hun belang ligt b
 
 # Actoren
 
+---
+
+## US-01 – Registratie van producten via QR-code
+**Actor:** Consument (B2C)  
+**User Story:** Als consument wil ik producten scannen zodat ik direct toegang krijg tot uitgebreide productinformatie.  
+
+**Acceptatiecriteria:**
+- QR-scan werkt correct  
+- Product wordt automatisch herkend  
+- Informatie wordt direct weergegeven  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-02 – Persoonlijk dashboard
+**Actor:** Consument (B2C)  
+**User Story:** Als consument wil ik een persoonlijk dashboard zodat ik mijn producten en voorkeuren kan beheren.  
+
+**Acceptatiecriteria:**
+- Dashboard toont geregistreerde producten  
+- Overzicht is duidelijk en gebruiksvriendelijk  
+- Gegevens zijn actueel  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-03 – Gepersonaliseerde aanbevelingen
+**Actor:** Consument (B2C)  
+**User Story:** Als consument wil ik aanbevelingen ontvangen zodat ik relevante producten ontdek.  
+
+**Acceptatiecriteria:**
+- Aanbevelingen zijn gebaseerd op gebruikersgedrag  
+- Inhoud wordt automatisch bijgewerkt  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Should have  
+
+---
+
+## US-04 – Notificaties ontvangen
+**Actor:** Consument (B2C)  
+**User Story:** Als consument wil ik notificaties ontvangen zodat ik op de hoogte blijf van updates en houdbaarheid.  
+
+**Acceptatiecriteria:**
+- Notificaties functioneren correct  
+- Gebruiker kan instellingen aanpassen  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Should have  
+
+---
+
+## US-05 – Inzicht in voorraad en leverstatus
+**Actor:** B2B-klant  
+**User Story:** Als zakelijke klant wil ik inzicht hebben in voorraad en leverstatus zodat ik mijn bedrijfsprocessen kan plannen.  
+
+**Acceptatiecriteria:**
+- Voorraadinformatie is zichtbaar  
+- Leverstatus is actueel  
+- Gegevens worden real-time bijgewerkt  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-06 – Beheer van bestellingen
+**Actor:** B2B-klant  
+**User Story:** Als zakelijke klant wil ik mijn bestellingen kunnen beheren zodat ik overzicht heb over mijn aankopen.  
+
+**Acceptatiecriteria:**
+- Bestellingen zijn zichtbaar  
+- Status per bestelling is beschikbaar  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-07 – Inzicht in klantgegevens
+**Actor:** Klantenservicemedewerker  
+**User Story:** Als medewerker wil ik klantgegevens en chatgeschiedenis zien zodat ik sneller hulp kan bieden.  
+
+**Acceptatiecriteria:**
+- Klantprofiel is zichtbaar  
+- Geschiedenis van interacties is beschikbaar  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-08 – Afhandeling van klachten
+**Actor:** Klantenservicemedewerker  
+**User Story:** Als medewerker wil ik klachten digitaal kunnen verwerken zodat de afhandeling efficiënter verloopt.  
+
+**Acceptatiecriteria:**
+- Klachten zijn zichtbaar in het systeem  
+- Status kan worden aangepast  
+- Klant ontvangt updates  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-09 – Automatische beantwoording
+**Actor:** AI-chatbot  
+**User Story:** Als chatbot wil ik automatisch vragen beantwoorden zodat klanten direct geholpen worden.  
+
+**Acceptatiecriteria:**
+- Antwoorden worden direct gegeven  
+- Veelgestelde vragen worden herkend  
+- Complexe vragen worden doorgestuurd  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-10 – Beheer van gebruikers en content
+**Actor:** Beheerder (Admin)  
+**User Story:** Als beheerder wil ik gebruikers en content beheren zodat de app correct functioneert.  
+
+**Acceptatiecriteria:**
+- Gebruikersaccounts kunnen worden beheerd  
+- Content kan worden aangepast  
+- Wijzigingen zijn direct zichtbaar  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-11 – Analyse van klantdata
+**Actor:** Marketingmedewerker  
+**User Story:** Als marketeer wil ik klantdata analyseren zodat ik gerichte campagnes kan uitvoeren.  
+
+**Acceptatiecriteria:**
+- Data is beschikbaar  
+- Segmentatie is mogelijk  
+- Campagnes kunnen worden ingesteld  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Should have  
+
+---
+
+## US-12 – Inzicht in rapportages
+**Actor:** Management  
+**User Story:** Als manager wil ik dashboards en rapportages zien zodat ik strategische beslissingen kan nemen.  
+
+**Acceptatiecriteria:**
+- KPI’s zijn zichtbaar  
+- Data is actueel  
+- Rapportages zijn beschikbaar  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Should have  
+
+---
+
+## US-13 – Levering van voorraadgegevens
+**Actor:** ERP-systeem  
+**User Story:** Als ERP-systeem wil ik voorraad- en leverinformatie delen zodat de app actuele gegevens toont.  
+
+**Acceptatiecriteria:**
+- Data wordt gesynchroniseerd  
+- Informatie is real-time beschikbaar  
+
+**Inschatting:** 13 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-14 – Levering van klantgegevens
+**Actor:** CRM-systeem  
+**User Story:** Als CRM-systeem wil ik klantgegevens leveren zodat personalisatie mogelijk is.  
+
+**Acceptatiecriteria:**
+- Klantdata wordt correct gekoppeld  
+- Data wordt gebruikt binnen de app  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Must have  
+
+---
+
+## US-15 – Analyse van data
+**Actor:** BI-tool  
+**User Story:** Als BI-tool wil ik data ontvangen zodat analyses gemaakt kunnen worden over klantgedrag.  
+
+**Acceptatiecriteria:**
+- Data wordt verzameld  
+- Rapportages kunnen worden gegenereerd  
+
+**Inschatting:** 8 story points  
+**Prioriteit:** Should have  
+
+---
+
+## US-16 – Delen van herkomstinformatie
+**Actor:** Leverancier / Cacaoboer  
+**User Story:** Als leverancier wil ik informatie over herkomst delen zodat transparantie richting klanten wordt verbeterd.  
+
+**Acceptatiecriteria:**
+- Herkomstinformatie is zichtbaar  
+- Gegevens zijn gekoppeld aan producten  
+
+**Inschatting:** 5 story points  
+**Prioriteit:** Could have  
+
+---
+
+## US-17 – Weergave van keurmerken
+**Actor:** Certificeringsorganisatie  
+**User Story:** Als certificeringsorganisatie wil ik keurmerken tonen zodat klanten weten dat producten duurzaam zijn.  
+
+**Acceptatiecriteria:**
+- Certificaten zijn zichtbaar  
+- Informatie is betrouwbaar  
+
+**Inschatting:** 3 story points  
+**Prioriteit:** Could have  
+
+---
+
+## US-18 – Beheer en monitoring van systeem
+**Actor:** Systeembeheerder (IT)  
+**User Story:** Als IT-beheerder wil ik de app monitoren en onderhouden zodat deze stabiel en veilig blijft.  
+
+**Acceptatiecriteria:**
+- Monitoring is beschikbaar  
+- Updates kunnen worden uitgevoerd  
+- Beveiliging is op orde  
+
+**Inschatting:** 13 story points  
+**Prioriteit:** Must have  
+
 ## Interne actoren 
 
 ## Consument (B2C-klant) 
