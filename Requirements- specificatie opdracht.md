@@ -119,9 +119,6 @@ Het CRM-systeem is een externe actor die klantprofielen, aankoopgeschiedenis en 
 ## BI-tool 
 De BI-tool is een externe actor die geanonimiseerde gebruiksdata ontvangt vanuit de app. Deze data omvat klantgedrag, smaakvoorkeuren, aankooppatronen en community-activiteit. De BI-tool verwerkt deze informatie tot inzichten die worden gedeeld met de afdelingen Marketing, Productontwikkeling en Klantenservice voor strategische besluitvorming en productkwaliteitsverbetering. 
 
- 
-
-# Bedrijfsprocesanalyse
 
 # Productvisie
 Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de Chocolate Firm. Dit board geeft een overzicht van de productvisie, doelgroep, behoeften, belangrijkste functies, zakelijke doelstellingen, concurrenten, inkomstenmodellen, kostenposten en kanalen.
