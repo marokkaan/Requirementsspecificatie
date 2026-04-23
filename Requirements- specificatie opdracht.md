@@ -290,9 +290,11 @@ Home / Dashboard
 Voor het maken van de app is het belangrijk om een goed beeld te schetsen hoe wij de app eruit willen laten zien, zo hebben wij wireframes gemaakt.
 
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/ca1bc54ddd5a6de6bfc26de395f09b9f36b84edf/afbeelding.png)
+
 Hierboven zie je het startscherm. In dit scherm kan je inloggen als je al een account hebt of registreren als je er nog een moet maken.
 
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/66026e2849007aa8071cc7afdff8ce20407b1107/homepagina.png)
+
 Als je eenmaal ingelogd bent, kom je op het startscherm terecht. In dit startscherm zie je de belangrijkste dingen, zoals jouw producten en tot wanneer deze houdbaar zijn. Daarnaast zie je ook linksboven een QR-codefunctie. Zoals ik net al benoemd heb, zie je hier de belangrijkste dingen, maar wil je specifiek meer informatie krijgen over de ‘producten’, druk je op ‘producten’.
 
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/5a7384e00133d227dbadf4179493ce1ef2274f9b/producten.png)
