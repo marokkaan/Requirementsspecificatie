@@ -563,8 +563,17 @@ De belangrijkste functie is toch wel echt de account functie, je hebt hier keuze
 Als je klikt op 'Klantenservice', kan je gelijk chatten met de klantenservice, ook heb je een FAQ functie en een functie om een klacht in te dienen.
 
 De functie 'Winkels en Events', showt de dichtsbijzijnde winkels en profiel geeft je een functie om je wachtwoord aan te passen etc.
+
 # Conclusie
 
+
+Uit de analyse van de huidige situatie bij de Chocolate Firm blijkt dat de organisatie nog sterk afhankelijk is van versnipperde en handmatige processen. Klanten hebben momenteel beperkt inzicht in belangrijke productinformatie zoals herkomst, houdbaarheid en duurzaamheid, waardoor de klantbeleving niet optimaal is. Daarnaast verloopt de communicatie via verschillende kanalen, wat zorgt voor vertragingen en een minder efficiënte afhandeling van vragen en klachten.
+
+In de gewenste situatie wordt deze versnippering opgelost door de introductie van één centrale mobiele applicatie. Deze app bundelt alle klantinteracties, productinformatie en interne processen op één plek. Door functies zoals QR-productregistratie, een persoonlijk dashboard en real-time koppelingen met het ERP- en CRM-systeem krijgen zowel B2C- als B2B-klanten direct toegang tot actuele en relevante informatie. Ook worden processen binnen de klantenservice ondersteund door AI-chatbots en directe koppelingen met klantdata, waardoor de afhandeling sneller en consistenter verloopt.
+
+De uitgewerkte user stories laten zien dat de oplossing niet alleen gericht is op klantgemak, maar ook op interne efficiëntie en datagedreven werken. Medewerkers, management en externe systemen zoals ERP, CRM en BI-tools worden hierbij actief geïntegreerd in het proces.
+
+De voorgestelde applicatie zorgt daarmee voor een concrete verbetering in transparantie, klantinteractie en operationele efficiëntie binnen de Chocolate Firm. Hierdoor kan het bedrijf beter inspelen op klantbehoeften, duurzamer werken en zijn digitale positie versterken binnen de markt.
 
 
 
