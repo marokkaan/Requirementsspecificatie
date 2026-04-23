@@ -111,7 +111,9 @@ De beheerder is een interne gebruiker die de app beheert via een backoffice-omge
 
 ## Geautomatiseerde actoren 
 
-AI-chatbot De AI-chatbot is een geautomatiseerde actor die 24/7 beschikbaar is binnen de app. De chatbot beantwoordt veelgestelde vragen over productinformatie, allergenen, bestellingen, klachten en duurzaamheid. De chatbot is gekoppeld aan het CRM-systeem, waardoor antwoorden gepersonaliseerd worden op basis van de klanthistorie. Bij complexe vragen escaleert de chatbot automatisch naar een klantenservicemedewerker of biedt een terugbelfunctie aan. 
+## AI-chatbot
+
+De AI-chatbot is een geautomatiseerde actor die 24/7 beschikbaar is binnen de app. De chatbot beantwoordt veelgestelde vragen over productinformatie, allergenen, bestellingen, klachten en duurzaamheid. De chatbot is gekoppeld aan het CRM-systeem, waardoor antwoorden gepersonaliseerd worden op basis van de klanthistorie. Bij complexe vragen escaleert de chatbot automatisch naar een klantenservicemedewerker of biedt een terugbelfunctie aan. 
 
 ## Externe systeemactoren 
 
