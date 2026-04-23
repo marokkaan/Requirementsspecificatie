@@ -88,6 +88,35 @@ Deze partijen zien toe op de naleving van wet- en regelgeving. Hun belang ligt b
 
 # Actoren
 
+## Interne actoren 
+
+## Consument (B2C-klant) 
+De consument is een particuliere klant die chocoladeproducten koopt via reguliere verkoopkanalen zoals winkels of de webshop. Via de app kan de consument zijn aangekochte producten registreren met een QR-code of batchnummer, een persoonlijk dashboard raadplegen met productinformatie en houdbaarheid, recepten en tutorials bekijken, klachten indienen, bestellingen plaatsen en deelnemen aan de community. De consument ontvangt gepersonaliseerde aanbevelingen op basis van aankoopgeschiedenis en voorkeuren. 
+
+## B2B-klant 
+De B2B-klant is een zakelijke afnemer zoals een horecabedrijf, retailer of cateraar. Naast de standaard functionaliteiten heeft de B2B-klant toegang tot aanvullende informatie over levertijden, voorraadstatus en productieplanning. Via de app kan de B2B-klant direct nabestellingen plaatsen gekoppeld aan het ERP-systeem, zonder tussenkomst van een verkoopmedewerker. 
+
+## Klantenservicemedewerker 
+De klantenservicemedewerker is een interne medewerker die tijdens kantooruren bereikbaar is via de live chatfunctie in de app. Deze actor heeft toegang tot het CRM-systeem om klantprofielen in te zien en zo gepersonaliseerde hulp te bieden. De medewerker handelt complexe vragen en klachten af die de AI-chatbot niet zelfstandig kan oplossen, en kan compensaties of vervangingen goedkeuren. 
+
+## Beheerder 
+De beheerder is een interne gebruiker die de app beheert via een backoffice-omgeving. De admin beheert gebruikersaccounts, productregistraties, contentbeheer (recepten, productkaarten, tutorials), app-instellingen en notificatiecampagnes. Ook bewaakt de admin de privacy-instellingen en zorgt voor naleving van AVG/GDPR-vereisten. De beheerder heeft de hoogste toegangsrechten binnen het systeem. 
+
+## Geautomatiseerde actoren 
+
+AI-chatbot De AI-chatbot is een geautomatiseerde actor die 24/7 beschikbaar is binnen de app. De chatbot beantwoordt veelgestelde vragen over productinformatie, allergenen, bestellingen, klachten en duurzaamheid. De chatbot is gekoppeld aan het CRM-systeem, waardoor antwoorden gepersonaliseerd worden op basis van de klanthistorie. Bij complexe vragen escaleert de chatbot automatisch naar een klantenservicemedewerker of biedt een terugbelfunctie aan. 
+
+## Externe systeemactoren 
+
+## ERP-systeem 
+Het ERP-systeem is een externe actor die real-time gegevens levert over voorraadniveaus, bestellingen, levertijden en seizoensbeschikbaarheid van producten. De app synchroniseert met het ERP om klanten actuele informatie te tonen en directe bestellingen mogelijk te maken. Wijzigingen in de voorraad of productieplanning worden automatisch doorgegeven aan de app. 
+
+## CRM-systeem 
+Het CRM-systeem is een externe actor die klantprofielen, aankoopgeschiedenis en communicatievoorkeuren bijhoudt. De app maakt gebruik van CRM-data om gepersonaliseerde aanbevelingen, notificaties en klantenservice-ervaringen te leveren. Elke interactie van een klant met de app wordt teruggeschreven naar het CRM, zodat klantprofielen altijd actueel blijven. 
+
+## BI-tool 
+De BI-tool is een externe actor die geanonimiseerde gebruiksdata ontvangt vanuit de app. Deze data omvat klantgedrag, smaakvoorkeuren, aankooppatronen en community-activiteit. De BI-tool verwerkt deze informatie tot inzichten die worden gedeeld met de afdelingen Marketing, Productontwikkeling en Klantenservice voor strategische besluitvorming en productkwaliteitsverbetering. 
+
 # Bedrijfsprocesanalyse
 
 ## Huidige situatie (IST)
@@ -155,39 +184,6 @@ Momenteel is er weinig inzicht in het gedrag en de voorkeuren van klanten. Besli
 In de huidige situatie reageert de klantenservice pas nadat een klant contact opneemt. Dit leidt tot vertraging en een hogere werkdruk. Met de applicatie wordt ondersteuning proactief aangeboden via een AI-chatbot, automatische notificaties en statusupdates, waardoor klanten sneller geholpen worden en de werkdruk bij de klantenservice afneemt.
 
 ![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/bf725e100e94eef3b54058a4fc8aa0ea87d4c84d/gap%20analyse.png)
-
-
-## Interne actoren 
-
-## Consument (B2C-klant) 
-De consument is een particuliere klant die chocoladeproducten koopt via reguliere verkoopkanalen zoals winkels of de webshop. Via de app kan de consument zijn aangekochte producten registreren met een QR-code of batchnummer, een persoonlijk dashboard raadplegen met productinformatie en houdbaarheid, recepten en tutorials bekijken, klachten indienen, bestellingen plaatsen en deelnemen aan de community. De consument ontvangt gepersonaliseerde aanbevelingen op basis van aankoopgeschiedenis en voorkeuren. 
-
-## B2B-klant 
-De B2B-klant is een zakelijke afnemer zoals een horecabedrijf, retailer of cateraar. Naast de standaard functionaliteiten heeft de B2B-klant toegang tot aanvullende informatie over levertijden, voorraadstatus en productieplanning. Via de app kan de B2B-klant direct nabestellingen plaatsen gekoppeld aan het ERP-systeem, zonder tussenkomst van een verkoopmedewerker. 
-
-## Klantenservicemedewerker 
-De klantenservicemedewerker is een interne medewerker die tijdens kantooruren bereikbaar is via de live chatfunctie in de app. Deze actor heeft toegang tot het CRM-systeem om klantprofielen in te zien en zo gepersonaliseerde hulp te bieden. De medewerker handelt complexe vragen en klachten af die de AI-chatbot niet zelfstandig kan oplossen, en kan compensaties of vervangingen goedkeuren. 
-
-## Beheerder 
-De beheerder is een interne gebruiker die de app beheert via een backoffice-omgeving. De admin beheert gebruikersaccounts, productregistraties, contentbeheer (recepten, productkaarten, tutorials), app-instellingen en notificatiecampagnes. Ook bewaakt de admin de privacy-instellingen en zorgt voor naleving van AVG/GDPR-vereisten. De beheerder heeft de hoogste toegangsrechten binnen het systeem. 
-
-## Geautomatiseerde actoren 
-
-AI-chatbot De AI-chatbot is een geautomatiseerde actor die 24/7 beschikbaar is binnen de app. De chatbot beantwoordt veelgestelde vragen over productinformatie, allergenen, bestellingen, klachten en duurzaamheid. De chatbot is gekoppeld aan het CRM-systeem, waardoor antwoorden gepersonaliseerd worden op basis van de klanthistorie. Bij complexe vragen escaleert de chatbot automatisch naar een klantenservicemedewerker of biedt een terugbelfunctie aan. 
-
-
-
-## Externe systeemactoren 
-
-## ERP-systeem 
-Het ERP-systeem is een externe actor die real-time gegevens levert over voorraadniveaus, bestellingen, levertijden en seizoensbeschikbaarheid van producten. De app synchroniseert met het ERP om klanten actuele informatie te tonen en directe bestellingen mogelijk te maken. Wijzigingen in de voorraad of productieplanning worden automatisch doorgegeven aan de app. 
-
-## CRM-systeem 
-Het CRM-systeem is een externe actor die klantprofielen, aankoopgeschiedenis en communicatievoorkeuren bijhoudt. De app maakt gebruik van CRM-data om gepersonaliseerde aanbevelingen, notificaties en klantenservice-ervaringen te leveren. Elke interactie van een klant met de app wordt teruggeschreven naar het CRM, zodat klantprofielen altijd actueel blijven. 
-
-## BI-tool 
-De BI-tool is een externe actor die geanonimiseerde gebruiksdata ontvangt vanuit de app. Deze data omvat klantgedrag, smaakvoorkeuren, aankooppatronen en community-activiteit. De BI-tool verwerkt deze informatie tot inzichten die worden gedeeld met de afdelingen Marketing, Productontwikkeling en Klantenservice voor strategische besluitvorming en productkwaliteitsverbetering. 
-
 
 # Productvisie
 Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de Chocolate Firm. Dit board geeft een overzicht van de productvisie, doelgroep, behoeften, belangrijkste functies, zakelijke doelstellingen, concurrenten, inkomstenmodellen, kostenposten en kanalen.
