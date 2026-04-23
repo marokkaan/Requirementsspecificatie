@@ -11,6 +11,11 @@
 - [Wireframes](#Wireframes)
 - [Conclusie](#Conclusie)
 # Inleiding
+Chocolate Firm bevindt zich in een competitieve markt waarin klantbeleving en merkloyaliteit steeds bepalender worden voor succes. Op dit moment verloopt de communicatie met klanten via losse kanalen en handmatige processen, wat leidt tot vertraging, beperkte personalisatie en een hoge werkdruk bij de klantenservice. Om deze knelpunten op te lossen en beter in te spelen op de behoeften van zowel particuliere als zakelijke klanten, is besloten een nieuw digitaal platform te ontwikkelen. 
+
+De applicatie stelt klanten in staat om aangekochte chocoladeproducten te registreren, gedetailleerde productinformatie te raadplegen, vragen te stellen via een AI-chatbot, klachten in te dienen en deel te nemen aan een actieve community. Daarnaast integreert de app met interne systemen zoals ERP, CRM en BI-tools, waardoor processen efficiënter verlopen en de organisatie datagedreven beslissingen kan nemen. 
+
+Dit document beschrijft de requirements specificatie van het te ontwikkelen systeem. Hierbij wordt eerst de organisatorische context geschetst, gevolgd door een analyse van de betrokken actoren en bedrijfsprocessen. Vervolgens wordt de productvisie uitgewerkt en vertaald naar concrete user stories met acceptatiecriteria. Tot slot worden de Definition of Ready en Definition of Done, de sitemap en de wireframes gepresenteerd. Samen bieden deze onderdelen een compleet en gestructureerd overzicht van het systeem en de eisen waaraan het moet voldoen. 
 
 # Organisatorische Context
 
