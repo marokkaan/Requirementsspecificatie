@@ -7,24 +7,18 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
-    /* Color Palette */
     :root {
-      --primary: #4A2E2B;       /* Warm Chocoladebruin */
-      --secondary: #8C624E;     /* Licht Melkchocolade */
-      --accent: #D4AF37;        /* Goud / Honing accent */
-      --bg-light: #FDFBF9;      /* Off-white achtergrond */
-      --text-dark: #2B1B19;     /* Diep donkerbruin voor tekst */
-      --text-muted: #7A6E6C;    /* Grijsbruin voor subtiele tekst */
-      --border: #EFEAE6;        /* Lichte randen */
-      --success: #4CAF50;       /* Duurzaam groen / succes */
+      --primary: #4A2E2B;
+      --secondary: #8C624E;
+      --accent: #D4AF37;
+      --bg-light: #FDFBF9;
+      --text-dark: #2B1B19;
+      --text-muted: #7A6E6C;
+      --border: #EFEAE6;
+      --success: #4CAF50;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
       background-color: #E6DFD9;
@@ -37,38 +31,31 @@
       padding: 20px;
     }
 
-    /* Smartphone Frame Container */
-    .phone-container {
-      position: relative;
-    }
+    .phone-container { position: relative; }
 
     .phone {
       width: 375px;
       height: 780px;
       background: var(--bg-light);
       border-radius: 40px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 12px #2B1B19;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 12px #2B1B19;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
-    /* Dynamic Island / Notch Simulation */
     .notch {
       position: absolute;
-      top: 0;
-      left: 50%;
+      top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 110px;
-      height: 25px;
+      width: 110px; height: 25px;
       background: #2B1B19;
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
       z-index: 9999;
     }
 
-    /* Status Bar */
     .status-bar {
       height: 40px;
       padding: 0 24px;
@@ -82,12 +69,8 @@
       padding-top: 10px;
     }
 
-    .status-icons {
-      display: flex;
-      gap: 5px;
-    }
+    .status-icons { display: flex; gap: 5px; }
 
-    /* Screens Base Layout */
     .screen {
       display: none;
       flex-direction: column;
@@ -95,11 +78,8 @@
       overflow: hidden;
     }
 
-    .screen.active {
-      display: flex;
-    }
+    .screen.active { display: flex; }
 
-    /* Header component */
     .app-header {
       padding: 15px 20px;
       background: var(--bg-light);
@@ -121,22 +101,18 @@
       font-size: 20px;
       cursor: pointer;
       color: var(--primary);
+      position: relative;
     }
 
-    /* Content Area */
     .screen-content {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
-      padding-bottom: 90px; /* Spacing voor de navbar */
+      padding-bottom: 90px;
     }
 
-    /* Hide scrollbars but keep functionality */
-    .screen-content::-webkit-scrollbar {
-      display: none;
-    }
+    .screen-content::-webkit-scrollbar { display: none; }
 
-    /* Bottom Navigation Bar */
     .nav-bar {
       position: absolute;
       bottom: 0;
@@ -164,19 +140,29 @@
       cursor: pointer;
       flex: 1;
       transition: color 0.2s;
+      position: relative;
     }
 
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
+    .nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+    .nav-item.active { color: var(--accent); }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: 18px;
+      background: #C0392B;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .nav-item.active {
-      color: var(--accent);
-    }
-
-    /* Specific UI Components */
+    /* Welcome card */
     .welcome-card {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       border-radius: 18px;
@@ -185,20 +171,12 @@
       margin-bottom: 20px;
     }
 
-    .welcome-card h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      margin-bottom: 5px;
-    }
-
-    .welcome-card p {
-      font-size: 13px;
-      opacity: 0.9;
-    }
+    .welcome-card h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 5px; }
+    .welcome-card p { font-size: 13px; opacity: 0.9; }
 
     .loyalty-badge {
       display: inline-block;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       padding: 4px 10px;
       border-radius: 20px;
       margin-top: 12px;
@@ -217,13 +195,7 @@
       align-items: center;
     }
 
-    /* Product Cards & Lists */
-    .product-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+    .product-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
 
     .product-card {
       background: white;
@@ -233,7 +205,6 @@
       display: flex;
       gap: 12px;
       align-items: center;
-      transition: transform 0.2s;
     }
 
     .product-img-placeholder {
@@ -246,22 +217,12 @@
       justify-content: center;
       color: var(--secondary);
       font-size: 20px;
+      flex-shrink: 0;
     }
 
-    .product-details {
-      flex: 1;
-    }
-
-    .product-title {
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .product-meta {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
+    .product-details { flex: 1; }
+    .product-title { font-weight: 600; font-size: 14px; }
+    .product-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
     .expiry-tag {
       font-size: 10px;
@@ -274,7 +235,6 @@
       margin-top: 4px;
     }
 
-    /* Grid Items */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -298,21 +258,11 @@
       font-size: 24px;
     }
 
-    .discovery-info {
-      padding: 10px;
-    }
+    .discovery-info { padding: 10px; }
+    .discovery-info h4 { font-size: 13px; font-weight: 600; }
 
-    .discovery-info h4 {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    /* Chat / Customer Service CSS */
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+    /* Chat styles */
+    .chat-container { display: flex; flex-direction: column; height: 100%; }
 
     .chat-messages {
       flex: 1;
@@ -323,12 +273,14 @@
       gap: 12px;
     }
 
+    .chat-messages::-webkit-scrollbar { display: none; }
+
     .message {
       max-width: 80%;
       padding: 10px 14px;
       border-radius: 16px;
       font-size: 13px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .message.bot {
@@ -342,6 +294,29 @@
       color: white;
       align-self: flex-end;
       border-top-right-radius: 4px;
+    }
+
+    .message.thinking {
+      background: #EFEAE6;
+      align-self: flex-start;
+      border-top-left-radius: 4px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .typing-dots { display: inline-flex; gap: 4px; }
+    .typing-dots span {
+      width: 6px; height: 6px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.2; }
+      40% { opacity: 1; }
     }
 
     .quick-replies {
@@ -394,9 +369,10 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
-    /* QR Overlay screen */
+    /* QR scanner */
     .qr-window {
       background: #111;
       color: white;
@@ -409,8 +385,7 @@
     }
 
     .qr-scanner-box {
-      width: 220px;
-      height: 220px;
+      width: 220px; height: 220px;
       border: 3px solid var(--accent);
       border-radius: 24px;
       margin: 30px 0;
@@ -424,10 +399,10 @@
       height: 2px;
       background: var(--accent);
       top: 0;
-      animation: scan 2s linear infinite;
+      animation: qrscan 2s linear infinite;
     }
 
-    @keyframes scan {
+    @keyframes qrscan {
       0% { top: 0%; }
       50% { top: 100%; }
       100% { top: 0%; }
@@ -445,7 +420,6 @@
       margin-top: 10px;
     }
 
-    /* Utilities */
     .menu-list {
       display: flex;
       flex-direction: column;
@@ -467,379 +441,894 @@
 
     .menu-item:last-child { border-bottom: none; }
     .chevron { color: var(--text-muted); font-weight: bold; }
+
+    /* ===== SHOP STYLES ===== */
+    .shop-product-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .shop-product-img {
+      width: 60px; height: 60px;
+      background: #F2EFEF;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .shop-product-info { flex: 1; }
+    .shop-product-name { font-weight: 700; font-size: 14px; }
+    .shop-product-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .shop-product-price { font-size: 15px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+
+    .shop-stock-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    .stock-ok { background: #D4EDDA; color: #155724; }
+    .stock-low { background: #FFF3CD; color: #856404; }
+    .stock-out { background: #F8D7DA; color: #721C24; }
+
+    .add-to-cart-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .add-to-cart-btn:hover { background: var(--secondary); }
+    .add-to-cart-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* Cart screen */
+    .cart-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cart-item-emoji { font-size: 22px; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 13px; font-weight: 600; }
+    .cart-item-price { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .qty-control { display: flex; align-items: center; gap: 8px; }
+
+    .qty-btn {
+      width: 26px; height: 26px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 50%;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .qty-num { font-size: 14px; font-weight: 700; min-width: 20px; text-align: center; }
+
+    .cart-summary {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .cart-summary-row.total {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 14px;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+
+    .checkout-btn:hover { background: var(--secondary); }
+
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-cart .cart-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-cart p { font-size: 14px; }
+
+    /* Order success */
+    .order-success {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .order-success .check-icon {
+      width: 70px; height: 70px;
+      background: #D4EDDA;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 16px;
+    }
+
+    /* Complaint form */
+    .form-group { margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      background: white;
+      color: var(--text-dark);
+    }
+
+    .form-textarea { height: 80px; resize: none; }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--secondary);
+    }
+
+    /* Notification dot */
+    .notif-dot {
+      position: absolute;
+      top: 2px; right: 6px;
+      width: 8px; height: 8px;
+      background: #E74C3C;
+      border-radius: 50%;
+    }
+
+    .ai-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #D4AF37, #C09020);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="phone-container">
-    <div class="notch"></div>
+<div class="phone-container">
+  <div class="notch"></div>
 
-    <div class="phone">
+  <div class="phone">
 
-      <div class="status-bar">
-        <span>15:43</span>
-        <div class="status-icons">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-12-12c2.944-2.943 7.056-4.5 12-4.5s9.056 1.557 12 4.5l-12 12z"/></svg>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm1 9h-2V10h2v4z"/></svg>
-        </div>
+    <div class="status-bar">
+      <span id="clock">15:43</span>
+      <div class="status-icons">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-12-12c2.944-2.943 7.056-4.5 12-4.5s9.056 1.557 12 4.5l-12 12z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17 5H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm1 9h-2V10h2v4z"/></svg>
       </div>
-
-      <div id="screen-home" class="screen active">
-        <div class="app-header">
-          <h1>Chocolate Firm</h1>
-          <button class="header-action" onclick="navigateTo('products')">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h5V3H3c-1.1 0-2 .9-2 2v5h1V5c0-1.1.9-2 2-2zm0 15c-1.1 0-2-.9-2-2v-5h1v5c0 1.1.9 2 2 2h5v1H3zm18-6h-1v5c0 1.1-.9 2-2 2h-5v1h5c1.1 0 2-.9 2-2v-5zm-1-8c0-1.1-.9-2-2-2h-5v1h5c1.1 0 2 .9 2 2v5h1V5zM7 7h4v4H7zm1 1v2h2V8zm5-1h4v4h-4zm1 1v2h2V8zM7 13h4v4H7zm1 1v2h2v-2zm5 0h2v1h-2zm2 2h2v1h-2zm-2 1h2v1h-2zm2-2h1v-1h-1zm1-1h1v-1h-1z"/></svg>
-          </button>
-        </div>
-        <div class="screen-content">
-          <div class="welcome-card">
-            <h2>Welkom terug, Alex</h2>
-            <p>Jouw passie voor pure duurzaamheid maakt impact.</p>
-            <div class="loyalty-badge">✨ 450 ChocoPoints</div>
-          </div>
-
-          <div class="section-title">
-            <span>Mijn Geregistreerde Repen</span>
-            <span style="font-size:12px; color:var(--secondary); font-weight:500;" onclick="navigateTo('products')">Bekijk alles</span>
-          </div>
-
-          <div class="product-list">
-            <div class="product-card">
-              <div class="product-img-placeholder">🍫</div>
-              <div class="product-details">
-                <div class="product-title">Fairtrade Puur 72% (Cacao Peru)</div>
-                <div class="product-meta">Batch: #PE-2026 • Geregistreerd: Vandaag</div>
-                <div class="expiry-tag">Houdbaar tot: Jan 2027</div>
-              </div>
-            </div>
-            <div class="product-card">
-              <div class="product-img-placeholder">🍯</div>
-              <div class="product-details">
-                <div class="product-title">Melk Gezouten Karamel</div>
-                <div class="product-meta">Batch: #MK-8812 • Geregistreerd: 2 weken geleden</div>
-                <div class="expiry-tag" style="background:#F8D7DA; color:#721C24;">Let op: Houdbaar tot Jul 2026</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-title">Speciaal voor jou aanbevolen</div>
-          <div class="grid-2">
-            <div class="discovery-card">
-              <div class="discovery-img">🔥</div>
-              <div class="discovery-info">
-                <h4>Limited: Chili & Kriek</h4>
-                <p style="font-size:11px; color:var(--text-muted);">Smaakprofiel: Krachtig</p>
-              </div>
-            </div>
-            <div class="discovery-card">
-              <div class="discovery-img">🌿</div>
-              <div class="discovery-info">
-                <h4>Vegan Kokosmelk 45%</h4>
-                <p style="font-size:11px; color:var(--text-muted);">100% Biologisch</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="screen-products" class="screen">
-        <div class="app-header">
-          <h1>Product Registratie</h1>
-        </div>
-        <div class="screen-content">
-          <div style="background:#white; padding:16px; border:1px solid var(--border); border-radius:14px; text-align:center; margin-bottom:20px;">
-            <p style="font-size:13px; margin-bottom:12px;">Scan de QR-code op je wikkel om de herkomst, allergenen en houdbaarheid direct in te laden.</p>
-            <button class="btn-action" onclick="openScanner()">Open QR Scanner</button>
-          </div>
-
-          <div class="section-title">Geregistreerde Producten</div>
-          <div class="product-list" id="registered-list">
-            <div class="product-card">
-              <div class="product-img-placeholder">🍫</div>
-              <div class="product-details">
-                <div class="product-title">Fairtrade Puur 72%</div>
-                <div class="product-meta">Batch: #PE-2026</div>
-              </div>
-              <div class="chevron">→</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="screen-scanner" class="screen">
-        <div class="qr-window">
-          <div style="position:absolute; top:20px; left:20px;" onclick="closeScanner()">← Terug</div>
-          <h3>Scan Product QR-Code</h3>
-          <p style="font-size:12px; opacity:0.7; text-align:center; padding:0 30px;">Plaats de code op de binnenzijde van de verpakking binnen het kader.</p>
-
-          <div class="qr-scanner-box">
-            <div class="qr-line"></div>
-          </div>
-
-          <button class="btn-action" style="background:white; color:black;" onclick="simulateScan()">Simuleer Succesvolle Scan</button>
-        </div>
-      </div>
-
-      <div id="screen-explore" class="screen">
-        <div class="app-header">
-          <h1>Ontdek & Duurzaamheid</h1>
-        </div>
-        <div class="screen-content">
-          <div class="section-title">Exclusieve Recepten</div>
-          <div class="grid-2">
-            <div class="discovery-card">
-              <div class="discovery-img">🍰</div>
-              <div class="discovery-info">
-                <h4>Choco-Fudge Brownies</h4>
-                <p style="font-size:11px; color:var(--text-muted);">25 min • Gemiddeld</p>
-              </div>
-            </div>
-            <div class="discovery-card">
-              <div class="discovery-img">☕</div>
-              <div class="discovery-info">
-                <h4>Spiced Hot Chocolate</h4>
-                <p style="font-size:11px; color:var(--text-muted);">10 min • Makkelijk</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-title">Van Boon tot Reep (Storytelling)</div>
-          <div class="menu-list">
-            <div class="menu-item">
-              <span>Onze Cacaoboeren in Peru & Ghana</span>
-              <span class="chevron">👁️</span>
-            </div>
-            <div class="menu-item">
-              <span>Fairtrade & Certificeringen</span>
-              <span class="chevron">🛡️</span>
-            </div>
-            <div class="menu-item">
-              <span>CO2-Neutrale Productieplanning</span>
-              <span class="chevron">🌱</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="screen-support" class="screen">
-        <div class="app-header">
-          <h1>Support & ChocBot</h1>
-        </div>
-        <div class="screen-content" style="display:flex; flex-direction:column; padding-bottom:15px;">
-          <div class="chat-container">
-            <div class="chat-messages" id="chat-area">
-              <div class="message bot">
-                Hoi! Ik ben <strong>ChocBot</strong>, de AI-assistent van Chocolate Firm. Ik ben 24/7 geautomatiseerd bereikbaar. Waar kan ik je vandaag mee helpen?
-              </div>
-            </div>
-
-            <div class="quick-replies">
-              <button class="btn-quick" onclick="handleQuickReply('Allergenen info')">⚠️ Allergenen info</button>
-              <button class="btn-quick" onclick="handleQuickReply('Klacht indienen')">📦 Klacht indienen</button>
-              <button class="btn-quick" onclick="handleQuickReply('Bestelling status')">🚚 Bestelling status</button>
-            </div>
-
-            <div class="chat-input-area">
-              <input type="text" class="chat-input" id="chat-input-field" placeholder="Stel een vraag aan de chatbot..." onkeypress="handleKeyPress(event)">
-              <button class="btn-send" onclick="sendMessage()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="screen-profile" class="screen">
-        <div class="app-header">
-          <h1>Mijn Profiel</h1>
-        </div>
-        <div class="screen-content">
-          <div style="text-align:center; margin-bottom:20px;">
-            <div style="width:70px; height:70px; background:#EFEAE6; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:28px;">👤</div>
-            <h3>Alex de Vries</h3>
-            <p style="font-size:12px; color:var(--text-muted)">alex.devries@email.nl</p>
-          </div>
-
-          <div class="section-title">Community & App</div>
-          <div class="menu-list">
-            <div class="menu-item">
-              <span>Chocolate Firm Forum & Challenges</span>
-              <span class="chevron">→</span>
-            </div>
-            <div class="menu-item">
-              <span>Behaalde Badges (3)</span>
-              <span class="chevron">🏅</span>
-            </div>
-            <div class="menu-item">
-              <span>Winkelzoeker & Workshops</span>
-              <span class="chevron">📍</span>
-            </div>
-          </div>
-
-          <div class="section-title">Instellingen & Privacy</div>
-          <div class="menu-list">
-            <div class="menu-item">
-              <span>Accountbeheer (ERP/CRM koppeling)</span>
-              <span class="chevron">→</span>
-            </div>
-            <div class="menu-item">
-              <span>Privacy & AVG-instellingen</span>
-              <span class="chevron">→</span>
-            </div>
-            <div class="menu-item" style="color:#C0392B;">
-              <span>Uitloggen</span>
-              <span></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nav-bar">
-        <button class="nav-item active" id="nav-home" onclick="navigateTo('home')">
-          <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-          Home
-        </button>
-        <button class="nav-item" id="nav-products" onclick="navigateTo('products')">
-          <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1-1.5-1s-1.5.17-1.5 1v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-          Producten
-        </button>
-        <button class="nav-item" id="nav-explore" onclick="navigateTo('explore')">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-          Ontdek
-        </button>
-        <button class="nav-item" id="nav-support" onclick="navigateTo('support')">
-          <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-          Support
-        </button>
-        <button class="nav-item" id="nav-profile" onclick="navigateTo('profile')">
-          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-33-8-4z"/></svg>
-          Profiel
-        </button>
-      </div>
-
     </div>
-  </div>
 
-  <script>
-    // Tab Navigation Logic
-    function navigateTo(screenId) {
-      // Deactiveer alle schermen
-      const screens = document.querySelectorAll('.screen');
-      screens.forEach(screen => screen.classList.remove('active'));
-
-      // Activeer gekozen scherm
-      const targetScreen = document.getElementById('screen-' + screenId);
-      if (targetScreen) {
-        targetScreen.classList.add('active');
-      }
-
-      // Update actieve status in de onderbroken navigatiebalk
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems.forEach(item => item.classList.remove('active'));
-
-      const activeNav = document.getElementById('nav-' + screenId);
-      if (activeNav) {
-        activeNav.classList.add('active');
-      }
-    }
-
-    // QR Scanner Modals
-    function openScanner() {
-      document.getElementById('screen-products').classList.remove('active');
-      document.getElementById('screen-scanner').classList.add('active');
-    }
-
-    function closeScanner() {
-      document.getElementById('screen-scanner').classList.remove('active');
-      document.getElementById('screen-products').classList.add('active');
-    }
-
-    function simulateScan() {
-      // Voeg een nieuw gescand product toe aan de lijst (Simulatie integratie met ERP/CRM)
-      const list = document.getElementById('registered-list');
-
-      const newCard = document.createElement('div');
-      newCard.className = 'product-card';
-      newCard.style.animation = 'scan 0.5s ease';
-      newCard.innerHTML = `
-        <div class="product-img-placeholder">🆕</div>
-        <div class="product-details">
-          <div class="product-title">Ecuador Single Origin 85%</div>
-          <div class="product-meta">Batch: #EC-9901 • Zojuist Geregistreerd</div>
+    <!-- ===== HOME SCREEN ===== -->
+    <div id="screen-home" class="screen active">
+      <div class="app-header">
+        <h1>Chocolate Firm</h1>
+        <button class="header-action" onclick="navigateTo('products')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h5V3H3c-1.1 0-2 .9-2 2v5h1V5c0-1.1.9-2 2-2zm0 15c-1.1 0-2-.9-2-2v-5h1v5c0 1.1.9 2 2 2h5v1H3zm18-6h-1v5c0 1.1-.9 2-2 2h-5v1h5c1.1 0 2-.9 2-2v-5zm-1-8c0-1.1-.9-2-2-2h-5v1h5c1.1 0 2 .9 2 2v5h1V5zM7 7h4v4H7zm1 1v2h2V8zm5-1h4v4h-4zm1 1v2h2V8zM7 13h4v4H7zm1 1v2h2v-2z"/></svg>
+        </button>
+      </div>
+      <div class="screen-content">
+        <div class="welcome-card">
+          <h2>Welkom terug, Alex</h2>
+          <p>Jouw passie voor pure duurzaamheid maakt impact.</p>
+          <div class="loyalty-badge" id="points-display">✨ 450 ChocoPoints</div>
         </div>
-        <div class="chevron" style="color:var(--success);">✓</div>
+
+        <div class="section-title">
+          <span>Mijn Geregistreerde Repen</span>
+          <span style="font-size:12px;color:var(--secondary);font-weight:500;cursor:pointer" onclick="navigateTo('products')">Bekijk alles</span>
+        </div>
+
+        <div class="product-list">
+          <div class="product-card">
+            <div class="product-img-placeholder">🍫</div>
+            <div class="product-details">
+              <div class="product-title">Fairtrade Puur 72% (Cacao Peru)</div>
+              <div class="product-meta">Batch: #PE-2026 • Geregistreerd: Vandaag</div>
+              <div class="expiry-tag">Houdbaar tot: Jan 2027</div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-img-placeholder">🍯</div>
+            <div class="product-details">
+              <div class="product-title">Melk Gezouten Karamel</div>
+              <div class="product-meta">Batch: #MK-8812 • Geregistreerd: 2 weken geleden</div>
+              <div class="expiry-tag" style="background:#F8D7DA;color:#721C24;">Let op: Houdbaar tot Jul 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Speciaal voor jou aanbevolen</div>
+        <div class="grid-2">
+          <div class="discovery-card" onclick="navigateTo('shop')" style="cursor:pointer">
+            <div class="discovery-img">🔥</div>
+            <div class="discovery-info">
+              <h4>Limited: Chili & Kriek</h4>
+              <p style="font-size:11px;color:var(--text-muted)">Smaakprofiel: Krachtig</p>
+            </div>
+          </div>
+          <div class="discovery-card" onclick="navigateTo('shop')" style="cursor:pointer">
+            <div class="discovery-img">🌿</div>
+            <div class="discovery-info">
+              <h4>Vegan Kokosmelk 45%</h4>
+              <p style="font-size:11px;color:var(--text-muted)">100% Biologisch</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Nieuws & Notificaties</div>
+        <div style="background:white;border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px;">🌱 DUURZAAMHEID UPDATE</div>
+          <div style="font-size:13px;font-weight:600">Nieuwe Fairtrade batch gearriveerd</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px">Onze Peru-cacao van seizoen 2026 is nu beschikbaar in de shop.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCTS SCREEN ===== -->
+    <div id="screen-products" class="screen">
+      <div class="app-header">
+        <h1>Product Registratie</h1>
+      </div>
+      <div class="screen-content">
+        <div style="background:white;padding:16px;border:1px solid var(--border);border-radius:14px;text-align:center;margin-bottom:20px;">
+          <p style="font-size:13px;margin-bottom:12px;">Scan de QR-code op je wikkel om de herkomst, allergenen en houdbaarheid direct in te laden.</p>
+          <button class="btn-action" onclick="openScanner()">📷 Open QR Scanner</button>
+        </div>
+
+        <div class="section-title">Geregistreerde Producten</div>
+        <div class="product-list" id="registered-list">
+          <div class="product-card">
+            <div class="product-img-placeholder">🍫</div>
+            <div class="product-details">
+              <div class="product-title">Fairtrade Puur 72%</div>
+              <div class="product-meta">Batch: #PE-2026 • Peru</div>
+              <div class="expiry-tag">Jan 2027</div>
+            </div>
+            <div class="chevron">→</div>
+          </div>
+          <div class="product-card">
+            <div class="product-img-placeholder">🍯</div>
+            <div class="product-details">
+              <div class="product-title">Melk Gezouten Karamel</div>
+              <div class="product-meta">Batch: #MK-8812 • België</div>
+              <div class="expiry-tag" style="background:#F8D7DA;color:#721C24;">Jul 2026</div>
+            </div>
+            <div class="chevron">→</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCANNER SCREEN ===== -->
+    <div id="screen-scanner" class="screen">
+      <div class="qr-window">
+        <div style="position:absolute;top:20px;left:20px;cursor:pointer;font-size:14px;" onclick="closeScanner()">← Terug</div>
+        <h3>Scan Product QR-Code</h3>
+        <p style="font-size:12px;opacity:0.7;text-align:center;padding:0 30px;">Plaats de code op de binnenzijde van de verpakking binnen het kader.</p>
+        <div class="qr-scanner-box">
+          <div class="qr-line"></div>
+        </div>
+        <button class="btn-action" style="background:white;color:black;" onclick="simulateScan()">Simuleer Succesvolle Scan</button>
+      </div>
+    </div>
+
+    <!-- ===== EXPLORE SCREEN ===== -->
+    <div id="screen-explore" class="screen">
+      <div class="app-header">
+        <h1>Ontdek & Duurzaamheid</h1>
+      </div>
+      <div class="screen-content">
+        <div class="section-title">Exclusieve Recepten</div>
+        <div class="grid-2">
+          <div class="discovery-card">
+            <div class="discovery-img">🍰</div>
+            <div class="discovery-info">
+              <h4>Choco-Fudge Brownies</h4>
+              <p style="font-size:11px;color:var(--text-muted)">25 min • Gemiddeld</p>
+            </div>
+          </div>
+          <div class="discovery-card">
+            <div class="discovery-img">☕</div>
+            <div class="discovery-info">
+              <h4>Spiced Hot Chocolate</h4>
+              <p style="font-size:11px;color:var(--text-muted)">10 min • Makkelijk</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Van Boon tot Reep (Storytelling)</div>
+        <div class="menu-list">
+          <div class="menu-item"><span>Onze Cacaoboeren in Peru & Ghana</span><span class="chevron">👁️</span></div>
+          <div class="menu-item"><span>Fairtrade & Certificeringen</span><span class="chevron">🛡️</span></div>
+          <div class="menu-item"><span>CO2-Neutrale Productieplanning</span><span class="chevron">🌱</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SHOP SCREEN ===== -->
+    <div id="screen-shop" class="screen">
+      <div class="app-header">
+        <h1>Shop</h1>
+        <button class="header-action" onclick="navigateTo('cart')">
+          🛒
+          <span class="cart-badge" id="cart-count-badge" style="display:none">0</span>
+        </button>
+      </div>
+      <div class="screen-content">
+        <div style="background:linear-gradient(135deg,#4A2E2B,#8C624E);border-radius:14px;padding:14px;color:white;margin-bottom:16px;font-size:13px;">
+          🚚 Gratis verzending bij bestelling boven €30 &nbsp;•&nbsp; CO2-neutraal
+        </div>
+
+        <div class="section-title">Bestsellers</div>
+        <div id="shop-products-list"></div>
+      </div>
+    </div>
+
+    <!-- ===== CART SCREEN ===== -->
+    <div id="screen-cart" class="screen">
+      <div class="app-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="header-action" onclick="navigateTo('shop')" style="font-size:16px;">←</button>
+          <h1>Winkelwagen</h1>
+        </div>
+      </div>
+      <div class="screen-content" id="cart-screen-content">
+      </div>
+    </div>
+
+    <!-- ===== SUPPORT SCREEN ===== -->
+    <div id="screen-support" class="screen">
+      <div class="app-header">
+        <h1>Support & ChocBot</h1>
+      </div>
+      <div class="screen-content" style="display:flex;flex-direction:column;padding-bottom:15px;">
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-area">
+            <div class="ai-label">✨ Aangedreven door echte AI</div>
+            <div class="message bot">
+              Hoi! Ik ben <strong>ChocBot</strong>, de AI-assistent van Chocolate Firm. Ik ben 24/7 beschikbaar. Waar kan ik je vandaag mee helpen?
+            </div>
+          </div>
+
+          <div class="quick-replies">
+            <button class="btn-quick" onclick="handleQuickReply('Wat zijn de allergenen in de Puur 72%?')">⚠️ Allergenen</button>
+            <button class="btn-quick" onclick="handleQuickReply('Ik wil een klacht indienen over mijn bestelling')">📦 Klacht</button>
+            <button class="btn-quick" onclick="handleQuickReply('Waar komt jullie cacao vandaan?')">🌍 Herkomst</button>
+            <button class="btn-quick" onclick="handleQuickReply('Wat is mijn bestelling status?')">🚚 Bestelling</button>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chat-input-field" placeholder="Stel een vraag aan ChocBot..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send" onclick="sendMessage()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROFILE SCREEN ===== -->
+    <div id="screen-profile" class="screen">
+      <div class="app-header">
+        <h1>Mijn Profiel</h1>
+      </div>
+      <div class="screen-content">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="width:70px;height:70px;background:#EFEAE6;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:28px;">👤</div>
+          <h3>Alex de Vries</h3>
+          <p style="font-size:12px;color:var(--text-muted)">alex.devries@email.nl</p>
+          <div style="margin-top:8px;font-size:13px;color:var(--accent);font-weight:700;" id="profile-points">✨ 450 ChocoPoints</div>
+        </div>
+
+        <div class="section-title">Community & App</div>
+        <div class="menu-list">
+          <div class="menu-item"><span>Chocolate Firm Forum & Challenges</span><span class="chevron">→</span></div>
+          <div class="menu-item"><span>Behaalde Badges (3)</span><span class="chevron">🏅</span></div>
+          <div class="menu-item" onclick="navigateTo('complaint')"><span>Klacht indienen</span><span class="chevron">📝</span></div>
+        </div>
+
+        <div class="section-title">Instellingen & Privacy</div>
+        <div class="menu-list">
+          <div class="menu-item"><span>Accountbeheer (ERP/CRM koppeling)</span><span class="chevron">→</span></div>
+          <div class="menu-item"><span>Privacy & AVG-instellingen</span><span class="chevron">→</span></div>
+          <div class="menu-item" style="color:#C0392B;"><span>Uitloggen</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== COMPLAINT SCREEN ===== -->
+    <div id="screen-complaint" class="screen">
+      <div class="app-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button class="header-action" onclick="navigateTo('profile')" style="font-size:16px;">←</button>
+          <h1>Klacht Indienen</h1>
+        </div>
+      </div>
+      <div class="screen-content" id="complaint-screen-content">
+        <div style="background:#FFF3CD;border:1px solid #FFEAA7;border-radius:12px;padding:12px;margin-bottom:16px;font-size:13px;color:#856404;">
+          📋 Je klacht wordt geregistreerd in ons CRM-systeem en binnen 24 uur behandeld.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Batchnummer (zie verpakking)</label>
+          <input type="text" class="form-input" id="complaint-batch" placeholder="bijv. #PE-2026">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Type klacht</label>
+          <select class="form-select" id="complaint-type">
+            <option value="">Selecteer een type...</option>
+            <option value="kwaliteit">Kwaliteitsprobleem</option>
+            <option value="levering">Leveringsprobleem</option>
+            <option value="verpakking">Beschadigde verpakking</option>
+            <option value="smaak">Smaakafwijking</option>
+            <option value="anders">Anders</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Omschrijving</label>
+          <textarea class="form-textarea" id="complaint-desc" placeholder="Omschrijf je klacht zo gedetailleerd mogelijk..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">E-mailadres voor terugkoppeling</label>
+          <input type="email" class="form-input" id="complaint-email" value="alex.devries@email.nl">
+        </div>
+
+        <button class="checkout-btn" onclick="submitComplaint()" style="background:var(--primary);">
+          📤 Klacht Indienen
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== NAV BAR ===== -->
+    <div class="nav-bar">
+      <button class="nav-item active" id="nav-home" onclick="navigateTo('home')">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        Home
+      </button>
+      <button class="nav-item" id="nav-products" onclick="navigateTo('products')">
+        <svg viewBox="0 0 24 24"><path d="M3 4h5V3H3c-1.1 0-2 .9-2 2v5h1V5c0-1.1.9-2 2-2zm0 15c-1.1 0-2-.9-2-2v-5h1v5c0 1.1.9 2 2 2h5v1H3zm18-6h-1v5c0 1.1-.9 2-2 2h-5v1h5c1.1 0 2-.9 2-2v-5zm-1-8c0-1.1-.9-2-2-2h-5v1h5c1.1 0 2 .9 2 2v5h1V5zM7 7h4v4H7zm1 1v2h2V8zm5-1h4v4h-4zm1 1v2h2V8zM7 13h4v4H7zm1 1v2h2v-2z"/></svg>
+        Producten
+      </button>
+      <button class="nav-item" id="nav-shop" onclick="navigateTo('shop')" style="position:relative;">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.43 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        Shop
+        <span class="cart-badge" id="nav-cart-badge" style="display:none;">0</span>
+      </button>
+      <button class="nav-item" id="nav-support" onclick="navigateTo('support')" style="position:relative;">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+        ChocBot
+      </button>
+      <button class="nav-item" id="nav-profile" onclick="navigateTo('profile')">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Profiel
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ===== LIVE CLOCK =====
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('clock').textContent = h + ':' + m;
+  }
+  updateClock();
+  setInterval(updateClock, 10000);
+
+  // ===== NAVIGATION =====
+  const NAV_SCREENS = ['home','products','explore','shop','support','profile'];
+
+  function navigateTo(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    const target = document.getElementById('screen-' + screenId);
+    if (target) target.classList.add('active');
+
+    const navBtn = document.getElementById('nav-' + screenId);
+    if (navBtn) navBtn.classList.add('active');
+
+    if (screenId === 'cart') renderCart();
+    if (screenId === 'shop') renderShop();
+  }
+
+  // ===== QR SCANNER =====
+  function openScanner() {
+    document.getElementById('screen-products').classList.remove('active');
+    document.getElementById('screen-scanner').classList.add('active');
+  }
+
+  function closeScanner() {
+    document.getElementById('screen-scanner').classList.remove('active');
+    document.getElementById('screen-products').classList.add('active');
+  }
+
+  const SCAN_PRODUCTS = [
+    { emoji: '🆕', name: 'Ecuador Single Origin 85%', batch: '#EC-9901', expiry: 'Mrt 2027', origin: 'Ecuador' },
+    { emoji: '🍒', name: 'Ruby Chocolade & Framboos', batch: '#RB-4421', expiry: 'Nov 2026', origin: 'België' },
+    { emoji: '🌶️', name: 'Chili & Kriek Limited Edition', batch: '#CK-7733', expiry: 'Sep 2026', origin: 'Ghana' },
+  ];
+  let scanIdx = 0;
+
+  function simulateScan() {
+    const p = SCAN_PRODUCTS[scanIdx % SCAN_PRODUCTS.length];
+    scanIdx++;
+
+    const list = document.getElementById('registered-list');
+    const newCard = document.createElement('div');
+    newCard.className = 'product-card';
+    newCard.innerHTML = `
+      <div class="product-img-placeholder">${p.emoji}</div>
+      <div class="product-details">
+        <div class="product-title">${p.name}</div>
+        <div class="product-meta">Batch: ${p.batch} • ${p.origin}</div>
+        <div class="expiry-tag">${p.expiry}</div>
+      </div>
+      <div style="color:var(--success);font-size:18px;">✓</div>
+    `;
+    list.insertBefore(newCard, list.firstChild);
+
+    // Add ChocoPoints
+    let pts = parseInt(document.getElementById('points-display').textContent.match(/\d+/)[0]) + 25;
+    document.getElementById('points-display').textContent = `✨ ${pts} ChocoPoints`;
+    document.getElementById('profile-points').textContent = `✨ ${pts} ChocoPoints`;
+
+    closeScanner();
+  }
+
+  // ===== SHOP DATA =====
+  const SHOP_PRODUCTS = [
+    { id: 1, emoji: '🍫', name: 'Fairtrade Puur 72%', desc: 'Peru Single Origin • Vegan', price: 4.95, stock: 'ok', stockLabel: 'Op voorraad', badge: 'BESTSELLER' },
+    { id: 2, emoji: '🍯', name: 'Melk Gezouten Karamel', desc: 'Ambachtelijk bereid • Belgisch', price: 5.50, stock: 'ok', stockLabel: 'Op voorraad', badge: '' },
+    { id: 3, emoji: '🌶️', name: 'Chili & Kriek Limited', desc: 'Limited Edition • Krachtig', price: 6.95, stock: 'low', stockLabel: 'Nog 3 stuks!', badge: 'LIMITED' },
+    { id: 4, emoji: '🌿', name: 'Vegan Kokosmelk 45%', desc: '100% Biologisch • Fairtrade', price: 5.25, stock: 'ok', stockLabel: 'Op voorraad', badge: 'NIEUW' },
+    { id: 5, emoji: '🍒', name: 'Ruby & Framboos', desc: 'Natuurlijk roze • Fruitig', price: 6.50, stock: 'ok', stockLabel: 'Op voorraad', badge: '' },
+    { id: 6, emoji: '⬛', name: 'Ecuador 85% Dark', desc: 'Intense smaak • Low sugar', price: 5.75, stock: 'out', stockLabel: 'Uitverkocht', badge: '' },
+  ];
+
+  let cart = {}; // { productId: quantity }
+
+  function renderShop() {
+    const container = document.getElementById('shop-products-list');
+    container.innerHTML = '';
+    SHOP_PRODUCTS.forEach(p => {
+      const inCart = cart[p.id] || 0;
+      const div = document.createElement('div');
+      div.className = 'shop-product-card';
+      div.innerHTML = `
+        <div class="shop-product-img">${p.emoji}</div>
+        <div class="shop-product-info">
+          ${p.badge ? `<div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:2px;">${p.badge}</div>` : ''}
+          <div class="shop-product-name">${p.name}</div>
+          <div class="shop-product-desc">${p.desc}</div>
+          <div class="shop-product-price">€${p.price.toFixed(2)}</div>
+          <div class="shop-stock-badge stock-${p.stock}">${p.stockLabel}</div>
+        </div>
+        <div>
+          ${p.stock !== 'out'
+            ? inCart > 0
+              ? `<div style="display:flex;align-items:center;gap:6px;flex-direction:column;">
+                   <div class="qty-control">
+                     <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+                     <span class="qty-num">${inCart}</span>
+                     <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
+                   </div>
+                   <div style="font-size:10px;color:var(--success);font-weight:600;">✓ In wagen</div>
+                 </div>`
+              : `<button class="add-to-cart-btn" onclick="addToCart(${p.id})">+ Voeg toe</button>`
+            : `<button class="add-to-cart-btn" disabled>Uitverkocht</button>`
+          }
+        </div>
       `;
+      container.appendChild(div);
+    });
+  }
 
-      list.insertBefore(newCard, list.firstChild);
+  function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1;
+    updateCartBadge();
+    renderShop();
+  }
 
-      // Keer direct terug naar het overzicht
-      closeScanner();
-      alert("Succes! Product #EC-9901 herkend en gesynchroniseerd met ERP-systeem.");
-    }
+  function changeQty(id, delta) {
+    cart[id] = (cart[id] || 0) + delta;
+    if (cart[id] <= 0) delete cart[id];
+    updateCartBadge();
+    renderShop();
+  }
 
-    // AI Chatbot Logic (ChocBot)
-    const predefinedReplies = {
-      'allergenen info': 'Onze pure chocolades (72% en hoger) zijn volledig veganistisch en lactosevrij. De melkchocolades bevatten koemelk. Alle repen kunnen sporen van noten bevatten.',
-      'klacht indienen': 'Wat vervelend om te horen! Ik start direct een digitaal klachtenformulier voor je. Kun je je batchnummer en de aard van de klacht omschrijven?',
-      'bestelling status': 'Ik check de live koppeling met ons ERP-systeem... Bestelling #CF-8821 is gesorteerd en wordt morgen via PostNL CO2-neutraal bezorgd.'
-    };
-
-    const generalReplies = [
-      'Interessante vraag! Kan ik je helpen dit te linken aan je accountvoorkeuren?',
-      'Als ChocBot raad ik je aan om onze nieuwe Fairtrade smaken te registreren voor extra ChocoPoints!',
-      'Dank voor je bericht. Als dit een complexe vraag is, kan ik je direct doorverbinden met een live klantenservicemedewerker.',
-      'Wist je dat al onze cacao 100% traceerbaar is? Bekijk het tabblad "Ontdek" voor de boerenverhalen!'
-    ];
-
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        sendMessage();
+  function updateCartBadge() {
+    const total = Object.values(cart).reduce((a, b) => a + b, 0);
+    const badges = [document.getElementById('cart-count-badge'), document.getElementById('nav-cart-badge')];
+    badges.forEach(b => {
+      if (!b) return;
+      if (total > 0) {
+        b.style.display = 'flex';
+        b.textContent = total;
+      } else {
+        b.style.display = 'none';
       }
+    });
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cart-screen-content');
+    const ids = Object.keys(cart);
+
+    if (ids.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart">
+          <div class="cart-icon">🛒</div>
+          <p><strong>Je winkelwagen is leeg</strong></p>
+          <p style="margin-top:8px;font-size:13px;">Voeg chocolade toe via de Shop.</p>
+          <button class="btn-action" style="margin-top:16px;" onclick="navigateTo('shop')">Naar de Shop</button>
+        </div>
+      `;
+      return;
     }
 
-    function handleQuickReply(text) {
-      document.getElementById('chat-input-field').value = text;
-      sendMessage();
+    let subtotal = 0;
+    let html = '';
+
+    ids.forEach(id => {
+      const p = SHOP_PRODUCTS.find(x => x.id == id);
+      const qty = cart[id];
+      const lineTotal = p.price * qty;
+      subtotal += lineTotal;
+
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-emoji">${p.emoji}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${p.name}</div>
+            <div class="cart-item-price">€${p.price.toFixed(2)} per stuk</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty(${p.id},-1);renderCart();">−</button>
+            <span class="qty-num">${qty}</span>
+            <button class="qty-btn" onclick="changeQty(${p.id},1);renderCart();">+</button>
+          </div>
+        </div>
+      `;
+    });
+
+    const shipping = subtotal >= 30 ? 0 : 3.95;
+    const total = subtotal + shipping;
+
+    html += `
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <span>Subtotaal</span>
+          <span>€${subtotal.toFixed(2)}</span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Verzendkosten</span>
+          <span>${shipping === 0 ? '<span style="color:var(--success);font-weight:600;">Gratis</span>' : '€' + shipping.toFixed(2)}</span>
+        </div>
+        ${shipping > 0 ? `<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Nog €${(30 - subtotal).toFixed(2)} voor gratis verzending</div>` : ''}
+        <div class="cart-summary-row total">
+          <span>Totaal</span>
+          <span>€${total.toFixed(2)}</span>
+        </div>
+      </div>
+      <button class="checkout-btn" onclick="placeOrder(${total.toFixed(2)})">
+        ✅ Bestelling Plaatsen · €${total.toFixed(2)}
+      </button>
+    `;
+
+    container.innerHTML = html;
+  }
+
+  function placeOrder(total) {
+    cart = {};
+    updateCartBadge();
+    const container = document.getElementById('cart-screen-content');
+    const orderNum = 'CF-' + Math.floor(Math.random() * 9000 + 1000);
+    container.innerHTML = `
+      <div class="order-success">
+        <div class="check-icon">✅</div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:8px;">Bestelling Geplaatst!</h3>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:6px;">Bestelnummer: <strong>${orderNum}</strong></p>
+        <p style="font-size:13px;color:var(--text-muted);">Je ontvangt een bevestiging op alex.devries@email.nl</p>
+        <div style="background:#D4EDDA;border-radius:12px;padding:14px;margin-top:20px;font-size:13px;color:#155724;text-align:left;">
+          🌱 Je bestelling wordt CO2-neutraal bezorgd via PostNL.<br><br>
+          📦 Verwachte levering: <strong>morgen</strong>
+        </div>
+        <button class="btn-action" style="margin-top:20px;" onclick="navigateTo('home')">Terug naar Home</button>
+      </div>
+    `;
+  }
+
+  // ===== AI CHATBOT (real Anthropic API) =====
+  const CHOCBOT_SYSTEM = `Je bent ChocBot, de vriendelijke en behulpzame AI-assistent van Chocolate Firm — een premium duurzaam chocolademerk.
+Je helpt klanten met vragen over:
+- Producten (Fairtrade Puur 72%, Melk Gezouten Karamel, Ruby & Framboos, Vegan Kokosmelk 45%, Chili & Kriek Limited, Ecuador 85% Dark)
+- Allergenen: pure chocolades (72%+) zijn veganistisch en lactosevrij; melkchocolades bevatten koemelk; alle repen kunnen sporenbevatten van noten, gluten, soja
+- Herkomst: cacao van Fairtrade boeren in Peru en Ghana; volledig traceerbaar
+- Duurzaamheid: Fairtrade-gecertificeerd, CO2-neutrale levering, biologische opties
+- Bestellingen en levering: gratis verzending bij >€30, CO2-neutraal via PostNL, levering 1-2 werkdagen
+- Klachten: klanten kunnen een klacht indienen via de app; behandeling binnen 24 uur
+- ChocoPoints loyaltyprogramma: punten sparen door productregistratie en aankopen
+- QR-code productregistratie voor productinformatie en garantie
+Antwoord altijd vriendelijk, beknopt (max 3 zinnen), en in het Nederlands. Eindig soms met een relevante tip of aanmoediging.`;
+
+  let chatHistory = [];
+  let isBotTyping = false;
+
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') sendMessage();
+  }
+
+  function handleQuickReply(text) {
+    document.getElementById('chat-input-field').value = text;
+    sendMessage();
+  }
+
+  function sendMessage() {
+    if (isBotTyping) return;
+    const inputEl = document.getElementById('chat-input-field');
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    inputEl.value = '';
+    chatHistory.push({ role: 'user', content: text });
+
+    // Show typing indicator
+    isBotTyping = true;
+    const typingEl = appendTyping();
+
+    callChocBotAPI(chatHistory).then(reply => {
+      typingEl.remove();
+      isBotTyping = false;
+      appendMessage(reply, 'bot');
+      chatHistory.push({ role: 'assistant', content: reply });
+    }).catch(() => {
+      typingEl.remove();
+      isBotTyping = false;
+      appendMessage('Sorry, er is iets misgegaan. Probeer het opnieuw of neem contact op via 0800-CHOCFIRM.', 'bot');
+    });
+  }
+
+  async function callChocBotAPI(history) {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: CHOCBOT_SYSTEM,
+        messages: history
+      })
+    });
+
+    if (!response.ok) throw new Error('API error');
+    const data = await response.json();
+    return data.content.map(b => b.text || '').join('');
+  }
+
+  function appendMessage(text, sender) {
+    const chatArea = document.getElementById('chat-area');
+    const bubble = document.createElement('div');
+    bubble.className = `message ${sender}`;
+    bubble.innerHTML = text;
+    chatArea.appendChild(bubble);
+    chatArea.scrollTop = chatArea.scrollHeight;
+    return bubble;
+  }
+
+  function appendTyping() {
+    const chatArea = document.getElementById('chat-area');
+    const bubble = document.createElement('div');
+    bubble.className = 'message thinking';
+    bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    chatArea.appendChild(bubble);
+    chatArea.scrollTop = chatArea.scrollHeight;
+    return bubble;
+  }
+
+  // ===== COMPLAINT FORM =====
+  function submitComplaint() {
+    const batch = document.getElementById('complaint-batch').value.trim();
+    const type = document.getElementById('complaint-type').value;
+    const desc = document.getElementById('complaint-desc').value.trim();
+    const email = document.getElementById('complaint-email').value.trim();
+
+    if (!batch || !type || !desc) {
+      alert('Vul alle verplichte velden in.');
+      return;
     }
 
-    function sendMessage() {
-      const inputEl = document.getElementById('chat-input-field');
-      const messageText = inputEl.value.trim();
+    const ticketNum = 'TKT-' + Math.floor(Math.random() * 90000 + 10000);
+    const container = document.getElementById('complaint-screen-content');
+    container.innerHTML = `
+      <div class="order-success">
+        <div class="check-icon">📋</div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--primary);margin-bottom:8px;">Klacht Ontvangen</h3>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:6px;">Ticketnummer: <strong>${ticketNum}</strong></p>
+        <p style="font-size:13px;color:var(--text-muted);">We sturen een bevestiging naar <strong>${email}</strong></p>
+        <div style="background:#D4EDDA;border-radius:12px;padding:14px;margin-top:20px;font-size:13px;color:#155724;text-align:left;">
+          ✅ Klacht geregistreerd in CRM-systeem<br><br>
+          ⏱ Verwachte reactie: <strong>binnen 24 uur</strong><br><br>
+          📦 Batch <strong>${batch}</strong> is gemarkeerd voor kwaliteitscontrole.
+        </div>
+        <button class="btn-action" style="margin-top:20px;" onclick="navigateTo('profile')">Terug naar Profiel</button>
+      </div>
+    `;
+  }
 
-      if (messageText === '') return;
-
-      // Voeg gebruikersbericht toe
-      appendMessage(messageText, 'user');
-      inputEl.value = '';
-
-      // Genereer chatbot reactie met een lichte vertraging (voor realisme)
-      setTimeout(() => {
-        const cleanKey = messageText.toLowerCase();
-        let reply = '';
-
-        if (predefinedReplies[cleanKey]) {
-          reply = predefinedReplies[cleanKey];
-        } else {
-          // Kies een willekeurig algemeen antwoord
-          reply = generalReplies[Math.floor(Math.random() * generalReplies.length)];
-        }
-
-        appendMessage(reply, 'bot');
-      }, 700);
-    }
-
-    function appendMessage(text, sender) {
-      const chatArea = document.getElementById('chat-area');
-      const msgBubble = document.createElement('div');
-      msgBubble.className = `message ${sender}`;
-      msgBubble.innerHTML = text;
-
-      chatArea.appendChild(msgBubble);
-
-      // Scroll automatisch naar beneden bij nieuwe berichten
-      chatArea.scrollTop = chatArea.scrollHeight;
-    }
-  </script>
+  // Initial render
+  renderShop();
+</script>
 </body>
 </html>
