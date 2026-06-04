@@ -1224,6 +1224,7 @@ cat > /mnt/user-data/outputs/chocolate_firm_app.html << 'ENDOFFILE'
           <div class="menu-item"><span>🔒 Wachtwoord wijzigen</span><span class="menu-chevron">→</span></div>
           <div class="menu-item"><span>💳 Betaalmethoden</span><span class="menu-chevron">→</span></div>
           <div class="menu-item"><span>📦 Bezorgadressen</span><span class="menu-chevron">→</span></div>
+          <div class="menu-item" onclick="enableAdminMode()" style="font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;"><span>🔐 Demo: Admin Mode</span></div>
           <div class="menu-item" onclick="navigateTo('home')" style="color:#C0392B;font-weight:600;"><span>← Uitloggen</span></div>
         </div>
       </div>
@@ -1283,6 +1284,360 @@ cat > /mnt/user-data/outputs/chocolate_firm_app.html << 'ENDOFFILE'
     </div>
   </div>
 
+  <!-- ==================== ADMIN DASHBOARD (US-10: Beheer van gebruikers en content) ==================== -->
+  <div id="screen-admin" class="screen">
+    <div class="app-header"><h1>⚙️ Admin Paneel</h1></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" data-screen="admin" data-panel="dashboard" onclick="switchTab(this)">Dashboard</div>
+      <div class="sub-tab" data-screen="admin" data-panel="users" onclick="switchTab(this)">Gebruikers</div>
+      <div class="sub-tab" data-screen="admin" data-panel="content" onclick="switchTab(this)">Inhoud</div>
+      <div class="sub-tab" data-screen="admin" data-panel="campaigns" onclick="switchTab(this)">Campagnes</div>
+    </div>
+    <div class="screen-content">
+      <!-- Admin Dashboard Tab -->
+      <div id="admin-dashboard" class="sub-panel active">
+        <div style="margin-bottom:16px;">
+          <div class="section-title">Systeemstatus</div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-value">2,547</div>
+              <div class="stat-label">Actieve gebruikers</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">48</div>
+              <div class="stat-label">Openstaande klachten</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">€18.5K</div>
+              <div class="stat-label">Gisteren omzet</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">99.7%</div>
+              <div class="stat-label">Uptime</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div class="section-title">Recente activiteiten</div>
+          <div class="card">
+            <div style="font-size:12px;color:var(--text-muted);line-height:2;">
+              ✅ 15 nieuwe gebruikers vandaag<br>
+              ⚠️ 3 klachten wachten op afhandeling<br>
+              📊 Dagelijks rapport verzonden naar management<br>
+              🔄 Systeem sync met ERP-systeem — OK<br>
+              📱 App versie 1.2.5 — up-to-date
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-title">Snelle acties</div>
+          <button class="btn btn-full primary" style="margin-bottom:8px;" onclick="switchTabById('admin','campaigns')">📢 Campaign verzenden</button>
+          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);margin-bottom:8px;" onclick="switchTabById('admin','content')">📝 Content beheren</button>
+          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);" onclick="switchTabById('admin','users')">👥 Gebruikers beheren</button>
+        </div>
+      </div>
+
+      <!-- Gebruikersbeheer Tab -->
+      <div id="admin-users" class="sub-panel">
+        <div style="margin-bottom:12px;">
+          <input type="text" class="form-input" placeholder="🔍 Zoek gebruiker..." id="user-search" style="margin-bottom:8px;" oninput="filterUsers(this.value)">
+          <button class="btn btn-full primary" onclick="showAddUserForm()">+ Nieuwe gebruiker</button>
+        </div>
+        <div id="user-form-container" style="display:none;margin-bottom:16px;">
+          <div class="card">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Nieuwe gebruiker toevoegen</div>
+            <div class="form-group"><input type="text" class="form-input" id="user-name" placeholder="Volledige naam"></div>
+            <div class="form-group"><input type="email" class="form-input" id="user-email" placeholder="E-mailadres"></div>
+            <div class="form-group">
+              <select class="form-select" id="user-role">
+                <option value="">Selecteer rol...</option>
+                <option value="beheerder">Beheerder</option>
+                <option value="klantenservice">Klantenservice</option>
+                <option value="marketeer">Marketeer</option>
+                <option value="manager">Manager</option>
+                <option value="it">IT-beheerder</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="createUser()">Opslaan</button>
+            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#user-form-container').style.display='none'">Annuleren</button>
+          </div>
+        </div>
+        <div id="user-list">
+          <div class="menu-item"><div><div style="font-weight:600;">Alex de Vries</div><div style="font-size:11px;color:var(--text-muted);">alex.devries@email.nl • Beheerder</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
+          <div class="menu-item"><div><div style="font-weight:600;">Maria Lopez</div><div style="font-size:11px;color:var(--text-muted);">maria.lopez@choco.nl • Klantenservice</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
+          <div class="menu-item"><div><div style="font-weight:600;">Jan Bakker</div><div style="font-size:11px;color:var(--text-muted);">jan.bakker@choco.nl • Manager</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
+        </div>
+      </div>
+
+      <!-- Inhoudsbeheer Tab (US-10) -->
+      <div id="admin-content" class="sub-panel">
+        <div style="margin-bottom:12px;">
+          <button class="btn btn-full primary" style="margin-bottom:8px;" onclick="showAddRecipeForm()">+ Nieuw recept</button>
+          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);margin-bottom:8px;" onclick="showAddProductForm()">+ Nieuw product</button>
+          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);" onclick="showAddTutorialForm()">+ Nieuwe tutorial</button>
+        </div>
+        <div id="recipe-form-container" style="display:none;margin-bottom:16px;">
+          <div class="card">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Nieuw recept toevoegen</div>
+            <div class="form-group"><input type="text" class="form-input" id="recipe-title" placeholder="Recepttitel"></div>
+            <div class="form-group"><textarea class="form-textarea" id="recipe-content" placeholder="Receptinstructies..."></textarea></div>
+            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="createRecipe()">Opslaan</button>
+            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#recipe-form-container').style.display='none'">Annuleren</button>
+          </div>
+        </div>
+        <div class="section-title">Recepten</div>
+        <div id="recipe-list">
+          <div class="menu-item"><span>🍫 Chocoladetruffels deluxe</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
+          <div class="menu-item"><span>🍰 Chocoladecake</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
+          <div class="menu-item"><span>☕ Chocolademelk recepten</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
+        </div>
+      </div>
+
+      <!-- Campagnes Tab (US-10, US-11) -->
+      <div id="admin-campaigns" class="sub-panel">
+        <div style="margin-bottom:12px;">
+          <button class="btn btn-full primary" onclick="showAddCampaignForm()">+ Nieuwe campagne</button>
+        </div>
+        <div id="campaign-form-container" style="display:none;margin-bottom:16px;">
+          <div class="card">
+            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Notificatiecampagne</div>
+            <div class="form-group"><input type="text" class="form-input" id="campaign-title" placeholder="Campagnetitel"></div>
+            <div class="form-group"><textarea class="form-textarea" id="campaign-content" placeholder="Bericht voor gebruikers..."></textarea></div>
+            <div class="form-group">
+              <select class="form-select" id="campaign-target">
+                <option value="">Doelgroep...</option>
+                <option value="all">Alle gebruikers</option>
+                <option value="b2c">B2C klanten</option>
+                <option value="b2b">B2B klanten</option>
+                <option value="vip">VIP klanten</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="sendCampaign()">Verzenden</button>
+            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#campaign-form-container').style.display='none'">Annuleren</button>
+          </div>
+        </div>
+        <div class="section-title">Eerdere campagnes</div>
+        <div id="campaign-list">
+          <div class="card">
+            <div style="font-weight:600;margin-bottom:4px;">Summer Collection lancering</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: 15 mei 2026 • 2,547 ontvangers</div>
+            <div style="font-size:12px;color:var(--success);">✅ Verzonden • Click-rate: 34%</div>
+          </div>
+          <div class="card">
+            <div style="font-weight:600;margin-bottom:4px;">Duurzaamheid awareness</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: 8 mei 2026 • 2,100 ontvangers</div>
+            <div style="font-size:12px;color:var(--success);">✅ Verzonden • Click-rate: 28%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ANALYTICS & REPORTS (US-12: Management, US-07: Klantgegevens) ==================== -->
+  <div id="screen-analytics" class="screen">
+    <div class="app-header"><h1>📊 Analytics</h1></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" data-screen="analytics" data-panel="kpi" onclick="switchTab(this)">KPI's</div>
+      <div class="sub-tab" data-screen="analytics" data-panel="customers" onclick="switchTab(this)">Klanten</div>
+      <div class="sub-tab" data-screen="analytics" data-panel="reports" onclick="switchTab(this)">Rapporten</div>
+    </div>
+    <div class="screen-content">
+      <!-- KPI Dashboard Tab (US-12) -->
+      <div id="analytics-kpi" class="sub-panel active">
+        <div style="margin-bottom:16px;">
+          <div class="section-title">Kernmetrieken (KPI's)</div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-value" style="color:var(--success);">↑ 2,547</div>
+              <div class="stat-label">Actieve gebruikers (+8%)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">€487.2K</div>
+              <div class="stat-label">Maandelijks omzet</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" style="color:var(--success);">4.7/5 ⭐</div>
+              <div class="stat-label">App rating</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">142</div>
+              <div class="stat-label">Nieuwe klanten (7d)</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" style="color:var(--success);">68%</div>
+              <div class="stat-label">Retentie rate</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">48</div>
+              <div class="stat-label">Openstaande klachten</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div class="section-title">Trends</div>
+          <div class="card">
+            <div style="font-size:13px;font-weight:600;margin-bottom:8px;">📈 Gebruiksgegevens (laatste 7 dagen)</div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:2;">
+              Ma: 312 sessies | Di: 328 | Wo: 315 | Do: 341 | Vr: 398 | Za: 425 | Zo: 388
+            </div>
+            <div class="progress-bar" style="margin-top:8px;">
+              <div class="progress-fill" style="width:65%;"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Weekscore: 65% groei</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Klantgegevens Tab (US-07) -->
+      <div id="analytics-customers" class="sub-panel">
+        <div style="margin-bottom:12px;">
+          <input type="text" class="form-input" placeholder="🔍 Zoek klant (naam/email)..." id="customer-search" oninput="searchCustomers(this.value)">
+        </div>
+        <div class="section-title">Klantprofielen</div>
+        <div id="customer-list">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-weight:600;">Alex de Vries</div>
+              <button class="btn" style="background:#EFEAE6;padding:4px 8px;font-size:11px;" onclick="viewCustomerProfile('alex')">Profiel</button>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
+              📧 alex.devries@email.nl<br>
+              🛍️ Totale aankopen: €1,247 (18 bestellingen)<br>
+              ⭐ Status: VIP Klant<br>
+              📱 Registratie: 2 jaar geleden
+            </div>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-weight:600;">Maria Lopez</div>
+              <button class="btn" style="background:#EFEAE6;padding:4px 8px;font-size:11px;" onclick="viewCustomerProfile('maria')">Profiel</button>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
+              📧 maria.lopez@choco.nl<br>
+              🛍️ Totale aankopen: €3,521 (45 bestellingen)<br>
+              ⭐ Status: Premium Klant<br>
+              📱 Registratie: 1 jaar geleden
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports Tab -->
+      <div id="analytics-reports" class="sub-panel">
+        <div class="section-title">Exporteerbare Rapporten</div>
+        <div class="menu-list">
+          <div class="menu-item"><span>📄 Maandelijks klantrapport</span><span onclick="downloadReport('monthly')" style="cursor:pointer;">⬇</span></div>
+          <div class="menu-item"><span>📊 Verkoopstatistieken</span><span onclick="downloadReport('sales')" style="cursor:pointer;">⬇</span></div>
+          <div class="menu-item"><span>📋 Klachten samenvatting</span><span onclick="downloadReport('complaints')" style="cursor:pointer;">⬇</span></div>
+          <div class="menu-item"><span>🎯 Marketing performance</span><span onclick="downloadReport('marketing')" style="cursor:pointer;">⬇</span></div>
+          <div class="menu-item"><span>🌱 Duurzaamheid impact</span><span onclick="downloadReport('sustainability')" style="cursor:pointer;">⬇</span></div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="section-title">Geplande Rapporten</div>
+          <div class="card">
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.8;">
+              ✅ Dagelijks dashboard → 09:00 uur<br>
+              ✅ Wekelijks samenvatting → Maandag 08:00 uur<br>
+              ✅ Maandelijks rapport → 1e van maand 06:00 uur
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SUPPORT ADMIN (US-08: Klachtafhandeling + US-07: Klantgegevens) ==================== -->
+  <div id="screen-support-admin" class="screen">
+    <div class="app-header"><h1>🎧 Support Management</h1></div>
+    <div class="sub-tabs">
+      <div class="sub-tab active" data-screen="support-admin" data-panel="tickets" onclick="switchTab(this)">Tickets</div>
+      <div class="sub-tab" data-screen="support-admin" data-panel="complaints" onclick="switchTab(this)">Klachten</div>
+    </div>
+    <div class="screen-content">
+      <!-- Tickets Tab -->
+      <div id="support-admin-tickets" class="sub-panel active">
+        <div style="margin-bottom:12px;">
+          <select class="form-select" id="ticket-filter" onchange="filterTickets(this.value)" style="margin-bottom:8px;">
+            <option value="">Alle tickets</option>
+            <option value="open">Open</option>
+            <option value="in_progress">In behandeling</option>
+            <option value="resolved">Opgelost</option>
+          </select>
+        </div>
+        <div id="ticket-list">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-weight:600;">TKT-15234</div>
+              <span class="tag" style="background:var(--warning-bg);color:var(--warning-text);">🟠 Open</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+              <strong>Alex de Vries</strong> • 2 uur geleden<br>
+              Vraag: Hoe werkt de QR-scan functie?
+            </div>
+            <button class="btn btn-accent" onclick="assignTicket('TKT-15234')" style="font-size:11px;padding:6px 12px;">Claim ticket</button>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="font-weight:600;">TKT-15233</div>
+              <span class="tag" style="background:var(--success-bg);color:var(--success);">✅ Opgelost</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+              <strong>Maria Lopez</strong> • 1 uur geleden<br>
+              Vraag: Kan ik mijn recept delen?
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);">Opgelost door: support@choco.nl</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Klachten Tab (US-08) -->
+      <div id="support-admin-complaints" class="sub-panel">
+        <div style="margin-bottom:12px;">
+          <select class="form-select" id="complaint-filter" onchange="filterComplaints(this.value)">
+            <option value="">Alle klachten</option>
+            <option value="kwaliteit">Kwaliteitsprobleem</option>
+            <option value="levering">Leveringsprobleem</option>
+            <option value="verpakking">Beschadigde verpakking</option>
+          </select>
+        </div>
+        <div id="complaint-list">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div>
+                <div style="font-weight:600;">Klacht #PE-2026-001</div>
+                <span class="tag" style="background:var(--danger-bg);color:var(--danger-text);">🔴 Openstaand</span>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+              <strong>Alex de Vries</strong> • 3 uur geleden<br>
+              Type: Kwaliteitsprobleem<br>
+              Batch: #PE-2026<br>
+              Beschrijving: "Reep was schimmelig"
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="resolveComplaint('PE-2026-001')">Afhandelen</button>
+              <button class="btn" style="flex:1;background:#EFEAE6;font-size:11px;padding:6px;" onclick="approveCompensation('PE-2026-001')">Vergoeding</button>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div>
+                <div style="font-weight:600;">Klacht #PE-2026-002</div>
+                <span class="tag" style="background:var(--success-bg);color:var(--success);">✅ Opgelost</span>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+              <strong>Maria Lopez</strong> • 1 dag geleden<br>
+              Type: Leveringsprobleem<br>
+              Batch: #DA-2026<br>
+              Status: Vergoeding goedgekeurd (€25)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== NAV BAR ==================== -->
   <div class="nav-bar">
     <button class="nav-item active" id="nav-home" onclick="navigateTo('home')">
@@ -1303,6 +1658,16 @@ cat > /mnt/user-data/outputs/chocolate_firm_app.html << 'ENDOFFILE'
     </button>
     <button class="nav-item" id="nav-profile" onclick="navigateTo('profile')">
       <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profiel
+    </button>
+    <!-- Admin buttons (hidden by default, shown when logged in as admin) -->
+    <button class="nav-item" id="nav-admin" onclick="navigateTo('admin')" style="display:none;">
+      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.4-.3.86-.48 1.36-.48.5 0 .96.18 1.36.48l1.07-1.07c-.72-.73-1.71-1.18-2.8-1.18-1.09 0-2.08.45-2.8 1.18l1.07 1.07zM14 11.5c1.66 0 3.3.74 4.4 2.02l1.42-1.42C17.88 9.86 15.96 8 13.5 8c-2.46 0-4.38 1.86-5.32 3.1l1.42 1.42c1.1-1.28 2.74-2.02 4.4-2.02zM3 8h10v10H3zm5.5 8c1.93 0 3.5-1.57 3.5-3.5S10.43 8.5 8.5 8.5 5 10.07 5 12s1.57 3.5 3.5 3.5z"/></svg>Admin
+    </button>
+    <button class="nav-item" id="nav-analytics" onclick="navigateTo('analytics')" style="display:none;">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-9h3v7h-3zm-5-2h3v9H9zm5-2h3v5h-3zm-5 9h3v-5H9z"/></svg>Analytics
+    </button>
+    <button class="nav-item" id="nav-support-admin" onclick="navigateTo('support-admin')" style="display:none;">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3h-8V6h8v2z"/></svg>Support
     </button>
   </div>
 
@@ -1822,6 +2187,169 @@ function newForumPost() {
   forumPosts.unshift({ title, body, ts: 'Zojuist', replies: 0 });
   renderForum();
   addPoints(5);
+}
+
+// =============================================
+// ADMIN PANEL (US-10, US-07, US-08, US-11, US-12, US-18)
+// =============================================
+
+function showAddUserForm() {
+  const container = document.getElementById('user-form-container');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+}
+
+function createUser() {
+  const name = document.getElementById('user-name').value.trim();
+  const email = document.getElementById('user-email').value.trim();
+  const role = document.getElementById('user-role').value;
+  if (!name || !email || !role) { alert('Vul alle velden in.'); return; }
+  const userList = document.getElementById('user-list');
+  const newItem = document.createElement('div');
+  newItem.className = 'menu-item';
+  newItem.innerHTML = `<div><div style="font-weight:600;">${name}</div><div style="font-size:11px;color:var(--text-muted);">${email} • ${role}</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span>`;
+  userList.appendChild(newItem);
+  alert(`✅ Gebruiker ${name} aangemaakt!`);
+  document.getElementById('user-form-container').style.display = 'none';
+  document.getElementById('user-name').value = '';
+  document.getElementById('user-email').value = '';
+  document.getElementById('user-role').value = '';
+}
+
+function editUser(el) {
+  const name = el.parentElement.firstChild.firstChild.textContent;
+  alert(`Bewerking van ${name} (placeholder)`);
+}
+
+function filterUsers(query) {
+  const userList = document.getElementById('user-list');
+  const items = userList.querySelectorAll('.menu-item');
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+  });
+}
+
+function showAddRecipeForm() {
+  const container = document.getElementById('recipe-form-container');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+}
+
+function createRecipe() {
+  const title = document.getElementById('recipe-title').value.trim();
+  const content = document.getElementById('recipe-content').value.trim();
+  if (!title || !content) { alert('Vul alle velden in.'); return; }
+  const recipeList = document.getElementById('recipe-list');
+  const newItem = document.createElement('div');
+  newItem.className = 'menu-item';
+  newItem.innerHTML = `<span>🍫 ${title}</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span>`;
+  recipeList.appendChild(newItem);
+  alert(`✅ Recept "${title}" aangemaakt!`);
+  document.getElementById('recipe-form-container').style.display = 'none';
+  document.getElementById('recipe-title').value = '';
+  document.getElementById('recipe-content').value = '';
+}
+
+function showAddProductForm() {
+  alert('📦 Producttoevoeging (gekoppeld aan ERP-systeem)');
+}
+
+function showAddTutorialForm() {
+  alert('🎥 Tutorial toevoeging');
+}
+
+function editContent(el) {
+  const content = el.previousElementSibling.textContent;
+  alert(`Bewerking van: ${content}`);
+}
+
+function showAddCampaignForm() {
+  const container = document.getElementById('campaign-form-container');
+  container.style.display = container.style.display === 'none' ? 'block' : 'none';
+}
+
+function sendCampaign() {
+  const title = document.getElementById('campaign-title').value.trim();
+  const content = document.getElementById('campaign-content').value.trim();
+  const target = document.getElementById('campaign-target').value;
+  if (!title || !content || !target) { alert('Vul alle velden in.'); return; }
+  const campaignList = document.getElementById('campaign-list');
+  const newCampaign = document.createElement('div');
+  newCampaign.className = 'card';
+  newCampaign.innerHTML = `<div style="font-weight:600;margin-bottom:4px;">${title}</div><div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: Nu • ${target}</div><div style="font-size:12px;color:var(--success);">✅ Verzonden</div>`;
+  campaignList.insertBefore(newCampaign, campaignList.firstChild);
+  alert(`📢 Campaign verzonden naar ${target}!`);
+  document.getElementById('campaign-form-container').style.display = 'none';
+  document.getElementById('campaign-title').value = '';
+  document.getElementById('campaign-content').value = '';
+  document.getElementById('campaign-target').value = '';
+}
+
+function searchCustomers(query) {
+  const list = document.getElementById('customer-list');
+  const cards = list.querySelectorAll('.card');
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+  });
+}
+
+function viewCustomerProfile(id) {
+  const profiles = {
+    'alex': 'Alex de Vries | alex.devries@email.nl | €1,247 | 18 bestellingen | VIP | 2 jaar lid',
+    'maria': 'Maria Lopez | maria.lopez@choco.nl | €3,521 | 45 bestellingen | Premium | 1 jaar lid'
+  };
+  alert(`👤 ${profiles[id]}`);
+}
+
+function downloadReport(type) {
+  const reports = {
+    'monthly': 'Maandelijks klantrapport',
+    'sales': 'Verkoopstatistieken',
+    'complaints': 'Klachten samenvatting',
+    'marketing': 'Marketing performance',
+    'sustainability': 'Duurzaamheid impact'
+  };
+  alert(`⬇️ ${reports[type]} gedownload!`);
+}
+
+function assignTicket(ticketId) {
+  alert(`✅ Ticket ${ticketId} aan jou toegewezen!`);
+}
+
+function filterTickets(status) {
+  const list = document.getElementById('ticket-list');
+  const cards = list.querySelectorAll('.card');
+  cards.forEach(card => {
+    if (!status) { card.style.display = ''; return; }
+    const cardStatus = card.innerHTML.includes('Open') ? 'open' : 'resolved';
+    card.style.display = cardStatus === status ? '' : 'none';
+  });
+}
+
+function filterComplaints(type) {
+  const list = document.getElementById('complaint-list');
+  const cards = list.querySelectorAll('.card');
+  cards.forEach(card => {
+    if (!type) { card.style.display = ''; return; }
+    card.style.display = card.textContent.toLowerCase().includes(type) ? '' : 'none';
+  });
+}
+
+function resolveComplaint(id) {
+  const response = prompt(`Klacht ${id} - Uw reactie:`);
+  if (response) alert(`📧 Antwoord verzonden naar klant`);
+}
+
+function approveCompensation(id) {
+  const amount = prompt('Compensatiebedrag (€):', '25');
+  if (amount) alert(`✅ Vergoeding van €${amount} goedgekeurd`);
+}
+
+function enableAdminMode() {
+  document.getElementById('nav-admin').style.display = 'flex';
+  document.getElementById('nav-analytics').style.display = 'flex';
+  document.getElementById('nav-support-admin').style.display = 'flex';
+  alert('🔐 Admin mode ingeschakeld!');
 }
 
 // =============================================
