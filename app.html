@@ -1,2368 +1,1339 @@
-bash
-
-cat > /mnt/user-data/outputs/chocolate_firm_app.html << 'ENDOFFILE'
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chocolate Firm – App</title>
+  <title>Chocolate Firm App - versie 1</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap');
-
     :root {
-      --primary: #4A2E2B;
-      --secondary: #8C624E;
-      --accent: #D4AF37;
-      --bg-light: #FDFBF9;
-      --text-dark: #2B1B19;
-      --text-muted: #7A6E6C;
-      --border: #EFEAE6;
-      --success: #2E7D32;
-      --success-bg: #D4EDDA;
-      --warning-bg: #FFF3CD;
-      --warning-text: #856404;
-      --danger-bg: #F8D7DA;
-      --danger-text: #721C24;
+      --primary: #3f2622;
+      --secondary: #765245;
+      --accent: #d4af37;
+      --bg: #f8f5f1;
+      --surface: #ffffff;
+      --surface-soft: #eee7df;
+      --text: #231817;
+      --muted: #756a66;
+      --border: #e6ddd5;
+      --success: #2e7d32;
+      --success-bg: #dff0df;
+      --warning: #8a6500;
+      --warning-bg: #fff0bf;
+      --danger: #a33a33;
+      --danger-bg: #f8dddd;
+      --info: #1f5f86;
+      --info-bg: #dceef7;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #C8BDB8;
-      background-image: radial-gradient(circle at 20% 50%, #A89490 0%, transparent 60%),
-                        radial-gradient(circle at 80% 20%, #D4C5BE 0%, transparent 50%);
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text-dark);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      min-height: 100vh;
-      padding: 30px 20px;
+      padding: 28px 16px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.18), transparent 30%),
+        radial-gradient(circle at 85% 8%, rgba(63, 38, 34, 0.20), transparent 32%),
+        #c9beb8;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    /* ===== PHONE SHELL ===== */
+    button, input, select, textarea { font: inherit; }
+
     .phone {
-      width: 375px;
+      width: min(390px, 100%);
       height: 812px;
-      background: var(--bg-light);
-      border-radius: 44px;
-      box-shadow:
-        0 0 0 11px #1C1110,
-        0 0 0 13px #3A2A28,
-        0 40px 80px rgba(0,0,0,0.45);
+      background: var(--bg);
+      border-radius: 42px;
       overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: column;
-      position: relative;
+      box-shadow: 0 0 0 10px #17100f, 0 34px 80px rgba(0, 0, 0, 0.35);
     }
 
     .notch {
       position: absolute;
-      top: 0; left: 50%;
+      top: 0;
+      left: 50%;
+      width: 116px;
+      height: 26px;
       transform: translateX(-50%);
-      width: 120px; height: 28px;
-      background: #1C1110;
-      border-radius: 0 0 20px 20px;
-      z-index: 9999;
+      background: #17100f;
+      border-radius: 0 0 18px 18px;
+      z-index: 10;
     }
 
     .status-bar {
       height: 44px;
-      padding: 14px 24px 0;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
+      padding: 0 24px 8px;
       font-size: 12px;
-      font-weight: 600;
-      background: var(--bg-light);
-      z-index: 100;
-      flex-shrink: 0;
+      font-weight: 700;
+      background: var(--bg);
+      flex: 0 0 auto;
     }
 
-    /* ===== SCREEN SYSTEM ===== */
-    .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
+    .screen {
+      display: none;
+      flex: 1;
+      min-height: 0;
+      flex-direction: column;
+    }
+
     .screen.active { display: flex; }
 
-    /* ===== APP HEADER ===== */
     .app-header {
-      padding: 12px 20px;
-      background: var(--bg-light);
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 18px;
       border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .app-title {
+      min-width: 0;
+    }
+
+    .app-title h1 {
+      font-size: 20px;
+      line-height: 1.1;
+      color: var(--primary);
+      letter-spacing: 0;
+    }
+
+    .app-title p {
+      margin-top: 3px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .header-action {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .content {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px 18px 92px;
+    }
+
+    .content::-webkit-scrollbar { display: none; }
+
+    .nav-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 74px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      padding: 6px 6px 12px;
+      background: #17100f;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      z-index: 20;
+    }
+
+    .nav-item {
+      height: 52px;
+      border: 0;
+      background: transparent;
+      color: #928884;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-symbol {
+      width: 21px;
+      height: 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .nav-item.active { color: var(--accent); }
+
+    .badge {
+      position: absolute;
+      top: 2px;
+      right: 14px;
+      min-width: 17px;
+      height: 17px;
+      border-radius: 999px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      background: var(--danger);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .badge.show { display: flex; }
+
+    .tabs {
+      flex: 0 0 auto;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .tab {
+      border: 0;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      padding: 11px 6px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      right: -38px;
+      top: -36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero h2 {
+      max-width: 260px;
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 275px;
+      margin-top: 7px;
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0 10px;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .link-btn {
+      border: 0;
+      background: transparent;
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .product-card:active { transform: scale(0.99); }
+
+    .product-icon {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: var(--surface-soft);
+      font-size: 25px;
+      flex: 0 0 auto;
+    }
+
+    .product-title {
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .tag.ok { background: var(--success-bg); color: var(--success); }
+    .tag.warn { background: var(--warning-bg); color: var(--warning); }
+    .tag.danger { background: var(--danger-bg); color: var(--danger); }
+    .tag.info { background: var(--info-bg); color: var(--info); }
+    .tag.neutral { background: var(--surface-soft); color: var(--muted); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mini-card {
+      min-height: 104px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 12px;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .mini-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .form-group { margin-bottom: 12px; }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 11px 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus { border-color: var(--secondary); }
+    textarea { min-height: 92px; resize: vertical; }
+
+    .btn {
+      border: 0;
+      border-radius: 11px;
+      padding: 11px 14px;
+      min-height: 42px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .btn.primary { background: var(--primary); color: white; }
+    .btn.secondary { background: var(--surface-soft); color: var(--primary); }
+    .btn.accent { background: var(--accent); color: var(--primary); }
+    .btn.full { width: 100%; }
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .info-box {
+      border-radius: 12px;
+      padding: 13px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .info-box.green { background: var(--success-bg); color: #1c5a20; }
+    .info-box.yellow { background: var(--warning-bg); color: var(--warning); }
+    .info-box.blue { background: var(--info-bg); color: var(--info); }
+
+    .detail-list {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-row span:first-child { color: var(--muted); }
+    .detail-row span:last-child { text-align: right; font-weight: 800; }
+
+    .chat-area {
+      height: 318px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 10px;
+      padding-right: 2px;
+    }
+
+    .msg {
+      max-width: 86%;
+      border-radius: 15px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--surface-soft);
+      border-top-left-radius: 4px;
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: white;
+      border-top-right-radius: 4px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+
+    .chips::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--primary);
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .chat-input-row {
+      display: grid;
+      grid-template-columns: 1fr 44px;
+      gap: 8px;
+    }
+
+    .send-btn {
+      border: 0;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .ticket-card {
+      border-left: 4px solid var(--accent);
+    }
+
+    .toggle-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-shrink: 0;
-    }
-    .app-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      color: var(--primary);
-    }
-    .header-btn {
-      background: none; border: none;
-      font-size: 20px; cursor: pointer;
-      color: var(--primary);
-      position: relative;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      transition: background 0.15s;
-    }
-    .header-btn:hover { background: var(--border); }
-
-    /* ===== SCROLL CONTENT ===== */
-    .screen-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 20px 90px;
-    }
-    .screen-content::-webkit-scrollbar { display: none; }
-
-    /* ===== NAV BAR ===== */
-    .nav-bar {
-      position: absolute;
-      bottom: 0; width: 100%;
-      height: 72px;
-      background: #1C1110;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding-bottom: 10px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      z-index: 1000;
-    }
-    .nav-item {
-      background: none; border: none;
-      color: #7A6E6C;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 3px;
-      font-size: 9px; font-weight: 600;
-      cursor: pointer; flex: 1;
-      transition: color 0.15s;
-      position: relative;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
-    .nav-item.active { color: var(--accent); }
-    .nav-badge {
-      position: absolute;
-      top: -2px; right: 8px;
-      background: #C0392B;
-      color: white; font-size: 9px; font-weight: 700;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      display: none; align-items: center; justify-content: center;
-    }
-    .nav-badge.show { display: flex; }
-
-    /* ===== SUB-TABS ===== */
-    .sub-tabs {
-      display: flex;
-      background: var(--bg-light);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .sub-tab {
-      flex: 1; padding: 10px 4px;
-      font-size: 11px; font-weight: 600;
-      text-align: center; cursor: pointer;
-      color: var(--text-muted);
-      border-bottom: 2px solid transparent;
-      transition: all 0.15s;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .sub-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-    /* Sub-panel visibility */
-    .sub-panel { display: none; }
-    .sub-panel.active { display: block; }
-    .sub-panel-flex { display: none; }
-    .sub-panel-flex.active { display: flex; flex-direction: column; }
-
-    /* ===== SECTION TITLE ===== */
-    .section-title {
-      font-size: 15px; font-weight: 700;
-      margin: 0 0 12px;
-      color: var(--primary);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .section-link {
-      font-size: 12px; color: var(--secondary);
-      font-weight: 500; cursor: pointer;
-      background: none; border: none;
-      font-family: 'DM Sans', sans-serif;
-    }
-
-    /* ===== CARDS ===== */
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    /* ===== WELCOME CARD ===== */
-    .welcome-card {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      border-radius: 18px;
-      padding: 20px;
-      color: white;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .welcome-card::after {
-      content: '🍫';
-      position: absolute;
-      right: 16px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 48px;
-      opacity: 0.15;
-    }
-    .welcome-card h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 4px; }
-    .welcome-card p { font-size: 13px; opacity: 0.85; }
-    .loyalty-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(255,255,255,0.18);
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-top: 12px;
-      font-size: 13px; font-weight: 700;
-      color: var(--accent);
-      backdrop-filter: blur(4px);
-    }
-
-    /* ===== PRODUCT CARDS ===== */
-    .product-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
-      display: flex; gap: 12px; align-items: center;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-    .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-1px); }
-    .product-emoji {
-      width: 50px; height: 50px;
-      background: #F2EFEF;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-    }
-    .product-details { flex: 1; }
-    .product-title { font-weight: 600; font-size: 14px; }
-    .product-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-    /* ===== TAGS ===== */
-    .tag {
-      display: inline-block;
-      font-size: 10px; font-weight: 600;
-      padding: 2px 7px; border-radius: 4px;
-      margin-top: 4px;
-    }
-    .tag-warn { background: var(--warning-bg); color: var(--warning-text); }
-    .tag-danger { background: var(--danger-bg); color: var(--danger-text); }
-    .tag-ok { background: var(--success-bg); color: var(--success); }
-    .tag-accent { background: #FFF0A0; color: #7A5C00; }
-
-    /* ===== 2-GRID ===== */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    .discovery-card {
-      background: white; border-radius: 14px;
-      border: 1px solid var(--border); overflow: hidden; cursor: pointer;
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-    .discovery-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.09); transform: translateY(-1px); }
-    .discovery-img { height: 80px; background: #EFEAE6; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-    .discovery-info { padding: 9px 10px; }
-    .discovery-info h4 { font-size: 12px; font-weight: 700; }
-    .discovery-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-    /* ===== NEWS CARD ===== */
-    .news-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px; margin-bottom: 10px;
-    }
-    .news-label { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
-    .news-title { font-size: 13px; font-weight: 600; }
-    .news-body { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
-
-    /* ===== BUTTONS ===== */
-    .btn { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; }
-    .btn-primary {
-      background: var(--primary); color: white;
-      padding: 10px 18px; border-radius: 20px;
-      font-size: 13px; font-weight: 600;
-      transition: background 0.15s;
-    }
-    .btn-primary:hover { background: var(--secondary); }
-    .btn-accent {
-      background: var(--accent); color: var(--primary);
-      padding: 6px 14px; border-radius: 20px;
-      font-size: 12px; font-weight: 700;
-      transition: opacity 0.15s;
-    }
-    .btn-accent:hover { opacity: 0.85; }
-    .btn-outline {
-      background: white; color: var(--primary);
-      border: 1.5px solid var(--primary);
-      padding: 9px 18px; border-radius: 20px;
-      font-size: 13px; font-weight: 600;
-    }
-    .btn-full {
-      width: 100%;
-      padding: 14px; border-radius: 12px;
-      font-size: 15px; font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .btn-full.primary { background: var(--primary); color: white; }
-    .btn-full.success { background: #2E7D32; color: white; }
-    .btn-full:hover { opacity: 0.9; }
-
-    /* ===== FORM ===== */
-    .form-group { margin-bottom: 14px; }
-    .form-label {
-      display: block; font-size: 11px; font-weight: 700;
-      color: var(--text-muted); margin-bottom: 5px;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .form-input, .form-select, .form-textarea {
-      width: 100%; padding: 10px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-family: 'DM Sans', sans-serif; font-size: 13px;
-      outline: none; background: white; color: var(--text-dark);
-      transition: border-color 0.15s;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--secondary); }
-    .form-textarea { height: 80px; resize: none; }
-
-    /* ===== MENU LIST ===== */
-    .menu-list {
-      background: white; border-radius: 14px;
-      border: 1px solid var(--border); overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .menu-item {
-      padding: 14px 18px;
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px; cursor: pointer;
-      transition: background 0.1s;
-    }
-    .menu-item:hover { background: #FDFBF9; }
-    .menu-item:last-child { border-bottom: none; }
-    .menu-chevron { color: var(--text-muted); font-size: 12px; }
-
-    /* ===== QR SCANNER ===== */
-    #screen-scanner {
-      background: #111; color: white;
-    }
-    .qr-overlay {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .qr-box {
-      width: 220px; height: 220px;
-      border: 3px solid var(--accent); border-radius: 24px;
-      margin: 24px 0; position: relative; overflow: hidden;
-    }
-    .qr-line {
-      position: absolute; width: 100%; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      top: 0; animation: qrscan 2s ease-in-out infinite;
-    }
-    @keyframes qrscan {
-      0%,100% { top: 0%; } 50% { top: calc(100% - 2px); }
-    }
-    .qr-corner {
-      position: absolute; width: 20px; height: 20px;
-      border-color: var(--accent); border-style: solid;
-    }
-    .qr-corner.tl { top: 8px; left: 8px; border-width: 3px 0 0 3px; }
-    .qr-corner.tr { top: 8px; right: 8px; border-width: 3px 3px 0 0; }
-    .qr-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 3px 3px; }
-    .qr-corner.br { bottom: 8px; right: 8px; border-width: 0 3px 3px 0; }
-
-    /* ===== SHOP ===== */
-    .shop-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 12px;
-      display: flex; gap: 12px; align-items: center;
-      margin-bottom: 10px;
-    }
-    .shop-img {
-      width: 58px; height: 58px; background: #F2EFEF;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px; flex-shrink: 0;
-    }
-    .shop-info { flex: 1; min-width: 0; }
-    .shop-name { font-weight: 700; font-size: 13px; }
-    .shop-desc { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-    .shop-price { font-size: 15px; font-weight: 700; color: var(--primary); margin-top: 3px; }
-    .shop-badge {
-      font-size: 9px; font-weight: 700;
-      padding: 2px 6px; border-radius: 4px;
-      display: inline-block; margin-top: 3px;
-    }
-    .sb-bestseller { background: #FFF0A0; color: #7A5C00; }
-    .sb-limited { background: #FFE0E0; color: #9A1414; }
-    .sb-nieuw { background: #E0F4E0; color: #1B5E20; }
-
-    /* ===== QTY CONTROL ===== */
-    .qty-ctrl { display: flex; align-items: center; gap: 7px; }
-    .qty-btn {
-      width: 28px; height: 28px;
-      border: 1.5px solid var(--border); background: white;
-      border-radius: 50%; font-size: 16px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; color: var(--primary);
-      transition: background 0.1s;
-    }
-    .qty-btn:hover { background: var(--border); }
-    .qty-num { font-size: 14px; font-weight: 700; min-width: 18px; text-align: center; }
-
-    /* ===== CART ===== */
-    .cart-item {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 12px;
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 10px;
-    }
-    .cart-item-emoji { font-size: 22px; flex-shrink: 0; }
-    .cart-item-info { flex: 1; }
-    .cart-item-name { font-size: 13px; font-weight: 600; }
-    .cart-item-price { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .cart-summary {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-top: 12px;
-    }
-    .summary-row {
-      display: flex; justify-content: space-between;
-      font-size: 13px; margin-bottom: 7px;
-    }
-    .summary-row.total {
-      font-size: 16px; font-weight: 700; color: var(--primary);
-      padding-top: 9px; border-top: 1px solid var(--border); margin-top: 5px;
-    }
-    .empty-state {
-      text-align: center; padding: 40px 20px; color: var(--text-muted);
-    }
-    .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-state p { font-size: 14px; margin-bottom: 6px; }
-
-    /* ===== CHATBOT ===== */
-    .ai-label {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: linear-gradient(135deg, var(--accent), #B8940E);
-      color: white; font-size: 10px; font-weight: 700;
-      padding: 3px 8px; border-radius: 8px; margin-bottom: 8px;
-    }
-    .chat-messages {
-      flex: 1; overflow-y: auto;
-      padding: 10px 0;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .chat-messages::-webkit-scrollbar { display: none; }
-    .msg {
-      max-width: 82%; padding: 10px 14px;
-      border-radius: 16px; font-size: 13px; line-height: 1.5;
-    }
-    .msg.bot { background: #EFEAE6; align-self: flex-start; border-top-left-radius: 4px; }
-    .msg.user { background: var(--primary); color: white; align-self: flex-end; border-top-right-radius: 4px; }
-    .msg.thinking {
-      background: #EFEAE6; align-self: flex-start;
-      border-top-left-radius: 4px; color: var(--text-muted);
-    }
-    .typing-dots { display: inline-flex; gap: 4px; align-items: center; }
-    .typing-dots span {
-      width: 7px; height: 7px; background: var(--text-muted);
-      border-radius: 50%; animation: blink 1.2s infinite;
-    }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes blink { 0%,80%,100% { opacity:0.2; } 40% { opacity:1; } }
-
-    .quick-chips {
-      display: flex; gap: 7px; overflow-x: auto;
-      padding: 6px 0; flex-shrink: 0;
-    }
-    .quick-chips::-webkit-scrollbar { display: none; }
-    .chip {
-      background: white; border: 1.5px solid var(--border);
-      color: var(--primary); padding: 6px 12px;
-      border-radius: 20px; font-size: 11px; font-weight: 600;
-      white-space: nowrap; cursor: pointer;
-      transition: border-color 0.1s, background 0.1s;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .chip:hover { background: var(--border); border-color: var(--secondary); }
-    .chat-input-row {
-      display: flex; gap: 8px; padding-top: 10px;
-      border-top: 1px solid var(--border); flex-shrink: 0;
-    }
-    .chat-input {
-      flex: 1; padding: 10px 14px;
-      border: 1.5px solid var(--border); border-radius: 20px;
-      font-family: 'DM Sans', sans-serif; font-size: 13px; outline: none;
-      transition: border-color 0.15s;
-    }
-    .chat-input:focus { border-color: var(--secondary); }
-    .send-btn {
-      background: var(--primary); border: none; color: white;
-      width: 38px; height: 38px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; flex-shrink: 0;
-      transition: background 0.15s;
-    }
-    .send-btn:hover { background: var(--secondary); }
-
-    /* ===== EVENTS ===== */
-    .event-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px; margin-bottom: 10px;
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .event-date {
-      background: var(--primary); color: white;
-      border-radius: 10px; padding: 8px 10px;
-      text-align: center; flex-shrink: 0; min-width: 46px;
-    }
-    .event-date .day { font-size: 20px; font-weight: 700; line-height: 1; }
-    .event-date .month { font-size: 10px; font-weight: 600; opacity: 0.8; margin-top: 1px; }
-    .event-info { flex: 1; }
-    .event-title { font-weight: 700; font-size: 14px; }
-    .event-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
-
-    /* ===== COMMUNITY ===== */
-    .forum-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px; margin-bottom: 10px;
-    }
-    .forum-meta {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 6px;
-    }
-    .forum-title { font-weight: 700; font-size: 14px; }
-    .forum-ts { font-size: 11px; color: var(--text-muted); }
-    .forum-body { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-    .forum-reply { font-size: 12px; color: var(--secondary); font-weight: 600; margin-top: 8px; cursor: pointer; }
-
-    .badge-pill {
-      background: #F2EFEF; border-radius: 20px;
-      padding: 6px 12px; font-size: 12px; font-weight: 600;
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .badge-pill.earned { background: var(--warning-bg); color: var(--warning-text); }
-
-    /* ===== SUBSCRIPTIONS ===== */
-    .sub-card {
-      background: white; border: 2px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-bottom: 12px;
-      position: relative;
-    }
-    .sub-card.featured { border-color: var(--accent); }
-    .sub-featured-label {
-      position: absolute; top: -11px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--accent); color: var(--primary);
-      font-size: 10px; font-weight: 700;
-      padding: 2px 14px; border-radius: 20px;
-    }
-    .sub-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
-    .sub-price { font-size: 22px; font-weight: 700; color: var(--primary); }
-    .sub-price span { font-size: 13px; font-weight: 400; color: var(--text-muted); }
-    .sub-features { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.9; }
-
-    /* ===== NOTIFICATIONS SETTINGS ===== */
-    .notif-toggle-row {
-      display: flex; justify-content: space-between; align-items: center;
+      gap: 14px;
       padding: 12px 0;
       border-bottom: 1px solid var(--border);
     }
-    .notif-toggle-row:last-child { border-bottom: none; }
+
+    .toggle-row:last-child { border-bottom: 0; }
+
+    .toggle-copy strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .toggle-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
     .toggle {
-      width: 42px; height: 24px;
-      background: var(--border); border-radius: 12px;
-      position: relative; cursor: pointer;
-      transition: background 0.2s;
+      width: 44px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--border);
+      position: relative;
+      border: 0;
+      cursor: pointer;
+      flex: 0 0 auto;
     }
-    .toggle.on { background: var(--primary); }
+
     .toggle::after {
-      content: ''; position: absolute;
-      width: 18px; height: 18px;
-      background: white; border-radius: 50%;
-      top: 3px; left: 3px;
-      transition: transform 0.2s;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+      transition: transform 0.18s;
     }
+
+    .toggle.on { background: var(--primary); }
     .toggle.on::after { transform: translateX(18px); }
 
-    /* ===== ORDER TRACKING ===== */
-    .track-steps {
-      display: flex; align-items: center;
-      margin: 12px 0;
-    }
-    .track-step {
-      text-align: center; flex: 1;
-    }
-    .track-step .ts-icon { font-size: 20px; }
-    .track-step .ts-label {
-      font-size: 9px; font-weight: 600; margin-top: 4px;
-      color: var(--text-muted);
-    }
-    .track-step.done .ts-label { color: var(--success); }
-    .track-line {
-      flex: 1; height: 2px;
-      background: var(--border);
-    }
-    .track-line.done { background: var(--success); }
-
-    /* ===== SUCCESS STATE ===== */
-    .success-state { text-align: center; padding: 24px 16px; }
-    .success-icon {
-      width: 72px; height: 72px;
-      background: var(--success-bg); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px; margin: 0 auto 16px;
-    }
-    .success-state h3 {
-      font-family: 'Playfair Display', serif;
-      color: var(--primary); margin-bottom: 6px; font-size: 20px;
-    }
-    .success-state p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-    .info-box {
-      border-radius: 12px; padding: 14px;
-      margin-top: 16px; font-size: 13px; text-align: left; line-height: 1.8;
-    }
-    .info-box.green { background: var(--success-bg); color: #1B5E20; }
-    .info-box.yellow { background: var(--warning-bg); color: var(--warning-text); }
-
-    /* ===== STORE MAP ===== */
-    .map-placeholder {
-      background: #EFEAE6; border-radius: 14px;
-      height: 130px; display: flex;
-      align-items: center; justify-content: center;
-      margin-bottom: 14px; flex-direction: column; gap: 6px;
-      font-size: 13px; color: var(--text-muted);
+    .scanner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 24px;
+      background: #17100f;
+      color: white;
+      text-align: center;
     }
 
-    /* ===== B2B SCREEN ===== */
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .stat-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px;
-    }
-    .stat-value { font-size: 22px; font-weight: 700; color: var(--primary); }
-    .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
-    /* ===== PROGRESS BAR ===== */
-    .progress-bar {
-      background: #EFEAE6; border-radius: 8px;
-      height: 8px; overflow: hidden; margin-top: 8px;
-    }
-    .progress-fill {
-      background: var(--accent); height: 100%; border-radius: 8px;
-      transition: width 0.4s ease;
+    .scan-box {
+      width: 220px;
+      height: 220px;
+      border: 3px solid var(--accent);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ===== NOTIF DOT ===== */
-    .notif-dot {
-      position: absolute; top: 4px; right: 4px;
-      width: 8px; height: 8px;
-      background: #E74C3C; border-radius: 50%;
+    .scan-box::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      top: 0;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 2s ease-in-out infinite;
     }
+
+    @keyframes scan {
+      0%, 100% { top: 8px; }
+      50% { top: 208px; }
+    }
+
+    .toast {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 86px;
+      display: none;
+      padding: 12px 14px;
+      background: #17100f;
+      color: white;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      z-index: 30;
+    }
+
+    .toast.show { display: block; }
   </style>
 </head>
 <body>
-
-<div class="phone">
-  <div class="notch"></div>
-
-  <!-- Status bar -->
-  <div class="status-bar">
-    <span id="clock">09:41</span>
-    <div style="display:flex;gap:5px;align-items:center;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.5C4.26 5.74 8.01 4 12 4s7.74 1.74 10.5 4.5L24 7C20.8 3.8 16.63 2 12 2S3.2 3.8 0 7l1.5 1.5zm10.5 10L15.5 22l1.5-1.5-3-3L15.5 16l-1.5-1.5L12 16l-1.5-1.5L9 16l1.5 1.5-3 3 1.5 1.5L12 18.5z"/></svg>
-      <svg width="16" height="14" viewBox="0 0 24 12" fill="currentColor"><rect x="0" y="0" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="2" width="13" height="8" rx="1" fill="currentColor"/><path d="M19.5 4v4c.83-.63 1.5-1.21 1.5-2s-.67-1.37-1.5-2z"/></svg>
-    </div>
-  </div>
-
-  <!-- ==================== HOME ==================== -->
-  <div id="screen-home" class="screen active">
-    <div class="app-header">
-      <h1>Chocolate Firm</h1>
-      <button class="header-btn" onclick="navigateTo('products')" title="Scan QR-code">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h5V3H3c-1.1 0-2 .9-2 2v5h1V5c0-1.1.9-2 2-2zm0 15c-1.1 0-2-.9-2-2v-5H0v5c0 1.1.9 2 2 2h5v-1H3zm18-6h-1v5c0 1.1-.9 2-2 2h-5v1h5c1.1 0 2-.9 2-2v-5zm-1-8c0-1.1-.9-2-2-2h-5v1h5c1.1 0 2 .9 2 2v5h1V5zM7 7h4v4H7zm1 1v2h2V8zm5-1h4v4h-4zm1 1v2h2V8zM7 13h4v4H7zm1 1v2h2v-2z"/></svg>
-      </button>
-    </div>
-    <div class="screen-content">
-
-      <!-- US-02: Persoonlijk dashboard -->
-      <div class="welcome-card">
-        <h2>Welkom terug, Alex</h2>
-        <p>Jouw passie voor pure duurzaamheid maakt impact.</p>
-        <div class="loyalty-badge" id="home-points">✨ <span id="home-pts-num">450</span> ChocoPoints</div>
-      </div>
-
-      <div class="section-title">
-        <span>Mijn Repen</span>
-        <button class="section-link btn" onclick="navigateTo('products')">Bekijk alles →</button>
-      </div>
-      <div id="home-product-list">
-        <div class="product-card" onclick="navigateTo('products')">
-          <div class="product-emoji">🍫</div>
-          <div class="product-details">
-            <div class="product-title">Fairtrade Puur 72% (Peru)</div>
-            <div class="product-meta">Batch: #PE-2026 • Geregistreerd vandaag</div>
-            <span class="tag tag-warn">Houdbaar tot: Jan 2027</span>
-          </div>
-        </div>
-        <div class="product-card" onclick="navigateTo('products')">
-          <div class="product-emoji">🍯</div>
-          <div class="product-details">
-            <div class="product-title">Melk Gezouten Karamel</div>
-            <div class="product-meta">Batch: #MK-8812 • Geregistreerd 2 weken geleden</div>
-            <span class="tag tag-danger">⚠️ Houdbaar tot: Jul 2026</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- US-03: Gepersonaliseerde aanbevelingen -->
-      <div class="section-title" style="margin-top:20px;">Speciaal voor jou</div>
-      <div class="grid-2">
-        <div class="discovery-card" onclick="navigateTo('shop')">
-          <div class="discovery-img">🔥</div>
-          <div class="discovery-info"><h4>Limited: Chili &amp; Kriek</h4><p>Smaakprofiel: Krachtig</p></div>
-        </div>
-        <div class="discovery-card" onclick="navigateTo('shop')">
-          <div class="discovery-img">🌿</div>
-          <div class="discovery-info"><h4>Vegan Kokosmelk 45%</h4><p>100% Biologisch</p></div>
-        </div>
-      </div>
-
-      <!-- US-04 preview -->
-      <div class="section-title">Nieuws &amp; Updates</div>
-      <div class="news-card">
-        <div class="news-label" style="color:var(--accent)">🌱 DUURZAAMHEID</div>
-        <div class="news-title">Nieuwe Fairtrade batch gearriveerd</div>
-        <div class="news-body">Onze Peru-cacao van seizoen 2026 is nu beschikbaar in de shop — direct leverbaar.</div>
-      </div>
-      <div class="news-card">
-        <div class="news-label" style="color:var(--primary)">🎪 EVENEMENT</div>
-        <div class="news-title">Chocolade Workshop Utrecht</div>
-        <div class="news-body">Zaterdag 14 juni · Nog 5 plekken vrij</div>
-        <button class="btn btn-accent" style="margin-top:10px;" onclick="navigateTo('events')">Bekijken &amp; inschrijven</button>
-      </div>
-      <!-- US-17: Keurmerken -->
-      <div class="section-title" style="margin-top:4px;">Onze Certificeringen</div>
-      <div class="card" style="margin-bottom:10px;">
-        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-          <div style="text-align:center;">
-            <div style="font-size:26px;">🌱</div>
-            <div style="font-size:10px;font-weight:700;color:var(--success);margin-top:3px;">Fairtrade</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-size:26px;">🌍</div>
-            <div style="font-size:10px;font-weight:700;color:var(--primary);margin-top:3px;">CO2-Neutraal</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-size:26px;">🌾</div>
-            <div style="font-size:10px;font-weight:700;color:#2E7D32;margin-top:3px;">Biologisch</div>
-          </div>
-          <div style="text-align:center;">
-            <div style="font-size:26px;">✅</div>
-            <div style="font-size:10px;font-weight:700;color:#1565C0;margin-top:3px;">Rainforest Alliance</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== PRODUCTS (US-01, US-02) ==================== -->
-  <div id="screen-products" class="screen">
-    <div class="app-header"><h1>Product Registratie</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="products" data-panel="reg" onclick="switchTab(this)">Registreren</div>
-      <div class="sub-tab" data-screen="products" data-panel="mijn" onclick="switchTab(this)">Mijn Producten</div>
-      <div class="sub-tab" data-screen="products" data-panel="detail" onclick="switchTab(this)">Details</div>
-    </div>
-    <div class="screen-content">
-
-      <!-- Register tab -->
-      <div id="products-reg" class="sub-panel active">
-        <div class="card" style="text-align:center;margin-bottom:14px;">
-          <p style="font-size:13px;margin-bottom:12px;color:var(--text-muted);">Scan de QR-code op de verpakking voor directe herkomst-, allergeen- en houdbaarheidsinformatie.</p>
-          <button class="btn btn-primary" onclick="openScanner()">📷 Open QR-scanner</button>
-        </div>
-        <div class="card" style="text-align:center;">
-          <p style="font-size:13px;margin-bottom:10px;color:var(--text-muted);">Geen QR-code? Voer het batchnummer handmatig in.</p>
-          <input type="text" class="form-input" id="manual-batch" placeholder="bijv. #PE-2026" style="margin-bottom:10px;">
-          <button class="btn btn-primary" onclick="manualRegister()">Opzoeken &amp; Registreren</button>
-        </div>
-      </div>
-
-      <!-- My products tab -->
-      <div id="products-mijn" class="sub-panel">
-        <div id="registered-products-list"></div>
-        <div style="background:var(--warning-bg);border-radius:12px;padding:12px;font-size:12px;color:var(--warning-text);margin-top:4px;">
-          💡 Registreer een product via QR-scan of batchnummer en verdien <strong>25 ChocoPoints</strong>.
-        </div>
-      </div>
-
-      <!-- Detail tab (US-16: herkomstinformatie) -->
-      <div id="products-detail" class="sub-panel">
-        <div class="card" style="margin-bottom:12px;">
-          <div style="font-size:20px;margin-bottom:6px;">🍫 Fairtrade Puur 72%</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Batch: #PE-2026 · Peru</div>
-          <div class="menu-list" style="margin-bottom:0;">
-            <div class="menu-item"><span>🌍 Herkomst</span><span style="color:var(--text-dark);font-weight:600;">Piura, Peru 🇵🇪</span></div>
-            <div class="menu-item"><span>⚠️ Allergenen</span><span style="color:var(--text-dark);">Sojavrij · Vegan</span></div>
-            <div class="menu-item"><span>📊 Cacaogehalte</span><span style="color:var(--text-dark);">72%</span></div>
-            <div class="menu-item"><span>🌱 Fairtrade</span><span style="color:var(--success);font-weight:700;">Gecertificeerd ✓</span></div>
-            <div class="menu-item"><span>🌾 Biologisch</span><span style="color:var(--success);font-weight:700;">Gecertificeerd ✓</span></div>
-            <div class="menu-item"><span>📅 Houdbaar tot</span><span style="color:var(--text-dark);">Januari 2027</span></div>
-            <div class="menu-item"><span>👨‍🌾 Cacaoboer</span><span style="color:var(--text-dark);">Cooperativa Piura</span></div>
-          </div>
-        </div>
-        <div class="info-box yellow">
-          🌱 <strong>Traceerbaar van boon tot reep.</strong><br>
-          De cacao voor dit product is afkomstig van Fairtrade gecertificeerde boeren in de regio Piura, Peru. De oogst is biologisch en CO2-neutraal vervoerd naar onze fabriek in Utrecht.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== QR SCANNER ==================== -->
-  <div id="screen-scanner" class="screen">
-    <div style="padding:16px 20px;display:flex;align-items:center;gap:10px;">
-      <button class="btn" style="background:rgba(255,255,255,0.15);color:white;border-radius:20px;padding:6px 14px;font-size:13px;" onclick="closeScanner()">← Terug</button>
-      <h3 style="color:white;font-family:'Playfair Display',serif;">Scan QR-code</h3>
-    </div>
-    <div class="qr-overlay">
-      <p style="font-size:13px;opacity:0.7;text-align:center;max-width:240px;">Richt de camera op de QR-code binnenzijde de verpakking</p>
-      <div class="qr-box">
-        <div class="qr-line"></div>
-        <div class="qr-corner tl"></div>
-        <div class="qr-corner tr"></div>
-        <div class="qr-corner bl"></div>
-        <div class="qr-corner br"></div>
-      </div>
-      <button class="btn btn-accent" onclick="simulateScan()">✅ Simuleer succesvolle scan</button>
-      <p style="font-size:12px;opacity:0.5;margin-top:16px;">Demo-modus — in productie gebruikt de camera</p>
-    </div>
-  </div>
-
-  <!-- ==================== ONTDEKKEN ==================== -->
-  <div id="screen-explore" class="screen">
-    <div class="app-header"><h1>Ontdekken</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="explore" data-panel="recepten" onclick="switchTab(this)">Recepten</div>
-      <div class="sub-tab" data-screen="explore" data-panel="verhaal" onclick="switchTab(this)">Van Boon tot Reep</div>
-      <div class="sub-tab" data-screen="explore" data-panel="productinfo" onclick="switchTab(this)">Productinfo</div>
-    </div>
-    <div class="screen-content">
-      <div id="explore-recepten" class="sub-panel active">
-        <div class="info-box yellow" style="margin-bottom:16px;">
-          🏆 Sluit de <strong>Zomerse Choco Challenge</strong> af en verdien 50 extra ChocoPoints!
-          <div class="progress-bar" style="margin-top:8px;"><div class="progress-fill" style="width:60%"></div></div>
-          <div style="font-size:11px;margin-top:4px;">60% voltooid</div>
-        </div>
-        <div class="grid-2">
-          <div class="discovery-card"><div class="discovery-img">🍰</div><div class="discovery-info"><h4>Choco-Fudge Brownies</h4><p>25 min · Gemiddeld</p></div></div>
-          <div class="discovery-card"><div class="discovery-img">☕</div><div class="discovery-info"><h4>Spiced Hot Chocolate</h4><p>10 min · Makkelijk</p></div></div>
-          <div class="discovery-card"><div class="discovery-img">🍪</div><div class="discovery-info"><h4>Choco Chip Cookies</h4><p>20 min · Makkelijk</p></div></div>
-          <div class="discovery-card"><div class="discovery-img">🎂</div><div class="discovery-info"><h4>Fondant au Chocolat</h4><p>35 min · Gevorderd</p></div></div>
-        </div>
-      </div>
-      <div id="explore-verhaal" class="sub-panel">
-        <div class="menu-list">
-          <div class="menu-item"><span>🎬 Onze cacaoboeren in Peru &amp; Ghana</span><span class="menu-chevron">▶</span></div>
-          <div class="menu-item"><span>🎬 Het fermentatieproces</span><span class="menu-chevron">▶</span></div>
-          <div class="menu-item"><span>🎬 Van boon tot tablet</span><span class="menu-chevron">▶</span></div>
-          <div class="menu-item"><span>🛡️ Fairtrade &amp; Certificeringen</span><span class="menu-chevron">👁</span></div>
-          <div class="menu-item"><span>🌱 CO2-Neutrale productieplanning</span><span class="menu-chevron">👁</span></div>
-        </div>
-        <!-- US-16: Herkomst leverancier info -->
-        <div class="card">
-          <div style="font-weight:700;font-size:14px;margin-bottom:8px;">🌍 Onze Herkomst</div>
-          <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">
-            Al onze cacao komt van <strong>Fairtrade gecertificeerde boeren</strong> in Peru en Ghana. Elk batchnummer is traceerbaar tot aan de boerderij. Wij betalen minimaal 20% boven de marktprijs als premie voor duurzame teelt.
-          </div>
-        </div>
-      </div>
-      <div id="explore-productinfo" class="sub-panel">
-        <div class="product-card" style="flex-direction:column;align-items:flex-start;gap:8px;">
-          <div style="display:flex;gap:10px;align-items:center;width:100%;">
-            <div class="product-emoji">🍫</div>
-            <div class="product-details">
-              <div class="product-title">Fairtrade Puur 72%</div>
-              <div class="product-meta">Peru · Vegan · Fairtrade</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Single-origin cacao uit Piura, Peru. Nootachtig, fruitig en intensief.</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span class="tag tag-ok">Vegan ✓</span>
-            <span class="tag tag-ok">Fairtrade ✓</span>
-            <span class="tag tag-ok">Biologisch ✓</span>
-          </div>
-        </div>
-        <div class="product-card" style="flex-direction:column;align-items:flex-start;gap:8px;">
-          <div style="display:flex;gap:10px;align-items:center;width:100%;">
-            <div class="product-emoji">🌿</div>
-            <div class="product-details">
-              <div class="product-title">Vegan Kokosmelk 45%</div>
-              <div class="product-meta">Ghana · 100% Biologisch</div>
-            </div>
-          </div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Romig, licht zoet en volledig plantaardig. Gecertificeerd biologisch en Fairtrade.</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span class="tag tag-ok">Vegan ✓</span>
-            <span class="tag tag-ok">Biologisch ✓</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== SHOP (US-06) ==================== -->
-  <div id="screen-shop" class="screen">
-    <div class="app-header">
-      <h1>Shop</h1>
-      <button class="header-btn" onclick="navigateTo('cart')">
-        🛒
-        <span class="nav-badge" id="header-cart-badge">0</span>
-      </button>
-    </div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="shop" data-panel="bestellen" onclick="switchTab(this)">Bestellen</div>
-      <div class="sub-tab" data-screen="shop" data-panel="abonnementen" onclick="switchTab(this)">Abonnementen</div>
-      <div class="sub-tab" data-screen="shop" data-panel="volgen" onclick="switchTab(this)">Bestellingen</div>
-    </div>
-    <div class="screen-content">
-      <div id="shop-bestellen" class="sub-panel active">
-        <div style="background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;padding:12px 14px;color:white;font-size:12px;margin-bottom:14px;line-height:1.6;">
-          🚚 Gratis verzending bij bestelling ≥ €30 &nbsp;·&nbsp; 🌱 CO2-neutrale bezorging
-        </div>
-        <div class="section-title">Bestsellers</div>
-        <div id="shop-product-list"></div>
-      </div>
-      <div id="shop-abonnementen" class="sub-panel">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Ontvang maandelijks een selectie van onze beste chocolades aan huis.</p>
-        <div class="sub-card">
-          <div class="sub-name">Starter Box</div>
-          <div class="sub-price">€12,95 <span>/maand</span></div>
-          <div class="sub-features">✓ 3 repen per maand<br>✓ Gratis verzending<br>✓ 10% winkelkorting</div>
-          <button class="btn btn-outline btn-full" style="margin-top:12px;" onclick="showSubConfirm('Starter Box','€12,95')">Selecteer</button>
-        </div>
-        <div class="sub-card featured">
-          <div class="sub-featured-label">MEEST POPULAIR</div>
-          <div class="sub-name">Connoisseur Box</div>
-          <div class="sub-price">€22,95 <span>/maand</span></div>
-          <div class="sub-features">✓ 6 repen per maand<br>✓ Gratis verzending<br>✓ 15% korting + exclusieve limited editions</div>
-          <button class="btn btn-primary btn-full" style="margin-top:12px;" onclick="showSubConfirm('Connoisseur Box','€22,95')">Selecteer</button>
-        </div>
-        <div class="sub-card">
-          <div class="sub-name">Chocolatier Box</div>
-          <div class="sub-price">€39,95 <span>/maand</span></div>
-          <div class="sub-features">✓ 12 repen + verrassing<br>✓ Gratis verzending<br>✓ 20% korting + workshop toegang</div>
-          <button class="btn btn-outline btn-full" style="margin-top:12px;" onclick="showSubConfirm('Chocolatier Box','€39,95')">Selecteer</button>
-        </div>
-      </div>
-      <!-- US-06: Beheer van bestellingen -->
-      <div id="shop-volgen" class="sub-panel">
-        <div class="card" style="margin-bottom:10px;">
-          <div style="font-size:11px;color:var(--accent);font-weight:700;margin-bottom:5px;">LAATSTE BESTELLING</div>
-          <div style="font-size:15px;font-weight:700;">Bestelling CF-3847</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Geplaatst: 2 jun 2026 · 3 producten · €16,45</div>
-          <div class="track-steps" style="margin-top:14px;">
-            <div class="track-step done"><div class="ts-icon">✅</div><div class="ts-label">Bevestigd</div></div>
-            <div class="track-line done"></div>
-            <div class="track-step done"><div class="ts-icon">📦</div><div class="ts-label">Verpakt</div></div>
-            <div class="track-line"></div>
-            <div class="track-step"><div class="ts-icon" style="opacity:0.3">🚚</div><div class="ts-label">Onderweg</div></div>
-            <div class="track-line"></div>
-            <div class="track-step"><div class="ts-icon" style="opacity:0.3">🏠</div><div class="ts-label">Bezorgd</div></div>
-          </div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:10px;">📅 Verwachte bezorging: <strong>5 juni 2026</strong></div>
-        </div>
-        <div class="card" style="margin-bottom:10px;">
-          <div style="font-size:11px;color:var(--text-muted);font-weight:600;margin-bottom:4px;">EERDER</div>
-          <div style="font-size:14px;font-weight:700;">Bestelling CF-2210</div>
-          <div style="font-size:12px;color:var(--text-muted);">Bezorgd 15 mei 2026 ✅ · 2 producten · €10,45</div>
-          <button class="btn btn-outline" style="margin-top:10px;font-size:12px;padding:6px 14px;border-radius:20px;" onclick="alert('Factuur CF-2210 wordt geopend...')">📄 Factuur bekijken</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== CART ==================== -->
-  <div id="screen-cart" class="screen">
-    <div class="app-header">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <button class="header-btn" onclick="navigateTo('shop')" style="font-size:18px;">←</button>
-        <h1>Winkelwagen</h1>
-      </div>
-    </div>
-    <div class="screen-content" id="cart-content"></div>
-  </div>
-
-  <!-- ==================== KLANTENSERVICE (US-08, US-09) ==================== -->
-  <div id="screen-support" class="screen">
-    <div class="app-header"><h1>Klantenservice</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="support" data-panel="chocbot" onclick="switchTab(this)">ChocBot AI</div>
-      <div class="sub-tab" data-screen="support" data-panel="klacht" onclick="switchTab(this)">Klacht</div>
-      <div class="sub-tab" data-screen="support" data-panel="faq" onclick="switchTab(this)">FAQ</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar">
+      <span id="clock">09:41</span>
+      <span>5G 100%</span>
     </div>
 
-    <!-- ChocBot panel (flex) -->
-    <div id="support-chocbot" class="sub-panel-flex active" style="flex:1;overflow:hidden;padding:0 16px 12px;">
-      <div class="ai-label" style="margin-top:10px;"></div>
-      <div class="chat-messages" id="chat-area">
-        <div class="msg bot"><strong>ChocBot</strong> hier 👋<br>Ik ben 24/7 beschikbaar voor al je vragen over Chocolate Firm. Hoe kan ik je helpen?</div>
+    <div id="screen-home" class="screen active">
+      <div class="app-header">
+        <div class="app-title">
+          <h1>Chocolate Firm</h1>
+          <p>Versie 1 consumentenapp</p>
+        </div>
+        <button class="header-action" onclick="openScanner()" aria-label="QR-code scannen">QR</button>
       </div>
-      <div class="quick-chips" id="quick-chips">
-        <button class="chip" onclick="quickReply('Wat zijn de allergenen in de Puur 72%?')">⚠️ Allergenen</button>
-        <button class="chip" onclick="quickReply('Ik wil een klacht indienen')">📦 Klacht</button>
-        <button class="chip" onclick="quickReply('Waar komt jullie cacao vandaan?')">🌍 Herkomst</button>
-        <button class="chip" onclick="quickReply('Wat is mijn bestelling status?')">🚚 Bestelling</button>
-        <button class="chip" onclick="quickReply('Hoe werken ChocoPoints?')">✨ ChocoPoints</button>
-      </div>
-      <div class="chat-input-row">
-        <input type="text" class="chat-input" id="chat-input" placeholder="Stel je vraag aan ChocBot..." onkeypress="if(event.key==='Enter')sendChat()">
-        <button class="send-btn" onclick="sendChat()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
+      <div class="content">
+        <div class="hero">
+          <h2>Welkom terug, Alex</h2>
+          <p>Je hebt vandaag 2 geregistreerde producten en 1 lopende servicemelding.</p>
+        </div>
+
+        <div class="section-title">
+          <span>Mijn producten</span>
+          <button class="link-btn" onclick="navigateTo('products')">Alles bekijken</button>
+        </div>
+        <div id="home-products"></div>
+
+        <div class="section-title">
+          <span>Voor jou</span>
+        </div>
+        <div id="recommendations" class="grid-2"></div>
+
+        <div class="section-title">
+          <span>Statusupdates</span>
+          <button class="link-btn" onclick="navigateTo('support'); switchTabById('support','status')">Openen</button>
+        </div>
+        <div id="home-tickets"></div>
       </div>
     </div>
 
-    <!-- Klacht panel -->
-    <div id="support-klacht" class="sub-panel" style="flex:1;overflow-y:auto;padding:14px 16px 90px;">
-      <div id="klacht-form">
-        <div class="info-box yellow" style="margin-bottom:14px;">
-          📋 Je klacht wordt geregistreerd in ons systeem en binnen 24 uur behandeld. Je ontvangt een ticketnummer per e-mail.
+    <div id="screen-products" class="screen">
+      <div class="app-header">
+        <div class="app-title">
+          <h1>Producten</h1>
+          <p>Registratie en productinformatie</p>
         </div>
-        <div class="form-group">
-          <label class="form-label">Batchnummer (zie verpakking) *</label>
-          <input type="text" class="form-input" id="complaint-batch" placeholder="bijv. #PE-2026">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Type klacht *</label>
-          <select class="form-select" id="complaint-type">
-            <option value="">Selecteer een type...</option>
-            <option value="kwaliteit">Kwaliteitsprobleem</option>
-            <option value="levering">Leveringsprobleem</option>
-            <option value="verpakking">Beschadigde verpakking</option>
-            <option value="smaak">Smaakafwijking</option>
-            <option value="anders">Anders</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Omschrijving *</label>
-          <textarea class="form-textarea" id="complaint-desc" placeholder="Omschrijf je klacht zo gedetailleerd mogelijk..."></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">E-mailadres *</label>
-          <input type="email" class="form-input" id="complaint-email" value="alex.devries@email.nl">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Ticketnummer opvolgen</label>
-          <input type="text" class="form-input" placeholder="bijv. TKT-12345 (optioneel)">
-        </div>
-        <button class="btn btn-full primary" onclick="submitComplaint()">📤 Klacht Indienen</button>
+        <button class="header-action" onclick="openScanner()" aria-label="QR-code scannen">QR</button>
       </div>
-    </div>
-
-    <!-- FAQ panel -->
-    <div id="support-faq" class="sub-panel" style="flex:1;overflow-y:auto;padding:14px 16px 90px;">
-      <div class="menu-list">
-        <div class="menu-item" onclick="quickReply('Hoe registreer ik een product via QR-code?');switchTabById('support','chocbot')"><span>Hoe registreer ik een product?</span><span class="menu-chevron">→</span></div>
-        <div class="menu-item" onclick="quickReply('Wat zijn de bezorgkosten?');switchTabById('support','chocbot')"><span>Wat zijn de bezorgkosten?</span><span class="menu-chevron">→</span></div>
-        <div class="menu-item" onclick="quickReply('Hoe werken ChocoPoints?');switchTabById('support','chocbot')"><span>Hoe werkt het loyaltyprogramma?</span><span class="menu-chevron">→</span></div>
-        <div class="menu-item" onclick="quickReply('Allergeneninformatie voor alle producten');switchTabById('support','chocbot')"><span>Allergeneninformatie</span><span class="menu-chevron">→</span></div>
-        <div class="menu-item" onclick="quickReply('Hoe kan ik een product retourneren of ruilen?');switchTabById('support','chocbot')"><span>Retourneren &amp; ruilen</span><span class="menu-chevron">→</span></div>
-        <div class="menu-item" onclick="quickReply('Hoe kan ik mijn abonnement wijzigen of opzeggen?');switchTabById('support','chocbot')"><span>Abonnement wijzigen/opzeggen</span><span class="menu-chevron">→</span></div>
+      <div class="tabs">
+        <button class="tab active" data-screen="products" data-panel="register" onclick="switchTab(this)">Registreren</button>
+        <button class="tab" data-screen="products" data-panel="mine" onclick="switchTab(this)">Mijn producten</button>
+        <button class="tab" data-screen="products" data-panel="details" onclick="switchTab(this)">Details</button>
       </div>
-      <p style="font-size:12px;color:var(--text-muted);text-align:center;">Klik op een vraag om ChocBot direct te openen</p>
-    </div>
-  </div>
-
-  <!-- ==================== COMMUNITY ==================== -->
-  <div id="screen-community" class="screen">
-    <div class="app-header"><h1>Community</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="community" data-panel="forum" onclick="switchTab(this)">Forum</div>
-      <div class="sub-tab" data-screen="community" data-panel="reviews" onclick="switchTab(this)">Reviews</div>
-      <div class="sub-tab" data-screen="community" data-panel="badges" onclick="switchTab(this)">Badges &amp; Challenges</div>
-    </div>
-    <div class="screen-content">
-      <div id="community-forum" class="sub-panel active">
-        <div id="forum-posts"></div>
-        <button class="btn btn-primary" style="width:100%;margin-top:4px;" onclick="newForumPost()">+ Nieuwe post</button>
-      </div>
-      <div id="community-reviews" class="sub-panel">
-        <div class="forum-card">
-          <div class="forum-meta"><div class="forum-title">Fairtrade Puur 72%</div><div style="color:var(--accent);">★★★★★</div></div>
-          <div class="forum-body">"Beste pure chocolade die ik ooit proefde. Fruitig en complex van smaak."</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">— Maria V. · 28 mei 2026</div>
-        </div>
-        <div class="forum-card">
-          <div class="forum-meta"><div class="forum-title">Chili &amp; Kriek Limited</div><div style="color:var(--accent);">★★★★☆</div></div>
-          <div class="forum-body">"Gedurfd en heerlijk. De chili heeft een mooie kick. Zeker een aanrader!"</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">— Thomas B. · 20 mei 2026</div>
-        </div>
-        <button class="btn btn-outline" style="width:100%;margin-top:4px;" onclick="alert('Review formulier opent...')">+ Review schrijven</button>
-      </div>
-      <div id="community-badges" class="sub-panel">
-        <div class="section-title">Jouw Badges</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
-          <div class="badge-pill earned">🌱 Duurzaamheidsheld</div>
-          <div class="badge-pill earned">🍫 Eerste Registratie</div>
-          <div class="badge-pill earned">⭐ Trouwe Klant</div>
-          <div class="badge-pill" style="opacity:0.5">🏆 Recept Expert <span style="font-size:10px;">(vergrendeld)</span></div>
-        </div>
-        <div class="section-title">Actieve Challenges</div>
-        <div class="forum-card">
-          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">🏆 Zomerse Choco Challenge</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Maak een recept met onze Puur 72% en deel op het forum. Verdien 50 ChocoPoints!</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">60% voltooid · Deadline: 30 juni</div>
-          <button class="btn btn-accent" style="margin-top:10px;" onclick="navigateTo('explore')">Recepten bekijken →</button>
-        </div>
-        <div class="forum-card">
-          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">⭐ Scan 5 Producten</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">Registreer 5 verschillende producten via QR-scan. Verdien 100 ChocoPoints!</div>
-          <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">2 van 5 gescand</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== EVENTS & LOCATIES ==================== -->
-  <div id="screen-events" class="screen">
-    <div class="app-header"><h1>Events &amp; Locaties</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="events" data-panel="winkels" onclick="switchTab(this)">Winkelzoeker</div>
-      <div class="sub-tab" data-screen="events" data-panel="events" onclick="switchTab(this)">Events</div>
-      <div class="sub-tab" data-screen="events" data-panel="inschrijven" onclick="switchTab(this)">Inschrijven</div>
-    </div>
-    <div class="screen-content">
-      <div id="events-winkels" class="sub-panel active">
-        <input type="text" class="form-input" placeholder="🔍 Zoek op stad of postcode..." style="margin-bottom:12px;" oninput="filterStores(this.value)">
-        <div class="map-placeholder">
-          <span style="font-size:32px">🗺️</span>
-          <span>Kaart laadt hier (Google Maps integratie)</span>
-        </div>
-        <div id="store-list" class="menu-list"></div>
-      </div>
-      <div id="events-events" class="sub-panel">
-        <div id="event-list"></div>
-      </div>
-      <div id="events-inschrijven" class="sub-panel">
-        <div id="event-form-container">
-          <div class="form-group">
-            <label class="form-label">Event *</label>
-            <select class="form-select" id="event-select">
-              <option value="utrecht">Chocolade Workshop Utrecht – 14 jun (5 plekken)</option>
-              <option value="amsterdam">Cacao Proeverij Amsterdam – 28 jun (12 plekken)</option>
-            </select>
+      <div class="content">
+        <div id="products-register" class="panel active">
+          <div class="info-box blue">
+            De QR-code of batchcode koppelt je product aan de productdatabron. In deze demo staat de data lokaal in de app.
           </div>
-          <div class="form-group">
-            <label class="form-label">Naam *</label>
-            <input type="text" class="form-input" id="event-name" value="Alex de Vries">
-          </div>
-          <div class="form-group">
-            <label class="form-label">E-mailadres *</label>
-            <input type="email" class="form-input" id="event-email" value="alex.devries@email.nl">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Aantal personen *</label>
-            <select class="form-select" id="event-persons">
-              <option>1 persoon</option>
-              <option>2 personen</option>
-              <option>3 personen</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Dieetwensen / opmerkingen</label>
-            <textarea class="form-textarea" placeholder="bijv. Vegan, notensallergie..."></textarea>
-          </div>
-          <button class="btn btn-full primary" onclick="registerEvent()">✅ Inschrijven</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== PROFIEL (US-04: Notificaties) ==================== -->
-  <div id="screen-profile" class="screen">
-    <div class="app-header"><h1>Mijn Profiel</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="profile" data-panel="account" onclick="switchTab(this)">Account</div>
-      <div class="sub-tab" data-screen="profile" data-panel="notifs" onclick="switchTab(this)">Notificaties</div>
-      <div class="sub-tab" data-screen="profile" data-panel="privacy" onclick="switchTab(this)">Privacy</div>
-    </div>
-    <div class="screen-content">
-      <div id="profile-account" class="sub-panel active">
-        <div style="text-align:center;margin-bottom:20px;">
-          <div style="width:72px;height:72px;background:#EFEAE6;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:30px;">👤</div>
-          <h3 style="font-family:'Playfair Display',serif;font-size:18px;">Alex de Vries</h3>
-          <p style="font-size:12px;color:var(--text-muted);">alex.devries@email.nl</p>
-          <div style="margin-top:8px;font-size:13px;color:var(--accent);font-weight:700;" id="profile-pts-display">✨ <span id="profile-pts-num">450</span> ChocoPoints</div>
-          <div style="margin-top:6px;">
-            <span class="tag tag-accent">⭐ Trouwe Klant</span>
-          </div>
-        </div>
-        <div class="section-title">Account</div>
-        <div class="menu-list">
-          <div class="menu-item"><span>👤 Persoonsgegevens aanpassen</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>🔒 Wachtwoord wijzigen</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>💳 Betaalmethoden</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>📦 Bezorgadressen</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item" onclick="enableAdminMode()" style="font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;"><span>🔐 Demo: Admin Mode</span></div>
-          <div class="menu-item" onclick="navigateTo('home')" style="color:#C0392B;font-weight:600;"><span>← Uitloggen</span></div>
-        </div>
-      </div>
-      <!-- US-04: Notificaties instellen -->
-      <div id="profile-notifs" class="sub-panel">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Pas aan welke meldingen je wilt ontvangen.</p>
-        <div class="card">
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">📅 Houdbaarheidsherinneringen</div><div style="font-size:11px;color:var(--text-muted);">Melding vóór verlopen houdbaarheidsdatum</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">🚚 Bezorgstatus updates</div><div style="font-size:11px;color:var(--text-muted);">Real-time tracking van je bestelling</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">🛍️ Nieuwe producten &amp; aanbiedingen</div><div style="font-size:11px;color:var(--text-muted);">Limited editions en seizoensproducten</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">🎪 Events in jouw regio</div><div style="font-size:11px;color:var(--text-muted);">Workshops en proeverijen bij jou in de buurt</div></div>
-            <div class="toggle" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">✨ ChocoPoints updates</div><div style="font-size:11px;color:var(--text-muted);">Punten gespaart of reward beschikbaar</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-          <div class="notif-toggle-row">
-            <div><div style="font-size:13px;font-weight:600;">📋 Klachtstatus updates</div><div style="font-size:11px;color:var(--text-muted);">Voortgang van ingediende klachten</div></div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-          </div>
-        </div>
-        <button class="btn btn-full primary" style="margin-top:14px;" onclick="alert('Notificatievoorkeuren opgeslagen ✓')">Opslaan</button>
-      </div>
-      <!-- US-13/14: AVG -->
-      <div id="profile-privacy" class="sub-panel">
-        <div class="info-box yellow" style="margin-bottom:14px;">
-          🛡️ Chocolate Firm verwerkt je gegevens conform de AVG. Je kunt je gegevens altijd inzien, aanpassen of verwijderen.
-        </div>
-        <div class="menu-list">
-          <div class="menu-item"><span>📄 Mijn gegevens inzien (AVG)</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>📤 Gegevens exporteren</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>🗑️ Account verwijderen</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>🍪 Cookiebeleid</span><span class="menu-chevron">→</span></div>
-          <div class="menu-item"><span>📋 Privacyverklaring</span><span class="menu-chevron">→</span></div>
-        </div>
-        <div class="card">
-          <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Datakoppelingen</div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.8;">
-            ✅ CRM-systeem (klantprofiel &amp; interacties)<br>
-            ✅ ERP-systeem (bestellingen &amp; voorraad)<br>
-            ✅ BI-tool (anonieme gebruiksanalyse)<br>
-            ⏳ PostNL (bezorgstatus)
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== ADMIN DASHBOARD (US-10: Beheer van gebruikers en content) ==================== -->
-  <div id="screen-admin" class="screen">
-    <div class="app-header"><h1>⚙️ Admin Paneel</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="admin" data-panel="dashboard" onclick="switchTab(this)">Dashboard</div>
-      <div class="sub-tab" data-screen="admin" data-panel="users" onclick="switchTab(this)">Gebruikers</div>
-      <div class="sub-tab" data-screen="admin" data-panel="content" onclick="switchTab(this)">Inhoud</div>
-      <div class="sub-tab" data-screen="admin" data-panel="campaigns" onclick="switchTab(this)">Campagnes</div>
-    </div>
-    <div class="screen-content">
-      <!-- Admin Dashboard Tab -->
-      <div id="admin-dashboard" class="sub-panel active">
-        <div style="margin-bottom:16px;">
-          <div class="section-title">Systeemstatus</div>
-          <div class="stat-grid">
-            <div class="stat-card">
-              <div class="stat-value">2,547</div>
-              <div class="stat-label">Actieve gebruikers</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">48</div>
-              <div class="stat-label">Openstaande klachten</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">€18.5K</div>
-              <div class="stat-label">Gisteren omzet</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">99.7%</div>
-              <div class="stat-label">Uptime</div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-bottom:16px;">
-          <div class="section-title">Recente activiteiten</div>
           <div class="card">
-            <div style="font-size:12px;color:var(--text-muted);line-height:2;">
-              ✅ 15 nieuwe gebruikers vandaag<br>
-              ⚠️ 3 klachten wachten op afhandeling<br>
-              📊 Dagelijks rapport verzonden naar management<br>
-              🔄 Systeem sync met ERP-systeem — OK<br>
-              📱 App versie 1.2.5 — up-to-date
+            <div class="section-title" style="margin-top:0;">QR-code</div>
+            <button class="btn primary full" onclick="openScanner()">QR-code scannen</button>
+          </div>
+          <div class="card">
+            <div class="section-title" style="margin-top:0;">Batchnummer</div>
+            <div class="form-group">
+              <label for="batch-input">Batchnummer</label>
+              <input id="batch-input" value="#EC-9901" placeholder="#PE-2026">
             </div>
+            <button class="btn accent full" onclick="registerByBatch()">Product registreren</button>
+          </div>
+          <div class="info-box yellow">
+            Testcodes: #PE-2026, #MK-8812, #EC-9901, #VK-5512.
           </div>
         </div>
+
+        <div id="products-mine" class="panel">
+          <div id="product-list"></div>
+        </div>
+
+        <div id="products-details" class="panel">
+          <div id="product-detail"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-scanner" class="screen">
+      <div class="scanner">
+        <button class="btn secondary" onclick="closeScanner()">Terug</button>
         <div>
-          <div class="section-title">Snelle acties</div>
-          <button class="btn btn-full primary" style="margin-bottom:8px;" onclick="switchTabById('admin','campaigns')">📢 Campaign verzenden</button>
-          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);margin-bottom:8px;" onclick="switchTabById('admin','content')">📝 Content beheren</button>
-          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);" onclick="switchTabById('admin','users')">👥 Gebruikers beheren</button>
+          <h1 style="font-size:22px;">QR-code scannen</h1>
+          <p style="margin-top:8px;color:rgba(255,255,255,0.72);font-size:13px;">Demo-camera voor stakeholdertest</p>
+        </div>
+        <div class="scan-box"></div>
+        <button class="btn accent" onclick="simulateScan()">Succesvolle scan simuleren</button>
+      </div>
+    </div>
+
+    <div id="screen-support" class="screen">
+      <div class="app-header">
+        <div class="app-title">
+          <h1>Hulp</h1>
+          <p>FAQ, chatbot en servicestatus</p>
         </div>
       </div>
-
-      <!-- Gebruikersbeheer Tab -->
-      <div id="admin-users" class="sub-panel">
-        <div style="margin-bottom:12px;">
-          <input type="text" class="form-input" placeholder="🔍 Zoek gebruiker..." id="user-search" style="margin-bottom:8px;" oninput="filterUsers(this.value)">
-          <button class="btn btn-full primary" onclick="showAddUserForm()">+ Nieuwe gebruiker</button>
+      <div class="tabs">
+        <button class="tab active" data-screen="support" data-panel="bot" onclick="switchTab(this)">ChocBot</button>
+        <button class="tab" data-screen="support" data-panel="complaint" onclick="switchTab(this)">Melding</button>
+        <button class="tab" data-screen="support" data-panel="status" onclick="switchTab(this)">Status</button>
+        <button class="tab" data-screen="support" data-panel="faq" onclick="switchTab(this)">FAQ</button>
+      </div>
+      <div class="content">
+        <div id="support-bot" class="panel active">
+          <div id="chat-area" class="chat-area">
+            <div class="msg bot">Hoi Alex. Ik help je met productinformatie, allergenen, houdbaarheid, herkomst en servicemeldingen.</div>
+          </div>
+          <div class="chips">
+            <button class="chip" onclick="askBot('Wat zijn de allergenen van Puur 72%?')">Allergenen</button>
+            <button class="chip" onclick="askBot('Waar komt mijn cacao vandaan?')">Herkomst</button>
+            <button class="chip" onclick="askBot('Hoe werkt registreren?')">Registreren</button>
+            <button class="chip" onclick="askBot('Ik wil een klacht indienen')">Melding</button>
+          </div>
+          <div class="chat-input-row">
+            <input id="chat-input" placeholder="Stel je vraag..." onkeydown="if(event.key === 'Enter') sendChat()">
+            <button class="send-btn" onclick="sendChat()" aria-label="Bericht versturen">&gt;</button>
+          </div>
         </div>
-        <div id="user-form-container" style="display:none;margin-bottom:16px;">
+
+        <div id="support-complaint" class="panel">
+          <div class="info-box yellow">
+            De app stuurt de melding door naar het CRM. De behandeling gebeurt buiten de mobiele app.
+          </div>
+          <div class="form-group">
+            <label for="complaint-product">Gekoppeld product</label>
+            <select id="complaint-product"></select>
+          </div>
+          <div class="form-group">
+            <label for="complaint-type">Type melding</label>
+            <select id="complaint-type">
+              <option value="Kwaliteitsprobleem">Kwaliteitsprobleem</option>
+              <option value="Beschadigde verpakking">Beschadigde verpakking</option>
+              <option value="Allergeneninformatie">Allergeneninformatie</option>
+              <option value="Overige vraag">Overige vraag</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="complaint-desc">Omschrijving</label>
+            <textarea id="complaint-desc">De verpakking was beschadigd bij aankoop.</textarea>
+          </div>
+          <div class="form-group">
+            <label for="complaint-email">E-mailadres</label>
+            <input id="complaint-email" type="email" value="alex.devries@email.nl">
+          </div>
+          <button class="btn primary full" onclick="submitComplaint()">Melding indienen</button>
+        </div>
+
+        <div id="support-status" class="panel">
+          <div id="ticket-list"></div>
+        </div>
+
+        <div id="support-faq" class="panel">
+          <div id="faq-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-profile" class="screen">
+      <div class="app-header">
+        <div class="app-title">
+          <h1>Profiel</h1>
+          <p>Voorkeuren, notificaties en privacy</p>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-screen="profile" data-panel="account" onclick="switchTab(this)">Account</button>
+        <button class="tab" data-screen="profile" data-panel="notifications" onclick="switchTab(this)">Meldingen</button>
+        <button class="tab" data-screen="profile" data-panel="privacy" onclick="switchTab(this)">Privacy</button>
+      </div>
+      <div class="content">
+        <div id="profile-account" class="panel active">
+          <div class="card" style="text-align:center;">
+            <div style="width:72px;height:72px;border-radius:50%;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:28px;">A</div>
+            <h2 style="font-size:19px;color:var(--primary);">Alex de Vries</h2>
+            <p class="meta">alex.devries@email.nl</p>
+            <div class="tag-row" style="justify-content:center;">
+              <span class="tag info">B2C-consument</span>
+              <span class="tag ok" id="registered-count">0 producten</span>
+            </div>
+          </div>
           <div class="card">
-            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Nieuwe gebruiker toevoegen</div>
-            <div class="form-group"><input type="text" class="form-input" id="user-name" placeholder="Volledige naam"></div>
-            <div class="form-group"><input type="email" class="form-input" id="user-email" placeholder="E-mailadres"></div>
             <div class="form-group">
-              <select class="form-select" id="user-role">
-                <option value="">Selecteer rol...</option>
-                <option value="beheerder">Beheerder</option>
-                <option value="klantenservice">Klantenservice</option>
-                <option value="marketeer">Marketeer</option>
-                <option value="manager">Manager</option>
-                <option value="it">IT-beheerder</option>
+              <label for="taste-profile">Smaakvoorkeur</label>
+              <select id="taste-profile" onchange="saveAppState('Smaakvoorkeur opgeslagen'); renderAll()">
+                <option value="puur">Puur en intens</option>
+                <option value="melk">Romig en zacht</option>
+                <option value="vegan">Vegan en biologisch</option>
               </select>
             </div>
-            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="createUser()">Opslaan</button>
-            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#user-form-container').style.display='none'">Annuleren</button>
+            <button class="btn primary full" onclick="saveAppState('Profiel opgeslagen')">Opslaan</button>
           </div>
         </div>
-        <div id="user-list">
-          <div class="menu-item"><div><div style="font-weight:600;">Alex de Vries</div><div style="font-size:11px;color:var(--text-muted);">alex.devries@email.nl • Beheerder</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
-          <div class="menu-item"><div><div style="font-weight:600;">Maria Lopez</div><div style="font-size:11px;color:var(--text-muted);">maria.lopez@choco.nl • Klantenservice</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
-          <div class="menu-item"><div><div style="font-weight:600;">Jan Bakker</div><div style="font-size:11px;color:var(--text-muted);">jan.bakker@choco.nl • Manager</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span></div>
-        </div>
-      </div>
 
-      <!-- Inhoudsbeheer Tab (US-10) -->
-      <div id="admin-content" class="sub-panel">
-        <div style="margin-bottom:12px;">
-          <button class="btn btn-full primary" style="margin-bottom:8px;" onclick="showAddRecipeForm()">+ Nieuw recept</button>
-          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);margin-bottom:8px;" onclick="showAddProductForm()">+ Nieuw product</button>
-          <button class="btn btn-full" style="background:#EFEAE6;color:var(--primary);" onclick="showAddTutorialForm()">+ Nieuwe tutorial</button>
-        </div>
-        <div id="recipe-form-container" style="display:none;margin-bottom:16px;">
+        <div id="profile-notifications" class="panel">
           <div class="card">
-            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Nieuw recept toevoegen</div>
-            <div class="form-group"><input type="text" class="form-input" id="recipe-title" placeholder="Recepttitel"></div>
-            <div class="form-group"><textarea class="form-textarea" id="recipe-content" placeholder="Receptinstructies..."></textarea></div>
-            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="createRecipe()">Opslaan</button>
-            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#recipe-form-container').style.display='none'">Annuleren</button>
-          </div>
-        </div>
-        <div class="section-title">Recepten</div>
-        <div id="recipe-list">
-          <div class="menu-item"><span>🍫 Chocoladetruffels deluxe</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
-          <div class="menu-item"><span>🍰 Chocoladecake</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
-          <div class="menu-item"><span>☕ Chocolademelk recepten</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span></div>
-        </div>
-      </div>
-
-      <!-- Campagnes Tab (US-10, US-11) -->
-      <div id="admin-campaigns" class="sub-panel">
-        <div style="margin-bottom:12px;">
-          <button class="btn btn-full primary" onclick="showAddCampaignForm()">+ Nieuwe campagne</button>
-        </div>
-        <div id="campaign-form-container" style="display:none;margin-bottom:16px;">
-          <div class="card">
-            <div style="font-size:13px;font-weight:600;margin-bottom:10px;">Notificatiecampagne</div>
-            <div class="form-group"><input type="text" class="form-input" id="campaign-title" placeholder="Campagnetitel"></div>
-            <div class="form-group"><textarea class="form-textarea" id="campaign-content" placeholder="Bericht voor gebruikers..."></textarea></div>
-            <div class="form-group">
-              <select class="form-select" id="campaign-target">
-                <option value="">Doelgroep...</option>
-                <option value="all">Alle gebruikers</option>
-                <option value="b2c">B2C klanten</option>
-                <option value="b2b">B2B klanten</option>
-                <option value="vip">VIP klanten</option>
-              </select>
+            <div class="toggle-row">
+              <div class="toggle-copy"><strong>Houdbaarheid</strong><span>Waarschuwing wanneer een product bijna verloopt.</span></div>
+              <button class="toggle on" data-setting="expiry" onclick="toggle(this)" aria-label="Houdbaarheid"></button>
             </div>
-            <button class="btn btn-primary" style="margin-right:8px;width:calc(50%-4px);" onclick="sendCampaign()">Verzenden</button>
-            <button class="btn" style="background:#EFEAE6;width:calc(50%-4px);" onclick="this.closest('#campaign-form-container').style.display='none'">Annuleren</button>
+            <div class="toggle-row">
+              <div class="toggle-copy"><strong>Productupdates</strong><span>Updates over geregistreerde producten.</span></div>
+              <button class="toggle on" data-setting="productUpdates" onclick="toggle(this)" aria-label="Productupdates"></button>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-copy"><strong>Meldingstatus</strong><span>Statuswijzigingen van vragen of klachten.</span></div>
+              <button class="toggle on" data-setting="ticketStatus" onclick="toggle(this)" aria-label="Meldingstatus"></button>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-copy"><strong>Marketing</strong><span>Campagnes worden beheerd via CRM.</span></div>
+              <button class="toggle" data-setting="marketing" onclick="toggle(this)" aria-label="Marketing"></button>
+            </div>
           </div>
         </div>
-        <div class="section-title">Eerdere campagnes</div>
-        <div id="campaign-list">
-          <div class="card">
-            <div style="font-weight:600;margin-bottom:4px;">Summer Collection lancering</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: 15 mei 2026 • 2,547 ontvangers</div>
-            <div style="font-size:12px;color:var(--success);">✅ Verzonden • Click-rate: 34%</div>
+
+        <div id="profile-privacy" class="panel">
+          <div class="info-box blue">
+            De app deelt alleen noodzakelijke gegevens met CRM. Rapportages in BI gebruiken geanonimiseerde data.
           </div>
-          <div class="card">
-            <div style="font-weight:600;margin-bottom:4px;">Duurzaamheid awareness</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: 8 mei 2026 • 2,100 ontvangers</div>
-            <div style="font-size:12px;color:var(--success);">✅ Verzonden • Click-rate: 28%</div>
+          <div class="detail-list">
+            <div class="detail-row"><span>CRM</span><span>meldingen en voorkeuren</span></div>
+            <div class="detail-row"><span>ERP/productdata</span><span>batchinformatie</span></div>
+            <div class="detail-row"><span>BI</span><span>geanonimiseerde analyse</span></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn secondary" onclick="showToast('Demo-export aangemaakt')">Data exporteren</button>
+            <button class="btn secondary" onclick="resetSavedData()">Demo-data wissen</button>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="nav-bar">
+      <button id="nav-home" class="nav-item active" onclick="navigateTo('home')">
+        <span class="nav-symbol">H</span>
+        Home
+      </button>
+      <button id="nav-products" class="nav-item" onclick="navigateTo('products')">
+        <span class="nav-symbol">P</span>
+        Producten
+      </button>
+      <button id="nav-scan" class="nav-item" onclick="openScanner()">
+        <span class="nav-symbol">QR</span>
+        Scan
+      </button>
+      <button id="nav-support" class="nav-item" onclick="navigateTo('support')">
+        <span id="ticket-badge" class="badge">0</span>
+        <span class="nav-symbol">?</span>
+        Hulp
+      </button>
+      <button id="nav-profile" class="nav-item" onclick="navigateTo('profile')">
+        <span class="nav-symbol">A</span>
+        Profiel
+      </button>
+    </div>
+    <div id="toast" class="toast"></div>
   </div>
 
-  <!-- ==================== ANALYTICS & REPORTS (US-12: Management, US-07: Klantgegevens) ==================== -->
-  <div id="screen-analytics" class="screen">
-    <div class="app-header"><h1>📊 Analytics</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="analytics" data-panel="kpi" onclick="switchTab(this)">KPI's</div>
-      <div class="sub-tab" data-screen="analytics" data-panel="customers" onclick="switchTab(this)">Klanten</div>
-      <div class="sub-tab" data-screen="analytics" data-panel="reports" onclick="switchTab(this)">Rapporten</div>
-    </div>
-    <div class="screen-content">
-      <!-- KPI Dashboard Tab (US-12) -->
-      <div id="analytics-kpi" class="sub-panel active">
-        <div style="margin-bottom:16px;">
-          <div class="section-title">Kernmetrieken (KPI's)</div>
-          <div class="stat-grid">
-            <div class="stat-card">
-              <div class="stat-value" style="color:var(--success);">↑ 2,547</div>
-              <div class="stat-label">Actieve gebruikers (+8%)</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">€487.2K</div>
-              <div class="stat-label">Maandelijks omzet</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" style="color:var(--success);">4.7/5 ⭐</div>
-              <div class="stat-label">App rating</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">142</div>
-              <div class="stat-label">Nieuwe klanten (7d)</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" style="color:var(--success);">68%</div>
-              <div class="stat-label">Retentie rate</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value">48</div>
-              <div class="stat-label">Openstaande klachten</div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-bottom:16px;">
-          <div class="section-title">Trends</div>
-          <div class="card">
-            <div style="font-size:13px;font-weight:600;margin-bottom:8px;">📈 Gebruiksgegevens (laatste 7 dagen)</div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:2;">
-              Ma: 312 sessies | Di: 328 | Wo: 315 | Do: 341 | Vr: 398 | Za: 425 | Zo: 388
-            </div>
-            <div class="progress-bar" style="margin-top:8px;">
-              <div class="progress-fill" style="width:65%;"></div>
-            </div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Weekscore: 65% groei</div>
-          </div>
-        </div>
-      </div>
+  <script>
+    const productCatalog = [
+      {
+        emoji: "■",
+        batch: "#PE-2026",
+        name: "Fairtrade Puur 72%",
+        origin: "Piura, Peru",
+        expiry: "2027-01-31",
+        allergens: "Vegan, sojavrij. Kan sporen van noten bevatten.",
+        cacao: "72%",
+        certificates: ["Fairtrade", "Biologisch"],
+        story: "Single-origin cacao van Cooperativa Piura. Fruitig, krachtig en volledig traceerbaar.",
+        preference: "puur"
+      },
+      {
+        emoji: "◆",
+        batch: "#MK-8812",
+        name: "Melk Gezouten Karamel",
+        origin: "Belgie",
+        expiry: "2026-07-20",
+        allergens: "Bevat melk en soja. Kan sporen van noten bevatten.",
+        cacao: "38%",
+        certificates: ["Rainforest Alliance"],
+        story: "Romige melkchocolade met zeezout en karamelstukjes.",
+        preference: "melk"
+      },
+      {
+        emoji: "●",
+        batch: "#EC-9901",
+        name: "Ecuador Single Origin 85%",
+        origin: "Manabi, Ecuador",
+        expiry: "2027-03-12",
+        allergens: "Vegan, lactosevrij. Kan sporen van noten bevatten.",
+        cacao: "85%",
+        certificates: ["Fairtrade"],
+        story: "Intense cacao met tonen van koffie en rood fruit.",
+        preference: "puur"
+      },
+      {
+        emoji: "▲",
+        batch: "#VK-5512",
+        name: "Vegan Kokosmelk 45%",
+        origin: "Kumasi, Ghana",
+        expiry: "2027-02-18",
+        allergens: "Vegan. Bevat kokos.",
+        cacao: "45%",
+        certificates: ["Fairtrade", "Biologisch"],
+        story: "Plantaardige melkchocolade met romige kokosmelk.",
+        preference: "vegan"
+      }
+    ];
 
-      <!-- Klantgegevens Tab (US-07) -->
-      <div id="analytics-customers" class="sub-panel">
-        <div style="margin-bottom:12px;">
-          <input type="text" class="form-input" placeholder="🔍 Zoek klant (naam/email)..." id="customer-search" oninput="searchCustomers(this.value)">
-        </div>
-        <div class="section-title">Klantprofielen</div>
-        <div id="customer-list">
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-weight:600;">Alex de Vries</div>
-              <button class="btn" style="background:#EFEAE6;padding:4px 8px;font-size:11px;" onclick="viewCustomerProfile('alex')">Profiel</button>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
-              📧 alex.devries@email.nl<br>
-              🛍️ Totale aankopen: €1,247 (18 bestellingen)<br>
-              ⭐ Status: VIP Klant<br>
-              📱 Registratie: 2 jaar geleden
-            </div>
-          </div>
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-weight:600;">Maria Lopez</div>
-              <button class="btn" style="background:#EFEAE6;padding:4px 8px;font-size:11px;" onclick="viewCustomerProfile('maria')">Profiel</button>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
-              📧 maria.lopez@choco.nl<br>
-              🛍️ Totale aankopen: €3,521 (45 bestellingen)<br>
-              ⭐ Status: Premium Klant<br>
-              📱 Registratie: 1 jaar geleden
-            </div>
-          </div>
-        </div>
-      </div>
+    let registeredProducts = [
+      { ...productCatalog[0], registeredAt: "vandaag" },
+      { ...productCatalog[1], registeredAt: "2 weken geleden" }
+    ];
 
-      <!-- Reports Tab -->
-      <div id="analytics-reports" class="sub-panel">
-        <div class="section-title">Exporteerbare Rapporten</div>
-        <div class="menu-list">
-          <div class="menu-item"><span>📄 Maandelijks klantrapport</span><span onclick="downloadReport('monthly')" style="cursor:pointer;">⬇</span></div>
-          <div class="menu-item"><span>📊 Verkoopstatistieken</span><span onclick="downloadReport('sales')" style="cursor:pointer;">⬇</span></div>
-          <div class="menu-item"><span>📋 Klachten samenvatting</span><span onclick="downloadReport('complaints')" style="cursor:pointer;">⬇</span></div>
-          <div class="menu-item"><span>🎯 Marketing performance</span><span onclick="downloadReport('marketing')" style="cursor:pointer;">⬇</span></div>
-          <div class="menu-item"><span>🌱 Duurzaamheid impact</span><span onclick="downloadReport('sustainability')" style="cursor:pointer;">⬇</span></div>
-        </div>
-        <div style="margin-top:16px;">
-          <div class="section-title">Geplande Rapporten</div>
-          <div class="card">
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.8;">
-              ✅ Dagelijks dashboard → 09:00 uur<br>
-              ✅ Wekelijks samenvatting → Maandag 08:00 uur<br>
-              ✅ Maandelijks rapport → 1e van maand 06:00 uur
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    let selectedProduct = registeredProducts[0];
+    let scanIndex = 2;
+    let tickets = [
+      {
+        id: "TKT-15234",
+        product: "Melk Gezouten Karamel",
+        type: "Beschadigde verpakking",
+        status: "In behandeling",
+        updated: "Vandaag 10:24",
+        description: "Verpakking was beschadigd bij aankoop."
+      }
+    ];
 
-  <!-- ==================== SUPPORT ADMIN (US-08: Klachtafhandeling + US-07: Klantgegevens) ==================== -->
-  <div id="screen-support-admin" class="screen">
-    <div class="app-header"><h1>🎧 Support Management</h1></div>
-    <div class="sub-tabs">
-      <div class="sub-tab active" data-screen="support-admin" data-panel="tickets" onclick="switchTab(this)">Tickets</div>
-      <div class="sub-tab" data-screen="support-admin" data-panel="complaints" onclick="switchTab(this)">Klachten</div>
-    </div>
-    <div class="screen-content">
-      <!-- Tickets Tab -->
-      <div id="support-admin-tickets" class="sub-panel active">
-        <div style="margin-bottom:12px;">
-          <select class="form-select" id="ticket-filter" onchange="filterTickets(this.value)" style="margin-bottom:8px;">
-            <option value="">Alle tickets</option>
-            <option value="open">Open</option>
-            <option value="in_progress">In behandeling</option>
-            <option value="resolved">Opgelost</option>
-          </select>
-        </div>
-        <div id="ticket-list">
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-weight:600;">TKT-15234</div>
-              <span class="tag" style="background:var(--warning-bg);color:var(--warning-text);">🟠 Open</span>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-              <strong>Alex de Vries</strong> • 2 uur geleden<br>
-              Vraag: Hoe werkt de QR-scan functie?
-            </div>
-            <button class="btn btn-accent" onclick="assignTicket('TKT-15234')" style="font-size:11px;padding:6px 12px;">Claim ticket</button>
-          </div>
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div style="font-weight:600;">TKT-15233</div>
-              <span class="tag" style="background:var(--success-bg);color:var(--success);">✅ Opgelost</span>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-              <strong>Maria Lopez</strong> • 1 uur geleden<br>
-              Vraag: Kan ik mijn recept delen?
-            </div>
-            <div style="font-size:11px;color:var(--text-muted);">Opgelost door: support@choco.nl</div>
-          </div>
-        </div>
-      </div>
+    const faq = [
+      ["Hoe registreer ik een product?", "Open Producten, scan de QR-code of voer het batchnummer handmatig in."],
+      ["Waar vind ik allergenen?", "Open het productdetail. Allergenen staan bij ieder geregistreerd product."],
+      ["Wat gebeurt er met mijn klacht?", "De melding wordt naar het CRM gestuurd. In de app zie je bevestiging en statusupdates."],
+      ["Waar worden rapportages gemaakt?", "Rapportages horen bij de BI-tool en staan niet in de mobiele app."]
+    ];
 
-      <!-- Klachten Tab (US-08) -->
-      <div id="support-admin-complaints" class="sub-panel">
-        <div style="margin-bottom:12px;">
-          <select class="form-select" id="complaint-filter" onchange="filterComplaints(this.value)">
-            <option value="">Alle klachten</option>
-            <option value="kwaliteit">Kwaliteitsprobleem</option>
-            <option value="levering">Leveringsprobleem</option>
-            <option value="verpakking">Beschadigde verpakking</option>
-          </select>
-        </div>
-        <div id="complaint-list">
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div>
-                <div style="font-weight:600;">Klacht #PE-2026-001</div>
-                <span class="tag" style="background:var(--danger-bg);color:var(--danger-text);">🔴 Openstaand</span>
-              </div>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-              <strong>Alex de Vries</strong> • 3 uur geleden<br>
-              Type: Kwaliteitsprobleem<br>
-              Batch: #PE-2026<br>
-              Beschrijving: "Reep was schimmelig"
-            </div>
-            <div style="display:flex;gap:6px;">
-              <button class="btn btn-primary" style="flex:1;font-size:11px;padding:6px;" onclick="resolveComplaint('PE-2026-001')">Afhandelen</button>
-              <button class="btn" style="flex:1;background:#EFEAE6;font-size:11px;padding:6px;" onclick="approveCompensation('PE-2026-001')">Vergoeding</button>
-            </div>
-          </div>
-          <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div>
-                <div style="font-weight:600;">Klacht #PE-2026-002</div>
-                <span class="tag" style="background:var(--success-bg);color:var(--success);">✅ Opgelost</span>
-              </div>
-            </div>
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
-              <strong>Maria Lopez</strong> • 1 dag geleden<br>
-              Type: Leveringsprobleem<br>
-              Batch: #DA-2026<br>
-              Status: Vergoeding goedgekeurd (€25)
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    const STORAGE_KEY = "chocolateFirmV1";
 
-  <!-- ==================== NAV BAR ==================== -->
-  <div class="nav-bar">
-    <button class="nav-item active" id="nav-home" onclick="navigateTo('home')">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Home
-    </button>
-    <button class="nav-item" id="nav-products" onclick="navigateTo('products')">
-      <svg viewBox="0 0 24 24"><path d="M3 4h5V3H3c-1.1 0-2 .9-2 2v5h1V5c0-1.1.9-2 2-2zm0 15c-1.1 0-2-.9-2-2v-5H0v5c0 1.1.9 2 2 2h5v1H3zm18-6h-1v5c0 1.1-.9 2-2 2h-5v1h5c1.1 0 2-.9 2-2v-5zm-1-8c0-1.1-.9-2-2-2h-5v1h5c1.1 0 2 .9 2 2v5h1V5zM7 7h4v4H7zm1 1v2h2V8zm5-1h4v4h-4zm1 1v2h2V8zM7 13h4v4H7zm1 1v2h2v-2z"/></svg>Producten
-    </button>
-    <button class="nav-item" id="nav-explore" onclick="navigateTo('explore')">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>Ontdekken
-    </button>
-    <button class="nav-item" id="nav-shop" onclick="navigateTo('shop')" style="position:relative">
-      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.43 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>Shop
-      <span class="nav-badge" id="nav-cart-badge">0</span>
-    </button>
-    <button class="nav-item" id="nav-support" onclick="navigateTo('support')">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>Service
-    </button>
-    <button class="nav-item" id="nav-profile" onclick="navigateTo('profile')">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profiel
-    </button>
-    <!-- Admin buttons (hidden by default, shown when logged in as admin) -->
-    <button class="nav-item" id="nav-admin" onclick="navigateTo('admin')" style="display:none;">
-      <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.4-.3.86-.48 1.36-.48.5 0 .96.18 1.36.48l1.07-1.07c-.72-.73-1.71-1.18-2.8-1.18-1.09 0-2.08.45-2.8 1.18l1.07 1.07zM14 11.5c1.66 0 3.3.74 4.4 2.02l1.42-1.42C17.88 9.86 15.96 8 13.5 8c-2.46 0-4.38 1.86-5.32 3.1l1.42 1.42c1.1-1.28 2.74-2.02 4.4-2.02zM3 8h10v10H3zm5.5 8c1.93 0 3.5-1.57 3.5-3.5S10.43 8.5 8.5 8.5 5 10.07 5 12s1.57 3.5 3.5 3.5z"/></svg>Admin
-    </button>
-    <button class="nav-item" id="nav-analytics" onclick="navigateTo('analytics')" style="display:none;">
-      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-9h3v7h-3zm-5-2h3v9H9zm5-2h3v5h-3zm-5 9h3v-5H9z"/></svg>Analytics
-    </button>
-    <button class="nav-item" id="nav-support-admin" onclick="navigateTo('support-admin')" style="display:none;">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v-2h8v2zm0-3h-8V9h8v2zm0-3h-8V6h8v2z"/></svg>Support
-    </button>
-  </div>
-
-</div><!-- end phone -->
-
-<script>
-// =============================================
-// CLOCK
-// =============================================
-function updateClock() {
-  const n = new Date();
-  document.getElementById('clock').textContent =
-    String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
-}
-updateClock();
-setInterval(updateClock, 15000);
-
-// =============================================
-// NAVIGATION
-// =============================================
-function navigateTo(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const s = document.getElementById('screen-' + id);
-  if (s) s.classList.add('active');
-  const n = document.getElementById('nav-' + id);
-  if (n) n.classList.add('active');
-  if (id === 'shop') renderShop();
-  if (id === 'cart') renderCart();
-  if (id === 'products') renderRegisteredProducts();
-  if (id === 'events') renderEvents();
-  if (id === 'community') renderForum();
-}
-
-// =============================================
-// SUBTAB SWITCHING — bulletproof version
-// =============================================
-function switchTab(el) {
-  const screen = el.dataset.screen;
-  const panel  = el.dataset.panel;
-  switchTabById(screen, panel);
-}
-
-function switchTabById(screen, panel) {
-  // Update tab active states
-  const screenEl = document.getElementById('screen-' + screen);
-  if (!screenEl) return;
-  screenEl.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  const activeTab = screenEl.querySelector(`.sub-tab[data-panel="${panel}"]`);
-  if (activeTab) activeTab.classList.add('active');
-
-  // Hide all sub-panels and sub-panel-flex in this screen
-  screenEl.querySelectorAll('.sub-panel, .sub-panel-flex').forEach(p => {
-    p.classList.remove('active');
-  });
-
-  // Show target panel
-  // Try exact id: {screen}-{panel}
-  const target = document.getElementById(screen + '-' + panel);
-  if (target) {
-    target.classList.add('active');
-  }
-
-  // If navigating to support/chocbot from FAQ, also navigate to support screen
-  if (screen === 'support') {
-    navigateTo('support');
-  }
-}
-
-// =============================================
-// DATA
-// =============================================
-const SCAN_PRODUCTS = [
-  { emoji:'🆕', name:'Ecuador Single Origin 85%', batch:'#EC-9901', expiry:'Mrt 2027', origin:'Ecuador', allergens:'Vegan · Sojavrij', cacao:'85%', cert:'Fairtrade ✓' },
-  { emoji:'🍒', name:'Ruby Chocolade & Framboos', batch:'#RB-4421', expiry:'Nov 2026', origin:'België', allergens:'Bevat melk', cacao:'35%', cert:'Rainforest Alliance ✓' },
-  { emoji:'🌶️', name:'Chili & Kriek Limited Edition', batch:'#CK-7733', expiry:'Sep 2026', origin:'Ghana', allergens:'Vegan · Sojavrij', cacao:'70%', cert:'Fairtrade ✓' },
-  { emoji:'🌿', name:'Vegan Kokosmelk 45%', batch:'#VK-5512', expiry:'Feb 2027', origin:'Ghana', allergens:'Vegan · Biologisch', cacao:'45%', cert:'Biologisch ✓ · Fairtrade ✓' },
-];
-let scanIdx = 0;
-
-let registeredProducts = [
-  { emoji:'🍫', name:'Fairtrade Puur 72% (Peru)', batch:'#PE-2026', origin:'Peru', expiry:'Jan 2027', expiryWarn: false },
-  { emoji:'🍯', name:'Melk Gezouten Karamel', batch:'#MK-8812', origin:'België', expiry:'Jul 2026', expiryWarn: true },
-];
-
-const SHOP_PRODUCTS = [
-  { id:1, emoji:'🍫', name:'Fairtrade Puur 72%', desc:'Peru Single Origin · Vegan', price:4.95, stock:'ok', stockLabel:'Op voorraad', badge:'bestseller' },
-  { id:2, emoji:'🍯', name:'Melk Gezouten Karamel', desc:'Ambachtelijk · Belgisch', price:5.50, stock:'ok', stockLabel:'Op voorraad', badge:'' },
-  { id:3, emoji:'🌶️', name:'Chili & Kriek Limited', desc:'Limited Edition · Krachtig', price:6.95, stock:'low', stockLabel:'Nog 3 stuks!', badge:'limited' },
-  { id:4, emoji:'🌿', name:'Vegan Kokosmelk 45%', desc:'100% Biologisch · Fairtrade', price:5.25, stock:'ok', stockLabel:'Op voorraad', badge:'nieuw' },
-  { id:5, emoji:'🍒', name:'Ruby & Framboos', desc:'Natuurlijk roze · Fruitig', price:6.50, stock:'ok', stockLabel:'Op voorraad', badge:'' },
-  { id:6, emoji:'⬛', name:'Ecuador 85% Dark', desc:'Intense smaak · Low sugar', price:5.75, stock:'out', stockLabel:'Uitverkocht', badge:'' },
-];
-let cart = {};
-
-let chocoPoints = 450;
-
-const STORES = [
-  { name:'Utrecht Centrum', address:'Oudegracht 142', dist:'0,8 km' },
-  { name:'Amsterdam Jordaan', address:'Prinsengracht 58', dist:'38 km' },
-  { name:'Rotterdam Markthal', address:'Dominee Jan Scharpstraat 298', dist:'56 km' },
-  { name:'Den Haag Centrum', address:'Grote Marktstraat 22', dist:'60 km' },
-];
-
-const EVENTS_DATA = [
-  { day:'14', month:'JUN', title:'Chocolade Workshop Utrecht', loc:'Utrecht Centrum', time:'14:00–16:00', spots:5, full:false },
-  { day:'28', month:'JUN', title:'Cacao Proeverij Amsterdam', loc:'Amsterdam Jordaan', time:'13:00–15:30', spots:12, full:false },
-  { day:'19', month:'JUL', title:'Bean-to-Bar Masterclass', loc:'Rotterdam', time:'10:00–17:00', spots:0, full:true },
-];
-
-let forumPosts = [
-  { title:'Geheime smakencombinaties 🍫', body:'Heeft iemand de Puur 72% al gecombineerd met blauwe kaas? Echt een openbaring!', ts:'3u geleden', replies:12 },
-  { title:'Tip: warme melk + Kokos 45%', body:'Raspen en oplossen in warme haverdrank. Absoluut heerlijk!', ts:'gisteren', replies:8 },
-];
-
-// =============================================
-// REGISTERED PRODUCTS
-// =============================================
-function renderRegisteredProducts() {
-  const el = document.getElementById('registered-products-list');
-  if (!el) return;
-  el.innerHTML = registeredProducts.map(p => `
-    <div class="product-card" onclick="switchTabById('products','detail')">
-      <div class="product-emoji">${p.emoji}</div>
-      <div class="product-details">
-        <div class="product-title">${p.name}</div>
-        <div class="product-meta">Batch: ${p.batch} · ${p.origin}</div>
-        <span class="tag ${p.expiryWarn ? 'tag-danger' : 'tag-warn'}">${p.expiryWarn ? '⚠️ ' : ''}Houdbaar tot: ${p.expiry}</span>
-      </div>
-      <span style="color:var(--text-muted);font-size:12px;">→</span>
-    </div>`).join('');
-}
-
-// =============================================
-// QR SCANNER
-// =============================================
-function openScanner() {
-  document.getElementById('screen-products').classList.remove('active');
-  document.getElementById('screen-scanner').classList.add('active');
-}
-function closeScanner() {
-  document.getElementById('screen-scanner').classList.remove('active');
-  document.getElementById('screen-products').classList.add('active');
-}
-function simulateScan() {
-  const p = SCAN_PRODUCTS[scanIdx % SCAN_PRODUCTS.length];
-  scanIdx++;
-  registeredProducts.unshift({ emoji: p.emoji, name: p.name, batch: p.batch, origin: p.origin, expiry: p.expiry, expiryWarn: false });
-  addPoints(25);
-  closeScanner();
-  renderRegisteredProducts();
-  switchTabById('products', 'mijn');
-  // Show feedback
-  setTimeout(() => {
-    const el = document.getElementById('registered-products-list');
-    if (el && el.firstChild) {
-      el.firstChild.style.background = '#D4EDDA';
-      setTimeout(() => { if(el.firstChild) el.firstChild.style.background = ''; }, 1500);
+    function loadAppState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        if (Array.isArray(saved.registeredProducts) && saved.registeredProducts.length) {
+          registeredProducts = saved.registeredProducts;
+        }
+        if (Array.isArray(saved.tickets)) {
+          tickets = saved.tickets;
+        }
+        if (saved.selectedBatch) {
+          selectedProduct = registeredProducts.find(product => product.batch === saved.selectedBatch) || selectedProduct;
+        }
+        if (saved.tastePreference) {
+          const preferenceInput = document.getElementById("taste-profile");
+          if (preferenceInput) preferenceInput.value = saved.tastePreference;
+        }
+        if (Array.isArray(saved.notificationSettings)) {
+          document.querySelectorAll(".toggle[data-setting]").forEach(toggle => {
+            toggle.classList.toggle("on", saved.notificationSettings.includes(toggle.dataset.setting));
+          });
+        }
+      } catch (error) {
+        console.warn("Opgeslagen demo-data kon niet worden geladen.", error);
+      }
     }
-  }, 100);
-}
 
-// Manual register
-function manualRegister() {
-  const val = document.getElementById('manual-batch').value.trim();
-  if (!val) { alert('Vul een batchnummer in.'); return; }
-  const found = SCAN_PRODUCTS.find(p => p.batch.toLowerCase() === val.toLowerCase());
-  const product = found || { emoji:'🍫', name:`Product ${val}`, batch:val, origin:'Onbekend', expiry:'Dec 2027', expiryWarn:false };
-  registeredProducts.unshift({ ...product, expiryWarn: false });
-  addPoints(25);
-  document.getElementById('manual-batch').value = '';
-  renderRegisteredProducts();
-  switchTabById('products', 'mijn');
-}
-
-// =============================================
-// POINTS
-// =============================================
-function addPoints(n) {
-  chocoPoints += n;
-  document.getElementById('home-pts-num').textContent = chocoPoints;
-  const pn = document.getElementById('profile-pts-num');
-  if (pn) pn.textContent = chocoPoints;
-}
-
-// =============================================
-// SHOP
-// =============================================
-function renderShop() {
-  const el = document.getElementById('shop-product-list');
-  if (!el) return;
-  el.innerHTML = SHOP_PRODUCTS.map(p => {
-    const inCart = cart[p.id] || 0;
-    const badgeHtml = p.badge ? `<span class="shop-badge sb-${p.badge}">${p.badge.toUpperCase()}</span>` : '';
-    let actionHtml;
-    if (p.stock === 'out') {
-      actionHtml = `<button class="btn btn-primary" style="font-size:11px;padding:7px 12px;opacity:0.4;" disabled>Uitverkocht</button>`;
-    } else if (inCart > 0) {
-      actionHtml = `<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-        <div class="qty-ctrl">
-          <button class="qty-btn" onclick="event.stopPropagation();changeQty(${p.id},-1)">−</button>
-          <span class="qty-num">${inCart}</span>
-          <button class="qty-btn" onclick="event.stopPropagation();changeQty(${p.id},1)">+</button>
-        </div>
-        <div style="font-size:10px;color:var(--success);font-weight:600;">✓ In wagen</div>
-      </div>`;
-    } else {
-      actionHtml = `<button class="btn btn-primary" style="font-size:12px;padding:8px 12px;white-space:nowrap;" onclick="event.stopPropagation();addToCart(${p.id})">+ Voeg toe</button>`;
+    function saveAppState(reason = "Gegevens opgeslagen") {
+      const state = {
+        registeredProducts,
+        tickets,
+        selectedBatch: selectedProduct?.batch,
+        tastePreference: document.getElementById("taste-profile")?.value || "puur",
+        notificationSettings: [...document.querySelectorAll(".toggle[data-setting].on")].map(toggle => toggle.dataset.setting),
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      showToast(reason);
     }
-    const stockColor = p.stock==='ok' ? 'tag-ok' : p.stock==='low' ? 'tag-warn' : 'tag-danger';
-    return `<div class="shop-card">
-      <div class="shop-img">${p.emoji}</div>
-      <div class="shop-info">
-        ${badgeHtml}
-        <div class="shop-name">${p.name}</div>
-        <div class="shop-desc">${p.desc}</div>
-        <div class="shop-price">€${p.price.toFixed(2)}</div>
-        <span class="tag ${stockColor}">${p.stockLabel}</span>
-      </div>
-      <div>${actionHtml}</div>
-    </div>`;
-  }).join('');
-}
 
-function addToCart(id) { cart[id] = (cart[id]||0)+1; updateCartBadge(); renderShop(); }
-function changeQty(id, d) {
-  cart[id] = (cart[id]||0)+d;
-  if (cart[id] <= 0) delete cart[id];
-  updateCartBadge(); renderShop();
-}
-function updateCartBadge() {
-  const total = Object.values(cart).reduce((a,b)=>a+b,0);
-  ['nav-cart-badge','header-cart-badge'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = total;
-    el.classList.toggle('show', total > 0);
-  });
-}
+    async function syncProductRegistration(product) {
+      try {
+        const response = await fetch("http://localhost:3000/api/products/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: "alex.devries@email.nl",
+            batchNumber: product.batch,
+            qrCode: "QR-" + product.batch.replace("#", ""),
+            name: product.name
+          })
+        });
 
-// =============================================
-// CART
-// =============================================
-function renderCart() {
-  const el = document.getElementById('cart-content');
-  if (!el) return;
-  const ids = Object.keys(cart);
-  if (!ids.length) {
-    el.innerHTML = `<div class="empty-state"><div class="icon">🛒</div><p><strong>Je winkelwagen is leeg</strong></p><p>Voeg chocolade toe via de Shop.</p><button class="btn btn-primary" style="margin-top:16px;" onclick="navigateTo('shop')">Naar de Shop →</button></div>`;
-    return;
-  }
-  let subtotal = 0, html = '';
-  ids.forEach(id => {
-    const p = SHOP_PRODUCTS.find(x=>x.id==id);
-    const qty = cart[id];
-    subtotal += p.price * qty;
-    html += `<div class="cart-item">
-      <div class="cart-item-emoji">${p.emoji}</div>
-      <div class="cart-item-info"><div class="cart-item-name">${p.name}</div><div class="cart-item-price">€${p.price.toFixed(2)} per stuk · €${(p.price*qty).toFixed(2)}</div></div>
-      <div class="qty-ctrl">
-        <button class="qty-btn" onclick="changeQty(${p.id},-1);renderCart()">−</button>
-        <span class="qty-num">${qty}</span>
-        <button class="qty-btn" onclick="changeQty(${p.id},1);renderCart()">+</button>
-      </div>
-    </div>`;
-  });
-  const shipping = subtotal >= 30 ? 0 : 3.95;
-  const total = subtotal + shipping;
-  const freeLeft = (30 - subtotal).toFixed(2);
-  html += `<div class="cart-summary">
-    <div class="summary-row"><span>Subtotaal</span><span>€${subtotal.toFixed(2)}</span></div>
-    <div class="summary-row"><span>Verzendkosten</span><span>${shipping===0?'<span style="color:var(--success);font-weight:700;">Gratis 🌱</span>':'€'+shipping.toFixed(2)}</span></div>
-    ${shipping>0?`<div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Nog €${freeLeft} voor gratis verzending</div>`:''}
-    <div class="summary-row total"><span>Totaal</span><span>€${total.toFixed(2)}</span></div>
-  </div>
-  <button class="btn btn-full primary" style="margin-top:14px;" onclick="placeOrder(${total.toFixed(2)})">✅ Bestelling Plaatsen · €${total.toFixed(2)}</button>`;
-  el.innerHTML = html;
-}
+        if (!response.ok) throw new Error("API " + response.status);
+        showToast("Product ook opgeslagen in SQL database");
+      } catch (error) {
+        console.info("SQL API niet beschikbaar; lokale opslag blijft actief.", error);
+      }
+    }
 
-function placeOrder(total) {
-  const orderNum = 'CF-' + Math.floor(Math.random()*9000+1000);
-  cart = {}; updateCartBadge();
-  addPoints(Math.round(total * 2)); // 2 pts per euro
-  document.getElementById('cart-content').innerHTML = `
-    <div class="success-state">
-      <div class="success-icon">✅</div>
-      <h3>Bestelling Geplaatst!</h3>
-      <p>Bestelnummer: <strong>${orderNum}</strong><br>Bevestiging gestuurd naar alex.devries@email.nl</p>
-      <div class="info-box green">
-        🌱 CO2-neutrale bezorging via PostNL<br>
-        📦 Verwachte levering: <strong>morgen vóór 22:00</strong><br>
-        ✨ Je hebt <strong>${Math.round(total*2)} ChocoPoints</strong> verdiend!
-      </div>
-      <button class="btn btn-primary" style="margin-top:20px;" onclick="navigateTo('home')">← Terug naar Home</button>
-    </div>`;
-}
+    function resetSavedData() {
+      localStorage.removeItem(STORAGE_KEY);
+      showToast("Opgeslagen demo-data gewist. Herlaad de pagina voor startdata.");
+    }
 
-// =============================================
-// SUBSCRIPTIONS
-// =============================================
-function showSubConfirm(name, price) {
-  if (confirm(`Abonnement '${name}' (${price}/maand) activeren?`)) {
-    alert(`✅ Abonnement ${name} geactiveerd! Je ontvangt een bevestiging per e-mail.`);
-  }
-}
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+    }
 
-// =============================================
-// CHATBOT (US-09) — Real Anthropic API
-// =============================================
-const SYSTEM_PROMPT = `Je bent ChocBot, de vriendelijke AI-assistent van Chocolate Firm — een premium duurzaam chocolademerk.
+    function navigateTo(id) {
+      if (id !== "scan") closeScanner(false);
+      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+      document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+      const screen = document.getElementById("screen-" + id);
+      const nav = document.getElementById("nav-" + id);
+      if (screen) screen.classList.add("active");
+      if (nav) nav.classList.add("active");
+      renderAll();
+    }
 
-Je helpt klanten met:
-- Producten: Fairtrade Puur 72% (Peru, vegan, 72% cacao), Melk Gezouten Karamel (Belgisch, bevat melk), Ruby & Framboos (roze chocolade), Vegan Kokosmelk 45% (Ghana, biologisch), Chili & Kriek Limited Edition (Ghana, 70%, vegan), Ecuador 85% Dark (intense smaak)
-- Allergenen: pure chocolades (72%+) zijn veganistisch/lactosevrij; melkchocolades bevatten koemelk; sporen mogelijk van noten, gluten, soja
-- Herkomst & duurzaamheid: Fairtrade gecertificeerde boeren in Peru en Ghana, CO2-neutrale levering, biologische opties, traceerbaar van boon tot reep
-- Bestellingen: gratis verzending bij >€30, CO2-neutraal via PostNL, 1-2 werkdagen
-- Klachten: registreren via de Klacht-tab, behandeling binnen 24 uur, ticketnummer per e-mail
-- ChocoPoints: 25 punten per product registratie, ~2 punten per euro aankoop, inwisselen voor kortingen
-- QR-code registratie: scan de code op de verpakking voor directe productinformatie
+    function switchTab(tab) {
+      switchTabById(tab.dataset.screen, tab.dataset.panel);
+    }
 
-Antwoord altijd vriendelijk, behulpzaam en beknopt (max 3 korte zinnen) in het Nederlands. Bij complexe klachten, verwijs naar de Klacht-tab.`;
+    function switchTabById(screen, panel) {
+      const wrapper = document.getElementById("screen-" + screen);
+      if (!wrapper) return;
+      wrapper.querySelectorAll(".tab").forEach(tab => tab.classList.toggle("active", tab.dataset.panel === panel));
+      wrapper.querySelectorAll(".panel").forEach(item => item.classList.remove("active"));
+      const target = document.getElementById(screen + "-" + panel);
+      if (target) target.classList.add("active");
+    }
 
-let chatHistory = [];
-let isBotBusy = false;
+    function expiryInfo(product) {
+      const today = new Date("2026-06-15");
+      const expiry = new Date(product.expiry + "T00:00:00");
+      const days = Math.ceil((expiry - today) / 86400000);
+      if (days <= 45) return { className: "danger", label: "Houdbaar tot " + formatDate(product.expiry) };
+      if (days <= 120) return { className: "warn", label: "Houdbaar tot " + formatDate(product.expiry) };
+      return { className: "ok", label: "Houdbaar tot " + formatDate(product.expiry) };
+    }
 
-function quickReply(text) {
-  document.getElementById('chat-input').value = text;
-  sendChat();
-}
+    function formatDate(value) {
+      return new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value + "T00:00:00"));
+    }
 
-function sendChat() {
-  if (isBotBusy) return;
-  const inputEl = document.getElementById('chat-input');
-  const text = inputEl.value.trim();
-  if (!text) return;
-  appendMsg(text, 'user');
-  inputEl.value = '';
-  chatHistory.push({ role:'user', content: text });
-  isBotBusy = true;
-  const typing = appendTyping();
-  callChocBot([...chatHistory]).then(reply => {
-    typing.remove();
-    isBotBusy = false;
-    appendMsg(reply, 'bot');
-    chatHistory.push({ role:'assistant', content: reply });
-  }).catch(err => {
-    typing.remove();
-    isBotBusy = false;
-    // Fallback antwoorden wanneer API niet beschikbaar is
-    const fallback = getFallback(text);
-    appendMsg(fallback, 'bot');
-  });
-}
+    function renderProductCard(product, compact = false) {
+      const expiry = expiryInfo(product);
+      return `
+        <article class="product-card" onclick="selectProduct('${product.batch}')">
+          <div class="product-icon">${product.emoji}</div>
+          <div>
+            <div class="product-title">${product.name}</div>
+            <div class="meta">Batch ${product.batch} · ${product.origin}</div>
+            ${compact ? "" : `<div class="tag-row"><span class="tag ${expiry.className}">${expiry.label}</span></div>`}
+          </div>
+          <span style="color:var(--muted);font-weight:900;">&gt;</span>
+        </article>`;
+    }
 
-async function callChocBot(history) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 300,
-      system: SYSTEM_PROMPT,
-      messages: history
-    })
-  });
-  if (!res.ok) throw new Error('API ' + res.status);
-  const data = await res.json();
-  return data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
-}
+    function renderHome() {
+      document.getElementById("home-products").innerHTML = registeredProducts.slice(0, 2).map(product => renderProductCard(product, true)).join("");
+      const preference = document.getElementById("taste-profile")?.value || "puur";
+      const recs = productCatalog
+        .filter(product => !registeredProducts.some(registered => registered.batch === product.batch))
+        .filter(product => product.preference === preference || preference === "puur")
+        .slice(0, 2);
+      const fallback = recs.length ? recs : productCatalog.filter(product => !registeredProducts.some(registered => registered.batch === product.batch)).slice(0, 2);
+      document.getElementById("recommendations").innerHTML = fallback.map(product => `
+        <article class="mini-card" onclick="selectCatalogProduct('${product.batch}')">
+          <div class="product-icon" style="width:40px;height:40px;font-size:20px;">${product.emoji}</div>
+          <strong>${product.name}</strong>
+          <span>${product.cacao} cacao · ${product.origin}</span>
+        </article>
+      `).join("");
+      document.getElementById("home-tickets").innerHTML = tickets.slice(0, 1).map(renderTicket).join("");
+    }
 
-function getFallback(text) {
-  const t = text.toLowerCase();
-  if (t.includes('allergen') || t.includes('vegan')) return 'Onze pure chocolades (72%+) zijn veganistisch en lactosevrij. Melkchocolades bevatten koemelk. Sporen van noten, gluten en soja zijn mogelijk.';
-  if (t.includes('herkomst') || t.includes('cacao') || t.includes('peru') || t.includes('ghana')) return 'Onze cacao komt van Fairtrade gecertificeerde boeren in Peru en Ghana, traceerbaar van boon tot reep. We betalen minimaal 20% boven marktprijs.';
-  if (t.includes('bestelling') || t.includes('levering')) return 'Gratis verzending bij bestellingen boven €30. CO2-neutrale bezorging via PostNL, doorgaans binnen 1-2 werkdagen.';
-  if (t.includes('point') || t.includes('loyal')) return 'Je verdient 25 ChocoPoints per product registratie en ~2 punten per euro aankoop. Punten zijn inwisselbaar voor kortingen in de shop.';
-  if (t.includes('klacht')) return 'Je kunt een klacht indienen via de Klacht-tab (naast ChocBot). Je ontvangt een ticketnummer en we reageren binnen 24 uur.';
-  return 'Ik help je graag! Voor gedetailleerde vragen kun je ook de FAQ bekijken of een klacht indienen via de bijbehorende tabs.';
-}
+    function renderProducts() {
+      document.getElementById("product-list").innerHTML = registeredProducts.map(product => renderProductCard(product)).join("");
+      renderProductDetail();
+      const select = document.getElementById("complaint-product");
+      if (select) {
+        select.innerHTML = registeredProducts.map(product => `<option value="${product.batch}">${product.name} · ${product.batch}</option>`).join("");
+      }
+    }
 
-function appendMsg(text, sender) {
-  const area = document.getElementById('chat-area');
-  const div = document.createElement('div');
-  div.className = `msg ${sender}`;
-  div.innerHTML = text;
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-  return div;
-}
-function appendTyping() {
-  const area = document.getElementById('chat-area');
-  const div = document.createElement('div');
-  div.className = 'msg thinking';
-  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-  return div;
-}
-
-// =============================================
-// COMPLAINT (US-08)
-// =============================================
-function submitComplaint() {
-  const batch = document.getElementById('complaint-batch').value.trim();
-  const type  = document.getElementById('complaint-type').value;
-  const desc  = document.getElementById('complaint-desc').value.trim();
-  const email = document.getElementById('complaint-email').value.trim();
-  if (!batch || !type || !desc || !email) {
-    alert('Vul alle verplichte velden (*) in.'); return;
-  }
-  const ticket = 'TKT-' + Math.floor(Math.random()*90000+10000);
-  document.getElementById('klacht-form').innerHTML = `
-    <div class="success-state">
-      <div class="success-icon">📋</div>
-      <h3>Klacht Ontvangen</h3>
-      <p>Ticketnummer: <strong>${ticket}</strong><br>Bevestiging gestuurd naar <strong>${email}</strong></p>
-      <div class="info-box green">
-        ✅ Geregistreerd in CRM-systeem<br>
-        ⏱ Reactie binnen <strong>24 uur</strong><br>
-        📦 Batch <strong>${batch}</strong> gemarkeerd voor kwaliteitscontrole
-      </div>
-      <button class="btn btn-primary" style="margin-top:20px;" onclick="resetComplaint()">← Nieuwe klacht indienen</button>
-    </div>`;
-}
-
-function resetComplaint() {
-  document.getElementById('klacht-form').innerHTML = `
-    <div class="info-box yellow" style="margin-bottom:14px;">
-      📋 Je klacht wordt geregistreerd in ons systeem en binnen 24 uur behandeld.
-    </div>
-    <div class="form-group"><label class="form-label">Batchnummer (zie verpakking) *</label><input type="text" class="form-input" id="complaint-batch" placeholder="bijv. #PE-2026"></div>
-    <div class="form-group"><label class="form-label">Type klacht *</label><select class="form-select" id="complaint-type"><option value="">Selecteer...</option><option value="kwaliteit">Kwaliteitsprobleem</option><option value="levering">Leveringsprobleem</option><option value="verpakking">Beschadigde verpakking</option><option value="smaak">Smaakafwijking</option><option value="anders">Anders</option></select></div>
-    <div class="form-group"><label class="form-label">Omschrijving *</label><textarea class="form-textarea" id="complaint-desc" placeholder="Omschrijf je klacht..."></textarea></div>
-    <div class="form-group"><label class="form-label">E-mailadres *</label><input type="email" class="form-input" id="complaint-email" value="alex.devries@email.nl"></div>
-    <div class="form-group"><label class="form-label">Ticketnummer opvolgen</label><input type="text" class="form-input" placeholder="bijv. TKT-12345 (optioneel)"></div>
-    <button class="btn btn-full primary" onclick="submitComplaint()">📤 Klacht Indienen</button>`;
-}
-
-// =============================================
-// EVENTS
-// =============================================
-function renderEvents() {
-  const el = document.getElementById('event-list');
-  if (!el) return;
-  el.innerHTML = EVENTS_DATA.map(e => `
-    <div class="event-card">
-      <div class="event-date" style="${e.full?'opacity:0.5':''}"><div class="day">${e.day}</div><div class="month">${e.month}</div></div>
-      <div class="event-info">
-        <div class="event-title">${e.title}</div>
-        <div class="event-meta">📍 ${e.loc} · ${e.time}</div>
-        <div class="event-meta" style="color:${e.full?'#C0392B':e.spots<=5?'#856404':'var(--success)'}">
-          ${e.full ? '⛔ Volzet' : `✅ Nog ${e.spots} ${e.spots===1?'plek':'plekken'} beschikbaar`}
+    function renderProductDetail() {
+      const product = selectedProduct || registeredProducts[0];
+      const expiry = expiryInfo(product);
+      document.getElementById("product-detail").innerHTML = `
+        <div class="card">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div class="product-icon">${product.emoji}</div>
+            <div>
+              <h2 style="font-size:18px;color:var(--primary);">${product.name}</h2>
+              <p class="meta">Batch ${product.batch}</p>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag ${expiry.className}">${expiry.label}</span>
+            ${product.certificates.map(cert => `<span class="tag ok">${cert}</span>`).join("")}
+          </div>
         </div>
-        ${!e.full ? `<button class="btn btn-accent" style="margin-top:8px;" onclick="switchTabById('events','inschrijven')">Inschrijven →</button>` : ''}
-      </div>
-    </div>`).join('');
-}
+        <div class="detail-list">
+          <div class="detail-row"><span>Herkomst</span><span>${product.origin}</span></div>
+          <div class="detail-row"><span>Cacao</span><span>${product.cacao}</span></div>
+          <div class="detail-row"><span>Allergenen</span><span>${product.allergens}</span></div>
+          <div class="detail-row"><span>Geregistreerd</span><span>${product.registeredAt || "zojuist"}</span></div>
+        </div>
+        <div class="info-box blue">${product.story}</div>
+      `;
+    }
 
-function registerEvent() {
-  const event  = document.getElementById('event-select').value;
-  const name   = document.getElementById('event-name').value.trim();
-  const email  = document.getElementById('event-email').value.trim();
-  const persons = document.getElementById('event-persons').value;
-  if (!name || !email) { alert('Vul naam en e-mailadres in.'); return; }
-  const ref = 'EVT-' + Math.floor(Math.random()*9000+1000);
-  // Decrease available spots
-  const idx = event === 'utrecht' ? 0 : 1;
-  if (EVENTS_DATA[idx].spots > 0) EVENTS_DATA[idx].spots--;
-  document.getElementById('event-form-container').innerHTML = `
-    <div class="success-state">
-      <div class="success-icon">🎪</div>
-      <h3>Inschrijving Bevestigd!</h3>
-      <p>Referentie: <strong>${ref}</strong><br>${persons} voor ${event==='utrecht'?'Chocolade Workshop Utrecht – 14 jun':'Cacao Proeverij Amsterdam – 28 jun'}</p>
-      <div class="info-box green">
-        ✅ Bevestiging gestuurd naar <strong>${email}</strong><br>
-        📅 Je ontvangt 3 dagen van tevoren een herinnering
-      </div>
-      <button class="btn btn-primary" style="margin-top:20px;" onclick="location.reload()">← Terug</button>
-    </div>`;
-  addPoints(10);
-}
+    function selectProduct(batch) {
+      selectedProduct = registeredProducts.find(product => product.batch === batch) || selectedProduct;
+      navigateTo("products");
+      switchTabById("products", "details");
+    }
 
-// =============================================
-// STORES
-// =============================================
-function renderStores(filter) {
-  const el = document.getElementById('store-list');
-  if (!el) return;
-  const list = filter
-    ? STORES.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()) || s.address.toLowerCase().includes(filter.toLowerCase()))
-    : STORES;
-  el.innerHTML = list.length
-    ? list.map(s => `<div class="menu-item"><div><div style="font-weight:600;">${s.name}</div><div style="font-size:11px;color:var(--text-muted);">${s.address} · ${s.dist}</div></div><span class="menu-chevron">→</span></div>`).join('')
-    : `<div class="menu-item"><span style="color:var(--text-muted);">Geen winkels gevonden</span></div>`;
-}
-function filterStores(v) { renderStores(v); }
+    function selectCatalogProduct(batch) {
+      selectedProduct = productCatalog.find(product => product.batch === batch) || selectedProduct;
+      navigateTo("products");
+      switchTabById("products", "details");
+    }
 
-// =============================================
-// COMMUNITY / FORUM
-// =============================================
-function renderForum() {
-  const el = document.getElementById('forum-posts');
-  if (!el) return;
-  el.innerHTML = forumPosts.map(p => `
-    <div class="forum-card">
-      <div class="forum-meta"><div class="forum-title">${p.title}</div><div class="forum-ts">${p.ts}</div></div>
-      <div class="forum-body">${p.body}</div>
-      <div class="forum-reply">${p.replies} reacties ↩</div>
-    </div>`).join('');
-}
+    function registerByBatch() {
+      const input = document.getElementById("batch-input");
+      const batch = input.value.trim().toUpperCase();
+      const product = productCatalog.find(item => item.batch.toUpperCase() === batch);
+      if (!product) {
+        showToast("Batchnummer niet gevonden in demo-data");
+        return;
+      }
+      registerProduct(product);
+      input.value = "";
+    }
 
-function newForumPost() {
-  const title = prompt('Onderwerp van je post:');
-  if (!title) return;
-  const body = prompt('Inhoud van je post:');
-  if (!body) return;
-  forumPosts.unshift({ title, body, ts: 'Zojuist', replies: 0 });
-  renderForum();
-  addPoints(5);
-}
+    function registerProduct(product) {
+      if (registeredProducts.some(item => item.batch === product.batch)) {
+        selectedProduct = registeredProducts.find(item => item.batch === product.batch);
+        saveAppState("Product stond al in je overzicht");
+      } else {
+        const registered = { ...product, registeredAt: "zojuist" };
+        registeredProducts.unshift(registered);
+        selectedProduct = registered;
+        saveAppState(product.name + " geregistreerd en opgeslagen");
+        syncProductRegistration(registered);
+      }
+      closeScanner(false);
+      navigateTo("products");
+      switchTabById("products", "mine");
+      renderAll();
+    }
 
-// =============================================
-// ADMIN PANEL (US-10, US-07, US-08, US-11, US-12, US-18)
-// =============================================
+    function openScanner() {
+      document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+      document.getElementById("screen-scanner").classList.add("active");
+      document.querySelectorAll(".nav-item").forEach(nav => nav.classList.remove("active"));
+      document.getElementById("nav-scan").classList.add("active");
+    }
 
-function showAddUserForm() {
-  const container = document.getElementById('user-form-container');
-  container.style.display = container.style.display === 'none' ? 'block' : 'none';
-}
+    function closeScanner(goHome = true) {
+      document.getElementById("screen-scanner")?.classList.remove("active");
+      if (goHome) navigateTo("products");
+    }
 
-function createUser() {
-  const name = document.getElementById('user-name').value.trim();
-  const email = document.getElementById('user-email').value.trim();
-  const role = document.getElementById('user-role').value;
-  if (!name || !email || !role) { alert('Vul alle velden in.'); return; }
-  const userList = document.getElementById('user-list');
-  const newItem = document.createElement('div');
-  newItem.className = 'menu-item';
-  newItem.innerHTML = `<div><div style="font-weight:600;">${name}</div><div style="font-size:11px;color:var(--text-muted);">${email} • ${role}</div></div><span onclick="editUser(this)" style="cursor:pointer;">✎</span>`;
-  userList.appendChild(newItem);
-  alert(`✅ Gebruiker ${name} aangemaakt!`);
-  document.getElementById('user-form-container').style.display = 'none';
-  document.getElementById('user-name').value = '';
-  document.getElementById('user-email').value = '';
-  document.getElementById('user-role').value = '';
-}
+    function simulateScan() {
+      const product = productCatalog[scanIndex % productCatalog.length];
+      scanIndex += 1;
+      registerProduct(product);
+    }
 
-function editUser(el) {
-  const name = el.parentElement.firstChild.firstChild.textContent;
-  alert(`Bewerking van ${name} (placeholder)`);
-}
+    function botAnswer(question) {
+      const text = question.toLowerCase();
+      if (text.includes("allergen")) return "Allergenen staan bij ieder productdetail. Puur 72% is vegan en sojavrij, maar kan sporen van noten bevatten.";
+      if (text.includes("herkomst") || text.includes("cacao")) return "De herkomst staat per batch vermeld. Voor #PE-2026 komt de cacao uit Piura, Peru.";
+      if (text.includes("registreer") || text.includes("qr")) return "Open Producten en scan de QR-code of voer een batchnummer in, bijvoorbeeld #EC-9901.";
+      if (text.includes("klacht") || text.includes("melding")) return "Open de tab Melding. De app stuurt je vraag of klacht door naar het CRM en toont daarna de status.";
+      if (text.includes("rapport") || text.includes("campagne")) return "Rapportages en campagnes horen niet in deze mobiele app. Die blijven in BI en CRM.";
+      return "Ik kan helpen met productinformatie, allergenen, houdbaarheid, herkomst en servicemeldingen.";
+    }
 
-function filterUsers(query) {
-  const userList = document.getElementById('user-list');
-  const items = userList.querySelectorAll('.menu-item');
-  items.forEach(item => {
-    const text = item.textContent.toLowerCase();
-    item.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
-  });
-}
+    function askBot(text) {
+      document.getElementById("chat-input").value = text;
+      sendChat();
+    }
 
-function showAddRecipeForm() {
-  const container = document.getElementById('recipe-form-container');
-  container.style.display = container.style.display === 'none' ? 'block' : 'none';
-}
+    function sendChat() {
+      const input = document.getElementById("chat-input");
+      const question = input.value.trim();
+      if (!question) return;
+      appendMessage(question, "user");
+      input.value = "";
+      setTimeout(() => appendMessage(botAnswer(question), "bot"), 220);
+    }
 
-function createRecipe() {
-  const title = document.getElementById('recipe-title').value.trim();
-  const content = document.getElementById('recipe-content').value.trim();
-  if (!title || !content) { alert('Vul alle velden in.'); return; }
-  const recipeList = document.getElementById('recipe-list');
-  const newItem = document.createElement('div');
-  newItem.className = 'menu-item';
-  newItem.innerHTML = `<span>🍫 ${title}</span><span style="cursor:pointer;" onclick="editContent(this)">✎</span>`;
-  recipeList.appendChild(newItem);
-  alert(`✅ Recept "${title}" aangemaakt!`);
-  document.getElementById('recipe-form-container').style.display = 'none';
-  document.getElementById('recipe-title').value = '';
-  document.getElementById('recipe-content').value = '';
-}
+    function appendMessage(text, sender) {
+      const area = document.getElementById("chat-area");
+      const node = document.createElement("div");
+      node.className = "msg " + sender;
+      node.textContent = text;
+      area.appendChild(node);
+      area.scrollTop = area.scrollHeight;
+    }
 
-function showAddProductForm() {
-  alert('📦 Producttoevoeging (gekoppeld aan ERP-systeem)');
-}
+    function submitComplaint() {
+      const productBatch = document.getElementById("complaint-product").value;
+      const product = registeredProducts.find(item => item.batch === productBatch) || registeredProducts[0];
+      const type = document.getElementById("complaint-type").value;
+      const description = document.getElementById("complaint-desc").value.trim();
+      const email = document.getElementById("complaint-email").value.trim();
+      if (!description || !email) {
+        showToast("Vul omschrijving en e-mailadres in");
+        return;
+      }
+      const ticket = {
+        id: "TKT-" + Math.floor(10000 + Math.random() * 89999),
+        product: product.name,
+        type,
+        status: "Ontvangen",
+        updated: "Zojuist",
+        description
+      };
+      tickets.unshift(ticket);
+      document.getElementById("complaint-desc").value = "";
+      saveAppState("Melding " + ticket.id + " opgeslagen");
+      navigateTo("support");
+      switchTabById("support", "status");
+      renderAll();
+    }
 
-function showAddTutorialForm() {
-  alert('🎥 Tutorial toevoeging');
-}
+    function renderTicket(ticket) {
+      const statusClass = ticket.status === "Ontvangen" ? "info" : ticket.status === "In behandeling" ? "warn" : "ok";
+      return `
+        <article class="card ticket-card">
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">
+            <div>
+              <strong>${ticket.id}</strong>
+              <div class="meta">${ticket.product} · ${ticket.type}</div>
+            </div>
+            <span class="tag ${statusClass}">${ticket.status}</span>
+          </div>
+          <p class="meta" style="margin-top:9px;">${ticket.description}</p>
+          <p class="meta">Laatste update: ${ticket.updated}</p>
+        </article>
+      `;
+    }
 
-function editContent(el) {
-  const content = el.previousElementSibling.textContent;
-  alert(`Bewerking van: ${content}`);
-}
+    function renderSupport() {
+      document.getElementById("ticket-list").innerHTML = tickets.map(renderTicket).join("");
+      document.getElementById("faq-list").innerHTML = faq.map(([question, answer]) => `
+        <article class="card">
+          <strong>${question}</strong>
+          <p class="meta" style="margin-top:7px;">${answer}</p>
+        </article>
+      `).join("");
+      const badge = document.getElementById("ticket-badge");
+      badge.textContent = tickets.length;
+      badge.classList.toggle("show", tickets.length > 0);
+    }
 
-function showAddCampaignForm() {
-  const container = document.getElementById('campaign-form-container');
-  container.style.display = container.style.display === 'none' ? 'block' : 'none';
-}
+    function renderProfile() {
+      document.getElementById("registered-count").textContent = registeredProducts.length + " producten";
+    }
 
-function sendCampaign() {
-  const title = document.getElementById('campaign-title').value.trim();
-  const content = document.getElementById('campaign-content').value.trim();
-  const target = document.getElementById('campaign-target').value;
-  if (!title || !content || !target) { alert('Vul alle velden in.'); return; }
-  const campaignList = document.getElementById('campaign-list');
-  const newCampaign = document.createElement('div');
-  newCampaign.className = 'card';
-  newCampaign.innerHTML = `<div style="font-weight:600;margin-bottom:4px;">${title}</div><div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Verzonden: Nu • ${target}</div><div style="font-size:12px;color:var(--success);">✅ Verzonden</div>`;
-  campaignList.insertBefore(newCampaign, campaignList.firstChild);
-  alert(`📢 Campaign verzonden naar ${target}!`);
-  document.getElementById('campaign-form-container').style.display = 'none';
-  document.getElementById('campaign-title').value = '';
-  document.getElementById('campaign-content').value = '';
-  document.getElementById('campaign-target').value = '';
-}
+    function toggle(button) {
+      button.classList.toggle("on");
+      saveAppState("Notificatievoorkeur opgeslagen");
+    }
 
-function searchCustomers(query) {
-  const list = document.getElementById('customer-list');
-  const cards = list.querySelectorAll('.card');
-  cards.forEach(card => {
-    const text = card.textContent.toLowerCase();
-    card.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
-  });
-}
+    function showToast(text) {
+      const toast = document.getElementById("toast");
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(showToast.timeout);
+      showToast.timeout = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
 
-function viewCustomerProfile(id) {
-  const profiles = {
-    'alex': 'Alex de Vries | alex.devries@email.nl | €1,247 | 18 bestellingen | VIP | 2 jaar lid',
-    'maria': 'Maria Lopez | maria.lopez@choco.nl | €3,521 | 45 bestellingen | Premium | 1 jaar lid'
-  };
-  alert(`👤 ${profiles[id]}`);
-}
+    function renderAll() {
+      renderHome();
+      renderProducts();
+      renderSupport();
+      renderProfile();
+    }
 
-function downloadReport(type) {
-  const reports = {
-    'monthly': 'Maandelijks klantrapport',
-    'sales': 'Verkoopstatistieken',
-    'complaints': 'Klachten samenvatting',
-    'marketing': 'Marketing performance',
-    'sustainability': 'Duurzaamheid impact'
-  };
-  alert(`⬇️ ${reports[type]} gedownload!`);
-}
-
-function assignTicket(ticketId) {
-  alert(`✅ Ticket ${ticketId} aan jou toegewezen!`);
-}
-
-function filterTickets(status) {
-  const list = document.getElementById('ticket-list');
-  const cards = list.querySelectorAll('.card');
-  cards.forEach(card => {
-    if (!status) { card.style.display = ''; return; }
-    const cardStatus = card.innerHTML.includes('Open') ? 'open' : 'resolved';
-    card.style.display = cardStatus === status ? '' : 'none';
-  });
-}
-
-function filterComplaints(type) {
-  const list = document.getElementById('complaint-list');
-  const cards = list.querySelectorAll('.card');
-  cards.forEach(card => {
-    if (!type) { card.style.display = ''; return; }
-    card.style.display = card.textContent.toLowerCase().includes(type) ? '' : 'none';
-  });
-}
-
-function resolveComplaint(id) {
-  const response = prompt(`Klacht ${id} - Uw reactie:`);
-  if (response) alert(`📧 Antwoord verzonden naar klant`);
-}
-
-function approveCompensation(id) {
-  const amount = prompt('Compensatiebedrag (€):', '25');
-  if (amount) alert(`✅ Vergoeding van €${amount} goedgekeurd`);
-}
-
-function enableAdminMode() {
-  document.getElementById('nav-admin').style.display = 'flex';
-  document.getElementById('nav-analytics').style.display = 'flex';
-  document.getElementById('nav-support-admin').style.display = 'flex';
-  alert('🔐 Admin mode ingeschakeld!');
-}
-
-// =============================================
-// INIT
-// =============================================
-renderShop();
-renderRegisteredProducts();
-renderStores();
-renderEvents();
-renderForum();
-</script>
-
+    updateClock();
+    setInterval(updateClock, 15000);
+    loadAppState();
+    renderAll();
+  </script>
 </body>
 </html>
-ENDOFFILE
-echo "Done"

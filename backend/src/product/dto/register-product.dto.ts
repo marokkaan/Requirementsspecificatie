@@ -1,9 +1,17 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class RegisterProductDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  userId: string;
+  userId?: string;
+
+  @IsOptional()
+  @IsString()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  name?: string;
 
   @IsOptional()
   @IsString()

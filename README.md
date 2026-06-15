@@ -1,5 +1,5 @@
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/e2df5345a2fac550b15146d13e0aea5c70e3a7a8/voorbladfoto.png)
+![Voorblad Chocolate Firm](assets/images/00-cover/voorbladfoto.png)
 
 
 # Requirementsspecificatie

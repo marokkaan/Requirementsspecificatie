@@ -1,4 +1,4 @@
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/196d6418121468e55c753f79cc7d721990da3eb6/voorbladfoto.png)
+![Voorblad Chocolate Firm](assets/images/00-cover/voorbladfoto.png)
 # Inhoudsopgave
 - [Inleiding](#Inleiding)
 - [Organisatorische Context](#Organisatorische-Context)
@@ -56,7 +56,7 @@ Ondersteunen van duurzaamheid door transparante communicatie en bewustwording.
 
 ## Organogram
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d206e0bfbcc13d6ace13226388be02cb715fd18c/organogram.png)
+![Organogram Chocolate Firm](assets/images/01-organisatorische-context/organogram.png)
 
 ## Stakeholderanalyse 
 
@@ -192,11 +192,11 @@ Momenteel is er weinig inzicht in het gedrag en de voorkeuren van klanten. Besli
 
 In de huidige situatie reageert de klantenservice pas nadat een klant contact opneemt. Dit leidt tot vertraging en een hogere werkdruk. Met de applicatie wordt ondersteuning proactief aangeboden via een AI-chatbot, automatische notificaties en statusupdates, waardoor klanten sneller geholpen worden en de werkdruk bij de klantenservice afneemt.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/bf725e100e94eef3b54058a4fc8aa0ea87d4c84d/gap%20analyse.png)
+![Gap-analyse IST en SOLL](assets/images/02-bedrijfsprocesanalyse/gap-analyse.png)
 
 # Productvisie
 Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de Chocolate Firm. Dit board geeft een overzicht van de productvisie, doelgroep, behoeften, belangrijkste functies, zakelijke doelstellingen, concurrenten, inkomstenmodellen, kostenposten en kanalen.
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d3f3d76ca161ccf5aca7f03085873c1360ecb833/productvision.png)
+![Product Vision Board](assets/images/03-productvisie/product-vision-board.png)
 
 # User stories
 ---
@@ -533,32 +533,32 @@ Home / Dashboard
 # Wireframes
 Voor het maken van de app is het belangrijk om een goed beeld te schetsen hoe wij de app eruit willen laten zien, zo hebben wij wireframes gemaakt.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/ca1bc54ddd5a6de6bfc26de395f09b9f36b84edf/afbeelding.png)
+![Wireframe startscherm](assets/images/04-wireframes/start-toegang/startscherm.png)
 
 Hierboven zie je het startscherm. In dit scherm kan je inloggen als je al een account hebt of registreren als je er nog een moet maken.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/66026e2849007aa8071cc7afdff8ce20407b1107/homepagina.png)
+![Wireframe homepagina](assets/images/04-wireframes/consumentenomgeving/dashboard/homepagina.png)
 
 Als je eenmaal ingelogd bent, kom je op het startscherm terecht. In dit startscherm zie je de belangrijkste dingen, zoals jouw producten en tot wanneer deze houdbaar zijn. Daarnaast zie je ook linksboven een QR-codefunctie. Zoals ik net al benoemd heb, zie je hier de belangrijkste dingen, maar wil je specifiek meer informatie krijgen over de ‘producten’, druk je op ‘producten’.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/5a7384e00133d227dbadf4179493ce1ef2274f9b/producten.png)
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/d523aca592dd21c25593c55db177a20cda90226c/qr.png)
+![Wireframe productenoverzicht](assets/images/04-wireframes/consumentenomgeving/producten/producten-overzicht.png)
+![Wireframe QR-registratie](assets/images/04-wireframes/consumentenomgeving/producten/qr-registratie.png)
 
 Na het klikken op 'producten', zie je de producten die jij hebt en daarnaast ook een functie waarbij je producten kan registreren.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/cbe7b8c66c9c713e8fc8c88cdb0a870117740090/afbeelding%20(4).png)
+![Wireframe ontdekken](assets/images/04-wireframes/consumentenomgeving/ontdekken/ontdekken.png)
 
 De 'ontdek' functie laat je kiezen tussen meer informatie verkrijgen over recepten, videos enzovoort.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/89c7e09f7600bf8568643e2ee9f0475a1eb121e4/afbeelding%20(5).png)
+![Wireframe shop](assets/images/04-wireframes/consumentenomgeving/shop/shop.png)
 
 Natuurlijk is er ook een shop functie waarbij je repen gelijk kan kopen.
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/a5ff700d89d7b29b8c32476197bd893c45d520d4/afbeelding%20(6).png)
+![Wireframe accountmenu](assets/images/04-wireframes/consumentenomgeving/profiel/account-menu.png)
 
 De belangrijkste functie is toch wel echt de account functie, je hebt hier keuze tot 'klantenservice', 'community'. 'winkels & events' en 'profiel'
 
-![image alt](https://github.com/marokkaan/Requirementsspecificatie/blob/200313dbee6164dba7e6d8d810c77c427db0a350/afbeelding%20(7).png)
+![Wireframe klantenservice](assets/images/04-wireframes/consumentenomgeving/klantenservice/klantenservice.png)
 
 Als je klikt op 'Klantenservice', kan je gelijk chatten met de klantenservice, ook heb je een FAQ functie en een functie om een klacht in te dienen.
 
@@ -574,7 +574,6 @@ In de gewenste situatie wordt deze versnippering opgelost door de introductie va
 De uitgewerkte user stories laten zien dat de oplossing niet alleen gericht is op klantgemak, maar ook op interne efficiëntie en datagedreven werken. Medewerkers, management en externe systemen zoals ERP, CRM en BI-tools worden hierbij actief geïntegreerd in het proces.
 
 De voorgestelde applicatie zorgt daarmee voor een concrete verbetering in transparantie, klantinteractie en operationele efficiëntie binnen de Chocolate Firm. Hierdoor kan het bedrijf beter inspelen op klantbehoeften, duurzamer werken en zijn digitale positie versterken binnen de markt.
-
 
 
 
