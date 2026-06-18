@@ -54,6 +54,12 @@ export class ProductService {
     return registration;
   }
 
+  async deleteRegistration(registrationId: string) {
+    return this.prisma.productRegistration.delete({
+      where: { id: registrationId },
+    });
+  }
+
   private async findOrCreateProduct(payload: RegisterProductDto) {
     const conditions = [];
     if (payload.batchNumber) {

@@ -1034,9 +1034,11 @@
         });
 
         if (!response.ok) throw new Error("API " + response.status);
-        showToast("Product ook opgeslagen in SQL database");
+        const result = await response.json();
+        return result.data;
       } catch (error) {
         console.info("SQL API niet beschikbaar; lokale opslag blijft actief.", error);
+        return null;
       }
     }
 
@@ -1097,6 +1099,7 @@
             <div class="meta">Batch ${product.batch} · ${product.origin}</div>
             ${compact ? "" : `<div class="tag-row"><span class="tag ${expiry.className}">${expiry.label}</span></div>`}
           </div>
+          ${compact ? "" : `<button class="btn secondary" style="padding:8px 10px;font-size:12px;" onclick="event.stopPropagation(); removeProduct('${product.batch}')">Verwijderen</button>`}
           <span style="color:var(--muted);font-weight:900;">&gt;</span>
         </article>`;
     }
@@ -1188,11 +1191,44 @@
         registeredProducts.unshift(registered);
         selectedProduct = registered;
         saveAppState(product.name + " geregistreerd en opgeslagen");
-        syncProductRegistration(registered);
+        syncProductRegistration(registered).then(result => {
+          if (result?.id) {
+            registered.registrationId = result.id;
+            saveAppState("Registratie gekoppeld aan database", { silent: true });
+            showToast("Product ook opgeslagen in SQL database");
+          } else {
+            showToast("Product lokaal opgeslagen");
+          }
+        });
       }
       closeScanner(false);
       navigateTo("products");
       switchTabById("products", "mine");
+      renderAll();
+    }
+
+    async function removeProduct(batch) {
+      const index = registeredProducts.findIndex(item => item.batch === batch);
+      if (index === -1) return;
+
+      const [removed] = registeredProducts.splice(index, 1);
+      if (selectedProduct?.batch === batch) {
+        selectedProduct = registeredProducts[0] || productCatalog[0];
+      }
+
+      try {
+        if (removed.registrationId) {
+          await fetch(`http://localhost:3000/api/products/registrations/${removed.registrationId}`, {
+            method: "DELETE"
+          });
+        }
+        showToast("Product verwijderd uit overzicht");
+      } catch (error) {
+        console.info("Verwijderen via API mislukt; lokale demo blijft bijgewerkt.", error);
+        showToast("Product lokaal verwijderd");
+      }
+
+      saveAppState("Product verwijderd");
       renderAll();
     }
 
