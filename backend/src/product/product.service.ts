@@ -55,12 +55,17 @@ export class ProductService {
   }
 
   private async findOrCreateProduct(payload: RegisterProductDto) {
+    const conditions = [];
+    if (payload.batchNumber) {
+      conditions.push({ batch: payload.batchNumber });
+    }
+    if (payload.qrCode) {
+      conditions.push({ qrCode: payload.qrCode });
+    }
+
     const product = await this.prisma.product.findFirst({
       where: {
-        OR: [
-          payload.batchNumber ? { batch: payload.batchNumber } : undefined,
-          payload.qrCode ? { qrCode: payload.qrCode } : undefined,
-        ].filter(Boolean),
+        OR: conditions,
       },
     });
 

@@ -11,9 +11,9 @@
 - [Wireframes](#Wireframes)
 - [Conclusie](#Conclusie)
 # Inleiding
-Chocolate Firm bevindt zich in een competitieve markt waarin klantbeleving en merkloyaliteit steeds bepalender worden voor succes. Op dit moment verloopt de communicatie met klanten via losse kanalen en handmatige processen, wat leidt tot vertraging, beperkte personalisatie en een hoge werkdruk bij de klantenservice. Om deze knelpunten op te lossen en beter in te spelen op de behoeften van zowel particuliere als zakelijke klanten, is besloten een nieuw digitaal platform te ontwikkelen. 
+Chocolate Firm bevindt zich in een competitieve markt waarin klantbeleving en merkloyaliteit steeds bepalender worden voor succes. Op dit moment verloopt de communicatie met klanten via losse kanalen en handmatige processen, wat leidt tot vertraging, beperkte personalisatie en een hoge werkdruk bij de klantenservice. Voor v1 is daarom gekozen voor één scherpe primaire doelgroep: de consument (B2C). 
 
-De applicatie stelt klanten in staat om aangekochte chocoladeproducten te registreren, gedetailleerde productinformatie te raadplegen, vragen te stellen via een AI-chatbot, klachten in te dienen en deel te nemen aan een actieve community. Daarnaast integreert de app met interne systemen zoals ERP, CRM en BI-tools, waardoor processen efficiënter verlopen en de organisatie datagedreven beslissingen kan nemen. 
+De demo-app richt zich in deze eerste versie op productregistratie, productinformatie, een persoonlijk dashboard, FAQ/chatbot en het indienen van meldingen. Integraties met CRM en ERP worden in v1 gebruikt als demo-koppeling of backend-opslag; uitgebreide functies zoals campagnebeheer, rapportages, community, events en een volwaardig B2B-portaal zijn bewust uit scope gehouden voor de eerste versie. 
 
 Dit document beschrijft de requirements specificatie van het te ontwikkelen systeem. Hierbij wordt eerst de organisatorische context geschetst, gevolgd door een analyse van de betrokken actoren en bedrijfsprocessen. Vervolgens wordt de productvisie uitgewerkt en vertaald naar concrete user stories met acceptatiecriteria. Tot slot worden de Definition of Ready en Definition of Done, de sitemap en de wireframes gepresenteerd. Samen bieden deze onderdelen een compleet en gestructureerd overzicht van het systeem en de eisen waaraan het moet voldoen. 
 
@@ -53,6 +53,23 @@ Verlagen van servicekosten door self-service functionaliteiten zoals FAQ’s en 
 Verzamelen van data-inzichten om producten en diensten continu te verbeteren. 
 Versterken van merkbeleving door storytelling, community en gamification. 
 Ondersteunen van duurzaamheid door transparante communicatie en bewustwording. 
+
+## Scope v1
+
+### In scope voor de demo
+- Productregistratie via QR-code of batchnummer
+- Persoonlijk dashboard met geregistreerde producten
+- Productdetail met herkomst, allergenen en certificaten
+- FAQ en chatbot voor veelgestelde vragen
+- Klachtindiening met statusoverzicht
+- Profielvoorkeuren en notificatie-instellingen
+
+### Uit scope voor v1
+- B2B-portaal en bestelbeheer
+- Campagne management en marketingsegmentatie
+- Managementrapportages en KPI-dashboards
+- Community, events en winkelzoeker
+- Volledige ERP/CRM/BI-schermen voor eindgebruikers
 
 ## Organogram
 
@@ -211,7 +228,7 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 - Informatie wordt direct weergegeven  
 
 **Inschatting:** 8 story points  
-**Prioriteit:** Must have  
+**Prioriteit:** Won't have in v1  
 
 ---
 
@@ -238,7 +255,7 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 - Inhoud wordt automatisch bijgewerkt  
 
 **Inschatting:** 8 story points  
-**Prioriteit:** Should have  
+**Prioriteit:** Won't have in v1  
 
 ---
 
@@ -251,7 +268,7 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 - Gebruiker kan instellingen aanpassen  
 
 **Inschatting:** 5 story points  
-**Prioriteit:** Should have  
+**Prioriteit:** Won't have in v1  
 
 ---
 
@@ -366,8 +383,8 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 ---
 
 ## US-13 – Levering van voorraadgegevens
-**Actor:** ERP-systeem  
-**User Story:** Als ERP-systeem wil ik voorraad- en leverinformatie delen zodat de app actuele gegevens toont.  
+**Actor:** Integratie met ERP  
+**User Story:** Als app wil ik voorraad- en leverinformatie uit het ERP ophalen zodat actuele productgegevens getoond worden.  
 
 **Acceptatiecriteria:**
 - Data wordt gesynchroniseerd  
@@ -379,8 +396,8 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 ---
 
 ## US-14 – Levering van klantgegevens
-**Actor:** CRM-systeem  
-**User Story:** Als CRM-systeem wil ik klantgegevens leveren zodat personalisatie mogelijk is.  
+**Actor:** Integratie met CRM  
+**User Story:** Als app wil ik meldingen en voorkeuren terugschrijven naar het CRM zodat klantinformatie actueel blijft.  
 
 **Acceptatiecriteria:**
 - Klantdata wordt correct gekoppeld  
@@ -392,8 +409,8 @@ Hieronder is ons Product Vision Board te zien voor de mobiele applicatie van de 
 ---
 
 ## US-15 – Analyse van data
-**Actor:** BI-tool  
-**User Story:** Als BI-tool wil ik data ontvangen zodat analyses gemaakt kunnen worden over klantgedrag.  
+**Actor:** Integratie met BI  
+**User Story:** Als app wil ik geanonimiseerde data exporteren naar de BI-tool zodat analyses gemaakt kunnen worden over klantgedrag.  
 
 **Acceptatiecriteria:**
 - Data wordt verzameld  

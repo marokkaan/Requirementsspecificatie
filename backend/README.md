@@ -4,6 +4,8 @@ This directory contains a small Chocolate Firm backend API using a Nest-style Ty
 
 The API now has a real SQL interaction: `POST /api/products/register` stores a product registration in PostgreSQL through Prisma. The static `app.html` calls this endpoint when a product is registered. If the API is not running, the app falls back to localStorage.
 
+The demo also exposes `POST /api/complaints` for complaint intake. The mobile demo stores a complaint in the SQL database first and then keeps the local ticket list in sync.
+
 ## Snelste demo: SQLite zonder installaties
 
 Voor een korte demo kun je de kleine SQLite API gebruiken. Deze gebruikt alleen Python en maakt automatisch `backend/chocolate_demo.sqlite` aan.
@@ -24,6 +26,12 @@ Laat de opgeslagen SQL-data zien via:
 
 ```text
 http://localhost:3000/api/registrations
+```
+
+Laat binnengekomen klachten zien via:
+
+```text
+http://localhost:3000/api/complaints
 ```
 
 Je kunt ook handmatig testen met:
